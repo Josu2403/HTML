@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Cuadrante de un punto</title>
+ <meta charset="UTF-8">
+</head>
+<body>
+<script>
+    let x = parseInt(prompt("Ingrese la coordenada x:"));
+let y = parseInt(prompt("Ingrese la coordenada y:"));
+
+if (x > 0 && y > 0) {
+    document.write("1º Cuadrante");
+} else if (x < 0 && y > 0) {
+    document.write("2º Cuadrante");
+} else if (x < 0 && y < 0) {
+    document.write("3º Cuadrante");
+} else if (x > 0 && y < 0) {
+    document.write("4º Cuadrante");
+} else {
+    document.write("El punto está sobre un eje o en el origen");
+}
+</script>
+</body>
+</html>

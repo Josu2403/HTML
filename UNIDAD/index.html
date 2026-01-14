@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROYECTO FINAL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Overlay de Login/Registro -->
+    <div class="overlay-login" id="overlayLogin">
+        <!-- Modal de Login -->
+        <div class="modal-login active" id="modalLogin">
+            <button class="btn-cerrar-modal" onclick="alternarModal()" title="Minimizar">–</button>
+            <h2>🎓 Bienvenido</h2>
+            <p>Inicia sesión para acceder al curso</p>
+            
+            <div class="form-errors" id="loginErrors"></div>
+            
+            <form id="formLogin">
+                <div class="form-group-login">
+                    <label for="username">Usuario:</label>
+                    <input type="text" id="username" placeholder="Ingresa tu usuario" required>
+                </div>
+                
+                <div class="form-group-login">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" placeholder="Ingresa tu contraseña" required>
+                </div>
+                
+                <button type="submit" class="btn-login">🚀 Iniciar Sesión</button>
+            </form>
+
+            <button class="btn-registro" id="btnShowRegistro">📝 Crear Cuenta</button>
+            
+            <div class="usuarios-demo">
+                <p style="margin-bottom: 10px; font-size: 0.9em;">💡 Usuarios de demostración:</p>
+                <div class="usuario-demo" data-user="estudiante" data-pass="1234">
+                    <strong>Estudiante</strong> - usuario: estudiante / contraseña: 1234
+                </div>
+                <div class="usuario-demo" data-user="profesor" data-pass="abcd">
+                    <strong>Profesor</strong> - usuario: profesor / contraseña: abcd
+                </div>
+                <div class="usuario-demo" data-user="admin" data-pass="admin123">
+                    <strong>Administrador</strong> - usuario: admin / contraseña: admin123
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Registro -->
+        <div class="modal-registro" id="modalRegistro">
+            <button class="btn-cerrar-modal" onclick="alternarModal()" title="Minimizar">–</button>
+            <h2>📝 Crear Cuenta</h2>
+            <p>Regístrate para comenzar tu aprendizaje</p>
+
+            <div class="form-errors" id="registroErrors"></div>
+            <div class="form-success" id="registroSuccess"></div>
+            
+            <form id="formRegistro">
+                <div class="form-group-login">
+                    <label for="regNombre">Nombre completo:</label>
+                    <input type="text" id="regNombre" placeholder="Tu nombre completo" required>
+                </div>
+                
+                <div class="form-group-login">
+                    <label for="regEmail">Email:</label>
+                    <input type="email" id="regEmail" placeholder="tu@email.com" required>
+                </div>
+                
+                <div class="form-group-login">
+                    <label for="regUsuario">Nombre de usuario:</label>
+                    <input type="text" id="regUsuario" placeholder="Elige un nombre de usuario" required>
+                </div>
+                
+                <div class="form-group-login">
+                    <label for="regPassword">Contraseña:</label>
+                    <input type="password" id="regPassword" placeholder="Crea una contraseña segura" required>
+                    <div class="password-strength" id="passwordStrength"></div>
+                </div>
+                
+                <div class="form-group-login">
+                    <label for="regConfirmPassword">Confirmar contraseña:</label>
+                    <input type="password" id="regConfirmPassword" placeholder="Repite tu contraseña" required>
+                </div>
+                
+                <button type="submit" class="btn-login">📝 Crear Cuenta</button>
+            </form>
+
+            <div class="switch-form">
+                ¿Ya tienes cuenta? <a id="btnShowLogin">Inicia sesión aquí</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barra de Usuario Logeado -->
+    <div class="barra-usuario" id="barraUsuario">
+        <div class="info-usuario">
+            <div class="avatar" id="userAvatar">U</div>
+            <div>
+                <div style="font-weight: 600;" id="userName">Usuario</div>
+                <div style="font-size: 0.8em; opacity: 0.8;" id="userRole">Rol</div>
+            </div>
+        </div>
+        <div class="controles-usuario">
+            <button class="btn-reabrir-login" id="btnReabrirLogin" style="display: none;">🔓 Iniciar Sesión</button>
+            <button class="btn-logout" id="btnLogout">Cerrar Sesión</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navegación entre unidades -->
+        <nav class="navegacion">
+            <h2> ¿Qué aprenderás hoy? 🧑‍💻 </h2>
+            <div class="menu-unidades">
+                <a href="#unidad1" class="boton-unidad activa" data-unidad="unidad1"> Unidad 1</a>
+                <a href="#unidad2" class="boton-unidad" data-unidad="unidad2"> Unidad 2</a>
+                <a href="#unidad3" class="boton-unidad" data-unidad="unidad3"> Unidad 3</a>
+                <a href="#unidad4" class="boton-unidad" data-unidad="unidad4"> Unidad 4</a>
+                <a href="#unidad5" class="boton-unidad" data-unidad="unidad5"> PROYECTO FINAL</a>
+                <a href="#unidad6" class="boton-unidad" data-unidad="unidad6"> Revistas</a>
+                <a href="#unidad7" class="boton-unidad" data-unidad="unidad7"> Conclusiones</a>
+            </div>
+        </nav>
+
+        <!-- Unidad 1 -->
+        <section id="unidad1" class="seccion-unidad activa">
+            <div class="header">
+                <h1>🚀 Unidad 1: Fundamentos del Desarrollo Web</h1>
+                <p>Explora los conceptos básicos, herramientas y configuraciones esenciales para el desarrollo web</p>
+            </div>
+<!-- SISTEMA DE SUBIDA DE DOCUMENTOS PARA UNIDAD 1 -->
+            <div class="acordeon">
+                <div class="acordeon-titulo">
+                    📤 Subir Documentos - Unidad 1
+                    <span class="tag">Documentos</span>
+                </div>
+                <div class="acordeon-contenido">
+                    <div class="teoria">
+                        <h3>📁 Sistema de Gestión de Documentos</h3>
+                        <p>Sube tus trabajos, proyectos y documentos relacionados con la Unidad 1. Puedes subir archivos PDF, presentaciones, documentos de Word, imágenes y enlaces web.</p>
+                    </div>
+                    
+                    <form class="formulario-subida" onsubmit="guardarDocumento(event, 'unidad1')">
+                        <div class="form-group">
+                            <label for="nombre-doc-unidad1">Nombre del trabajo:</label>
+                            <input type="text" id="nombre-doc-unidad1" required placeholder="Ej: Investigación sobre Desarrollo Web">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="archivos-unidad1">Archivos (múltiples):</label>
+                            <input type="file" id="archivos-unidad1" multiple accept=".pdf,.ppt,.pptx,.pps,.ppsx,.odp,image/*,.doc,.docx,.txt,.zip,.rar">
+                            <small>Formatos aceptados: PDF, PowerPoint, Word, imágenes, texto, ZIP</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="link-unidad1">Enlace web (opcional):</label>
+                            <input type="url" id="link-unidad1" placeholder="https://ejemplo.com/trabajo">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="descripcion-unidad1">Descripción (opcional):</label>
+                            <textarea id="descripcion-unidad1" placeholder="Describe brevemente tu trabajo..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-submit">📤 Subir Documento</button>
+                    </form>
+                    
+                    <div class="documentos-lista" id="lista-documentos-unidad1">
+                        <!-- Los documentos se cargarán aquí dinámicamente -->
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="acordeon">
+                <div class="acordeon-titulo">
+                    1. Conceptos Generales del Desarrollo Web
+                    <span class="tag">Básico</span>
+                </div>
+                <div class="acordeon-contenido">
+                    <div class="teoria">
+                        <h3>¿Qué es el Desarrollo Web?</h3>
+                        <p>Es el proceso de crear y mantener sitios o aplicaciones que funcionan en un navegador web. Abarca desde una página simple de texto hasta complejas plataformas web.</p>
+                        
+                        <h3>Frontend vs. Backend</h3>
+                        <ul>
+                            <li><strong>Frontend (Cliente):</strong> Todo lo que el usuario ve e interactúa directamente</li>
+                            <li><strong>Backend (Servidor):</strong> La lógica "detrás de escena" que gestiona los datos</li>
+                            <li><strong>Full Stack:</strong> Desarrollador que trabaja en ambos lados</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="ejemplo">
+                        <h4>🎯 Ejemplo: La Analogía del Restaurante</h4>
+                        <p><strong>Frontend:</strong> El menú, la decoración, la mesa y la comida presentada. Es la experiencia del cliente.</p>
+                        <p><strong>Backend:</strong> La cocina, los chefs, las recetas y el inventario. El cliente no lo ve, pero es esencial.</p>
+                        <p><strong>Interacción:</strong> El cliente pide → Mesero (HTTP) lleva la orden → Cocina (backend) prepara → Se sirve al cliente (frontend).</p>
+                    </div>
+                    
+                    <!-- Galería de PDFs -->
+                    <h4 style="color: #070f18; margin: 25px 0 15px 0;">📚 Material de Estudio</h4>
+                    <div class="galeria-proyectos">
+                        <div class="proyecto">
+                            <h5>Conceptos Básicos</h5>
+                            <p>Introducción al desarrollo web</p>
+                            <div class="vista-previa">
+                                📄 PDF
+                            </div>
+                            <a href="ConceptosGeneralesWeb.pdf" target="_blank" class="boton-pequeno">
+                                📖 Ver PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="acordeon">
+                <div class="acordeon-titulo">
+                    2. Entornos de Desarrollo Web
+                    <span class="tag">Herramientas</span>
+                </div>
+                <div class="acordeon-contenido">
+                    <div class="teoria">
+                        <h3>El Taller del Desarrollador</h3>
+                        <p>Son el conjunto de herramientas que un desarrollador usa para crear un sitio web de manera eficiente.</p>
+                        
+                        <ul>
+                            <li><strong>Editor de Código:</strong> VS Code, Sublime Text, Atom</li>
+                            <li><strong>Control de Versiones:</strong> Git con GitHub o GitLab</li>
+                            <li><strong>Herramientas de Diseño:</strong> Figma, Adobe XD</li>
+                            <li><strong>Navegador Web:</strong> Para testing y debugging</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="ejemplo">
+                        <h4>💻 Ejemplo: Flujo de Trabajo con Git</h4>
+                        <pre><code># Inicializar repositorio
+git init
+
+# Añadir archivos al área de staging
+git add .
+
+# Guardar cambios con un mensaje
+git commit -m "Añadido formulario de contacto"
+
+# Subir cambios al repositorio remoto
+git push origin main</code></pre>
+                        <p>Este flujo permite mantener un historial de cambios y colaborar con otros desarrolladores.</p>
+                    </div>
+                    
+                    <!-- Galería de PDFs -->
+                    <h4 style="color: #2c3e50; margin: 25px 0 15px 0;">📚 Material de Estudio</h4>
+                    <div class="galeria-proyectos">
+                        <div class="proyecto">
+                            <h5>Herramientas de Desarrollo</h5>
+                            <p>Guía completa de herramientas</p>
+                            <div class="vista-previa">
+                                📄 PDF
+                            </div>
+                            <a href="EntornoDesarrolloWeb.pdf" target="_blank" class="boton-pequeno">
+                                📖 Ver PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="acordeon">
+                <div class="acordeon-titulo">
+                    3. Configuración de Entornos de Desarrollo
+                    <span class="tag">Configuración</span>
+                </div>
+                <div class="acordeon-contenido">
+                    <div class="teoria">
+                        <h3>Poner a Punto el Taller</h3>
+                        <p>Proceso de instalar y preparar todas las herramientas para que funcionen juntas en tu computadora.</p>
+                        
+                        <ul>
+                            <li><strong>Editor de Código:</strong> Instalar VS Code + extensiones útiles</li>
+                            <li><strong>Servidor Local:</strong> XAMPP, WAMP, o el servidor Live Server</li>
+                            <li><strong>Entorno de Ejecución:</strong> Node.js, PHP, Python según necesidades</li>
+                            <li><strong>Herramientas Adicionales:</strong> Git, Docker, etc.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="ejemplo">
+                        <h4>⚙️ Ejemplo: Configuración con XAMPP</h4>
+                        <p><strong>Paso 1:</strong> Descargar e instalar XAMPP desde Apache Friends</p>
+                        <p><strong>Paso 2:</strong> Abrir el Panel de Control y iniciar Apache y MySQL</p>
+                        <p><strong>Paso 3:</strong> Guardar archivos PHP en la carpeta <code>htdocs</code></p>
+                        <p><strong>Paso 4:</strong> Acceder via <code>http://localhost/tu_proyecto</code></p>
+                        
+                        <pre><code>&lt;?php
+// Ejemplo de archivo en htdocs
+echo "¡Mi primer sitio con XAMPP!";
+?&gt;</code></pre>
+                    </div>
+                    
+                    <!-- Galería de PDFs -->
+                    <h4 style="color: #2c3e50; margin: 25px 0 15px 0;">📚 Material de Estudio</h4>
+                    <div class="galeria-proyectos">
+                        <div class="proyecto">
+                            <h5>Configuración de Entornos</h5>
+                            <p>Guía paso a paso</p>
+                            <div class="vista-previa">
+                                📄 PDF
+                            </div>
+                            <a href="Configuración del Ambiente de Desarrollo Web.pdf" target="_blank" class="boton-pequeno">
+                                📖 Ver PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Unidad 2 -->
+        <section id="unidad2" class="seccion-unidad">
+            <div class="header">
+                <h1>📝 Unidad 2: HTML - Formularios y Tablas</h1>
+                <p>Aprendiendo a crear interfaces interactivas con formularios y estructurar datos con tablas</p>
+            </div>
+
+              <!-- SISTEMA DE SUBIDA DE DOCUMENTOS PARA UNIDAD 2 -->
+            <div class="acordeon">
+                <div class="acordeon-titulo">
+                    📤 Subir Documentos - Unidad 2
+                    <span class="tag">Documentos</span>
+                </div>
+                <div class="acordeon-contenido">
+                    <div class="teoria">
+                        <h3>📁 Sistema de Gestión de Documentos</h3>
+                        <p>Sube tus trabajos, proyectos y documentos relacionados con la Unidad 2. Puedes subir archivos PDF, presentaciones, documentos de Word, imágenes y enlaces web.</p>
+                    </div>
+                    
+                    <form class="formulario-subida" onsubmit="guardarDocumento(event, 'unidad2')">
+                        <div class="form-group">
+                            <label for="nombre-doc-unidad2">Nombre del trabajo:</label>
+                            <input type="text" id="nombre-doc-unidad2" required placeholder="Ej: Formulario de Contacto Avanzado">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="archivos-unidad2">Archivos (múltiples):</label>
+                            <input type="file" id="archivos-unidad2" multiple accept=".pdf,.ppt,.pptx,.pps,.ppsx,.odp,image/*,.doc,.docx,.txt,.zip,.rar,.html,.css">
+                            <small>Formatos aceptados: PDF, PowerPoint, Word, imágenes, texto, HTML, CSS, ZIP</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="link-unidad2">Enlace web (opcional):</label>
+                            <input type="url" id="link-unidad2" placeholder="https://ejemplo.com/proyecto">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="descripcion-unidad2">Descripción (opcional):</label>
+                            <textarea id="descripcion-unidad2" placeholder="Describe brevemente tu trabajo..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-submit">📤 Subir Documento</button>
+                    </form>
+                    
+                    <div class="documentos-lista" id="lista-documentos-unidad2">
+                        <!-- Los documentos se cargarán aquí dinámicamente -->
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="acordeon">
+                <div class="acordeon-titulo">
+                    1. Formularios HTML
+                    <span class="tag">Interactivo</span>
+                </div>
+                <div class="acordeon-contenido">
+                    <div class="teoria">
+                        <h3>¿Qué son los Formularios HTML?</h3>
+                        <p>Los formularios permiten a los usuarios introducir datos que pueden ser enviados a un servidor para su procesamiento. Son esenciales para:</p>
+                        <ul>
+                            <li>Registro de usuarios</li>
+                            <li>Inicios de sesión</li>
+                            <li>Formularios de contacto</li>
+                            <li>Búsquedas y filtros</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="ejemplo">
+                        <h4>🎯 Ejemplo: Estructura Básica de un Formulario</h4>
+                        <pre><code>&lt;form action="/procesar.php" method="POST"&gt;
+    &lt;label for="nombre"&gt;Nombre:&lt;/label&gt;
+    &lt;input type="text" id="nombre" name="nombre" required&gt;
+    
+    &lt;label for="email"&gt;Email:&lt;/label&gt;
+    &lt;input type="email" id="email" name="email" required&gt;
+    
+    &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+                    </div>
+
+                    <!-- Galería de formularios creados -->
+                    <h4 style="color: #2c3e50; margin: 25px 0 15px 0;">📂 Mis Formularios Creados</h4>
+                    <div class="galeria-proyectos">
+                        <div class="proyecto">
+                            <h5>Formulario 1</h5>
+                            <p>Formulario de registro</p>
+                            <div class="vista-previa">
+                                📋 REGISTRO
+                            </div>
+                            <a href="FORMULARIO2.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Formulario
+                            </a>
+                        </div>
+                        
+                        <div class="proyecto">
+                            <h5>Formulario 2</h5>
+                            <p>Formulario de prueba</p>
+                            <div class="vista-previa">
+                                🎨 PRUEBA
+                            </div>
+                            <a href="FORMULARIOHTML5.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Formulario
+                            </a>
+                        </div>
+
+                        <div class="proyecto">
+                            <h5>Formulario 3</h5>
+                            <p>Formulario avanzado con validaciones</p>
+                            <div class="vista-previa">
+                                ⚡ AVANZADO
+                            </div>
+                            <a href="FORM3T3.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Formulario
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="acordeon">
+                <div class="acordeon-titulo">
+                    2. Tablas HTML
+                    <span class="tag">Estructura</span>
+                </div>
+                <div class="acordeon-contenido">
+                    <div class="teoria">
+                        <h3>¿Qué son las Tablas HTML?</h3>
+                        <p>Las tablas permiten organizar datos en filas y columnas. Son ideales para:</p>
+                        <ul>
+                            <li>Mostrar datos tabulares</li>
+                            <li>Comparar información</li>
+                            <li>Crear horarios o calendarios</li>
+                            <li>Presentar datos estadísticos</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="ejemplo">
+                        <h4>🎯 Ejemplo: Estructura de una Tabla</h4>
+                        <pre><code>&lt;table border="1"&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Nombre&lt;/th&gt;
+        &lt;th&gt;Edad&lt;/th&gt;
+        &lt;th&gt;Ciudad&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Ana&lt;/td&gt;
+        &lt;td&gt;25&lt;/td&gt;
+        &lt;td&gt;Madrid&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+                    </div>
+
+                    <!-- Galería de tablas creadas -->
+                    <h4 style="color: #2c3e50; margin: 25px 0 15px 0;">📊 Mis Tablas Creadas</h4>
+                    <div class="galeria-proyectos">
+                        <div class="proyecto">
+                            <h5>Tabla 1</h5>
+                            <p>Tabla básica con estructura simple</p>
+                            <div class="vista-previa">
+                                📊  SIMPLE
+                            </div>
+                            <a href="TABLA1.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Tabla
+                            </a>
+                        </div>
+                        
+                        <div class="proyecto">
+                            <h5>Tabla 2</h5>
+                            <p>Tabla con diseño mejorado</p>
+                            <div class="vista-previa">
+                                📈 MEJORADA
+                            </div>
+                            <a href="TABLAS2.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Tabla
+                            </a>
+                        </div>
+
+                        <div class="proyecto">
+                            <h5>Tabla 3</h5>
+                            <p>Tabla avanzada con múltiples funciones</p>
+                            <div class="vista-previa">
+                                🎯 AVANZADA
+                            </div>
+                            <a href="TABLA10.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Tabla
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="acordeon">
+                <div class="acordeon-titulo">
+                    3. Demostración en Vivo
+                    <span class="tag">Práctica</span>
+                </div>
+                <div class="acordeon-contenido">
+                    <div class="teoria">
+                        <h3>Formulario y Tabla Funcional</h3>
+                        <p>Aquí puedes ver un ejemplo funcional de formulario y tabla trabajando juntos:</p>
+                    </div>
+
+                    <div class="formulario-ejemplo">
+                        <h4>➕ Añadir Producto</h4>
+                        <form id="formProducto">
+                            <div class="form-group">
+                                <label for="producto">Nombre del Producto:</label>
+                                <input type="text" id="producto" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="precio">Precio:</label>
+                                <input type="number" id="precio" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="categoria">Categoría:</label>
+                                <select id="categoria" required>
+                                    <option value="">Selecciona categoría</option>
+                                    <option value="electronica">Electrónica</option>
+                                    <option value="ropa">Ropa</option>
+                                    <option value="hogar">Hogar</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn-submit">Agregar Producto</button>
+                        </form>
+                    </div>
+
+                    <table class="tabla-ejemplo" id="tablaProductos">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Precio</th>
+                                <th>Categoría</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Laptop Gaming</td>
+                                <td>$1,200.00</td>
+                                <td>Electrónica</td>
+                                <td style="cursor: pointer;" onclick="this.parentElement.remove()">❌</td>
+                            </tr>
+                            <tr>
+                                <td>Camiseta Básica</td>
+                                <td>$25.99</td>
+                                <td>Ropa</td>
+                                <td style="cursor: pointer;" onclick="this.parentElement.remove()">❌</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                    <!-- Sección de Ejercicios - Unidad 2 -->
+            <div class="acordeon">
+                <div class="acordeon-titulo">
+                    Sección de Ejercicios 
+                    <span class="tag">Práctica</span>
+                </div>
+                <div class="acordeon-contenido">
+                    <div class="teoria">
+                        <h3>Unidad 2</h3>
+                        <p>Esta sección contiene todos los ejercicios prácticos realizados durante la Unidad 2, enfocados en el desarrollo de formularios, tablas HTML y diseño CSS.</p>
+                    </div>
+
+                    <!-- Galería de ejercicios -->
+                    <h4 style="color: #2c3e50; margin: 25px 0 15px 0;">📂 Mis Ejercicios</h4>
+                    <div class="galeria-proyectos">
+                        <!-- Ejercicio 1 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 1</h5>
+                            <p>Ej: EJERCICIOS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="EJERCICIO1.HTML" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+                        
+                        <!-- Ejercicio 2 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 2</h5>
+                            <p>Ej: EJERCICIOS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="EJERCICIO2.HTML" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 3 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 3</h5>
+                            <p>Ej: EJERCICIOS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="EJERCICIO3.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 4 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 4</h5>
+                            <p>Ej: EJERCICIOS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="EJERCICIO4.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 5 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 5</h5>
+                            <p>Ej: EJERCICIOS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="EJERCICIO5.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 6 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 6</h5>
+                            <p>Ej: ENLACES</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="ENLACES.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 7 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 7</h5>
+                            <p>Ej: LISTAS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="LISTAS1.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 8 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 8</h5>
+                            <p>Ej: LISTAS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="LISTAS2.HTML" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 9 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 9</h5>
+                            <p>Ej: FORMULARIO</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="FORMULARIO1.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 10 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 10</h5>
+                            <p>Ej: FORMULARIO</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="FORMULARIO2.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 11 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 11</h5>
+                            <p>Ej: INDEX</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="index2.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 12 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 12</h5>
+                            <p>Ej: INDEX</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="indexejercicio.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 13 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 13</h5>
+                            <p>Ej: TABLA</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="TABLA6.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 14 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 14</h5>
+                            <p>Ej: TABLA</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="TABLA7.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 15 -->
+                        <div class="proyecto">
+                            <h5>TABLA PERIODICA</h5>
+                            <p>Creación de tabla periodica en HTML</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="TABLACORR.HTML" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <div class="proyecto">
+                            <h5>Ejercicio 16</h5>
+                            <p>CSS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="CSS2.HTML" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <div class="proyecto">
+                            <h5>Ejercicio 17</h5>
+                            <p>CSS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="CSS3.HTML" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <div class="proyecto">
+                            <h5>Ejercicio 18</h5>
+                            <p>CSS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="CSS4.HTML" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <div class="proyecto">
+                            <h5>Ejercicio 19</h5>
+                            <p>CSS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="CSS5.HTML" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <div class="proyecto">
+                            <h5>Ejercicio 20</h5>
+                            <p>CSS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="CSS6.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <div class="proyecto">
+                            <h5>Ejercicio 21</h5>
+                            <p>CSS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="CSS7.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                            <div class="proyecto">
+                            <h5>Ejercicio 22</h5>
+                            <p>CSS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="CSS8.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                            <div class="proyecto">
+                            <h5>Ejercicio 23</h5>
+                            <p>CSS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="CSS9.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                            <div class="proyecto">
+                            <h5>Ejercicio 24</h5>
+                            <p>CSS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="CSS10.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                            <div class="proyecto">
+                            <h5>Ejercicio 25</h5>
+                            <p>CSS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="CSS11.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                            <div class="proyecto">
+                            <h5>Ejercicio 26</h5>
+                            <p>CSS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="CSS12.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                            <div class="proyecto">
+                            <h5>Ejercicio 27</h5>
+                            <p>CSS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="CSS13-14.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                            <div class="proyecto">
+                            <h5>Ejercicio 28</h5>
+                            <p>CSS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="CSS15-16-17.HTML" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                            <div class="proyecto">
+                            <h5>Ejercicio 29</h5>
+                            <p>CSS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="CSS18.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                            <div class="proyecto">
+                            <h5>Ejercicio 30</h5>
+                            <p>CSS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="CSS19.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                            <div class="proyecto">
+                            <h5>Ejercicio 31</h5>
+                            <p>CSS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="CSS20.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <div class="proyecto">
+                            <h5>Ejercicio 32</h5>
+                            <p>CSS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="CSS21.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <div class="proyecto">
+                            <h5>Ejercicio 33</h5>
+                            <p>CSS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="CSS22.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        </section>
+
+       <!-- Unidad 3: CSS y Diseño Web -->
+<section id="unidad3" class="seccion-unidad">
+    <div class="header">
+        <h1>🎨 Unidad 3: JAVASCRIPT</h1>
+        <p>Domina el uso de JAVASCRIPT para tus proyectos web</p>
+    </div>
+
+    <!-- SISTEMA DE SUBIDA DE DOCUMENTOS PARA UNIDAD 3 -->
+            <div class="acordeon">
+                <div class="acordeon-titulo">
+                    📤 Subir Documentos - Unidad 3
+                    <span class="tag">Documentos</span>
+                </div>
+                <div class="acordeon-contenido">
+                    <div class="teoria">
+                        <h3>📁 Sistema de Gestión de Documentos</h3>
+                        <p>Sube tus trabajos, proyectos y documentos relacionados con la Unidad 3. Puedes subir archivos PDF, presentaciones, documentos de Word, imágenes y enlaces web.</p>
+                    </div>
+                    
+                    <form class="formulario-subida" onsubmit="guardarDocumento(event, 'unidad3')">
+                        <div class="form-group">
+                            <label for="nombre-doc-unidad3">Nombre del trabajo:</label>
+                            <input type="text" id="nombre-doc-unidad3" required placeholder="Ej: Proyecto JavaScript Avanzado">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="archivos-unidad3">Archivos (múltiples):</label>
+                            <input type="file" id="archivos-unidad3" multiple accept=".pdf,.ppt,.pptx,.pps,.ppsx,.odp,image/*,.doc,.docx,.txt,.zip,.rar,.js,.html,.css">
+                            <small>Formatos aceptados: PDF, PowerPoint, Word, imágenes, texto, JavaScript, HTML, CSS, ZIP</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="link-unidad3">Enlace web (opcional):</label>
+                            <input type="url" id="link-unidad3" placeholder="https://ejemplo.com/proyecto-js">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="descripcion-unidad3">Descripción (opcional):</label>
+                            <textarea id="descripcion-unidad3" placeholder="Describe brevemente tu trabajo..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-submit">📤 Subir Documento</button>
+                    </form>
+                    
+                    <div class="documentos-lista" id="lista-documentos-unidad3">
+                        <!-- Los documentos se cargarán aquí dinámicamente -->
+                    </div>
+                </div>
+            </div>
+    
+    <!-- SECCIÓN 2: EJERCICIOS -->
+    <div class="acordeon">
+        <div class="acordeon-titulo">
+            Mis Ejercicios de JAVASCRIPT
+            <span class="tag">Práctica</span>
+        </div>
+        <div class="acordeon-contenido">
+            <div class="teoria">
+                <h3>Trabajos realizados en este parcial</h3>
+                <p>Trabajos prácticos de JAVASCRIPT.</p>
+            </div>
+
+            <div class="galeria-proyectos">
+                <!-- Ejercicios 1-5: Fundamentos -->
+                <div class="proyecto">
+                    <h5>Ejercicio 1 </h5>
+                    <p>JAVA SCRIPT</p>
+                    <div class="vista-previa">
+                        🎯 
+                    </div>
+                    <a href="T2.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 2</h5>
+                    <p>JAVA SCRIPT</p>
+                    <div class="vista-previa">
+                        📦 
+                    </div>
+                    <a href="T3.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 3</h5>
+                    <p>JAVA SCRIPT</p>
+                    <div class="vista-previa">
+                        🌈 
+                    </div>
+                    <a href="T4.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 4</h5>
+                    <p>JAVA SCRIPT</p>
+                    <div class="vista-previa">
+                        🔤 
+                    </div>
+                    <a href="T5.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 5</h5>
+                    <p>JAVA SCRIPT</p>
+                    <div class="vista-previa">
+                        📍
+                    </div>
+                    <a href="T6E1.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <!-- Ejercicios 6-10: Layouts -->
+                <div class="proyecto">
+                    <h5>Ejercicio 6</h5>
+                    <p>JAVA SCRIPT</p>
+                    <div class="vista-previa">
+                        ⚡ 
+                    </div>
+                    <a href="T6E2.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 7</h5>
+                    <p>JAVA SCRIPT</p>
+                    <div class="vista-previa">
+                        ⚡ 
+                    </div>
+                    <a href="T7E1.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 8</h5>
+                    <p>JAVA SCRIPT</p>
+                    <div class="vista-previa">
+                        🎯 
+                    </div>
+                    <a href="T7E2.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 9 </h5>
+                    <p>JAVA SCRIPT</p>
+                    <div class="vista-previa">
+                        🎯 
+                    </div>
+                    <a href="T7E3.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 10</h5>
+                    <p>JAVA SCRIPTp>
+                    <div class="vista-previa">
+                        📱 
+                    </div>
+                    <a href="T8E1.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <!-- Ejercicios 11-15: Avanzados -->
+                <div class="proyecto">
+                    <h5>Ejercicio 11</h5>
+                    <p>JAVA SCRIPT</p>
+                    <div class="vista-previa">
+                        ✨ 
+                    </div>
+                    <a href="T8E2.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 12</h5>
+                    <P>JAVA SCRIPT</p>
+                    <div class="vista-previa">
+                        🎬 
+                    </div>
+                    <a href="T8E3.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 13</h5>
+                    <p>JAVA SCRIPT</p>
+                    <div class="vista-previa">
+                        🔄 
+                    </div>
+                    <a href="T9E1.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 14</h5>
+                    <p>JAVA SCRIPT</p>
+                    <div class="vista-previa">
+                        🎨 
+                    </div>
+                    <a href="T10.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 15</h5>
+                    <p>JAVA SCRIPT</p>
+                    <div class="vista-previa">
+                        🏆 
+                    </div>
+                    <a href="ejercicios/ejercicio15-proyecto-final.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 3: EJEMPLOS -->
+    <div class="acordeon">
+        <div class="acordeon-titulo">
+            Ejemplos Interactivos
+            <span class="tag">Demostración</span>
+        </div>
+        <div class="acordeon-contenido">
+            <div class="teoria">
+                <h3>Demostraciones en Vivo</h3>
+                <p>Experimenta con CSS directamente en el navegador y comprende los conceptos visualmente.</p>
+            </div>
+
+            <!-- Ejemplo 1: Flexbox -->
+            <div class="ejemplo">
+                <h4> Ejemplo 1: Flexbox en Acción</h4>
+                <p>Modifica las propiedades del contenedor flex:</p>
+                
+                <div class="contenedor-flex-demo" style="display: flex; gap: 10px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 10px; margin: 15px 0;">
+                    <div style="padding: 20px; background: #e73c7e; color: white; border-radius: 5px;">Item 1</div>
+                    <div style="padding: 20px; background: #23a6d5; color: white; border-radius: 5px;">Item 2</div>
+                    <div style="padding: 20px; background: #23d5ab; color: white; border-radius: 5px;">Item 3</div>
+                </div>
+                
+                <pre><code>.contenedor-flex {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}</code></pre>
+            </div>
+
+            <!-- Ejemplo 2: Grid -->
+            <div class="ejemplo">
+                <h4> Ejemplo 2: CSS Grid Layout</h4>
+                <p>Estructura de página con Grid:</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 10px; margin: 15px 0;">
+                    <div style="padding: 20px; background: #667eea; color: white; border-radius: 5px;">Header</div>
+                    <div style="padding: 20px; background: #667eea; color: white; border-radius: 5px;">Header</div>
+                    <div style="padding: 20px; background: #667eea; color: white; border-radius: 5px;">Header</div>
+                    
+                    <div style="padding: 40px; background: #764ba2; color: white; border-radius: 5px; grid-column: 1 / 2;">Sidebar</div>
+                    <div style="padding: 40px; background: #f093fb; color: white; border-radius: 5px; grid-column: 2 / 4;">Main Content</div>
+                    
+                    <div style="padding: 20px; background: #667eea; color: white; border-radius: 5px; grid-column: 1 / 4;">Footer</div>
+                </div>
+                
+                <pre><code>.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: auto 1fr auto;
+    gap: 10px;
+    height: 300px;
+}</code></pre>
+            </div>
+
+            <!-- Ejemplo 3: Animaciones -->
+            <div class="ejemplo">
+                <h4> Ejemplo 3: Animaciones CSS</h4>
+                <p>Observa esta animación de carga:</p>
+                
+                <div style="display: flex; gap: 10px; justify-content: center; margin: 20px 0;">
+                    <div style="width: 20px; height: 20px; background: #e73c7e; border-radius: 50%; animation: bounce 1s infinite;"></div>
+                    <div style="width: 20px; height: 20px; background: #23a6d5; border-radius: 50%; animation: bounce 1s infinite 0.1s;"></div>
+                    <div style="width: 20px; height: 20px; background: #23d5ab; border-radius: 50%; animation: bounce 1s infinite 0.2s;"></div>
+                </div>
+                
+                <pre><code>@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.punto {
+    animation: bounce 1s infinite;
+}</code></pre>
+            </div>
+
+            <!-- Ejemplo 4: Hover Effects -->
+            <div class="ejemplo">
+                <h4> Ejemplo 4: Efectos Hover</h4>
+                <p>Pasa el mouse sobre estos botones:</p>
+                
+                <div style="display: flex; gap: 15px; justify-content: center; margin: 20px 0;">
+                    <button style="padding: 12px 24px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; border-radius: 25px; cursor: pointer; transition: all 0.3s ease;">Efecto 1</button>
+                    <button style="padding: 12px 24px; background: #23a6d5; color: white; border: none; border-radius: 8px; cursor: pointer; transition: transform 0.3s ease;">Efecto 2</button>
+                    <button style="padding: 12px 24px; background: #23d5ab; color: white; border: 2px solid #23d5ab; border-radius: 5px; cursor: pointer; transition: all 0.3s ease;">Efecto 3</button>
+                </div>
+                
+                <pre><code>.boton-hover {
+    transition: all 0.3s ease;
+}
+
+.boton-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}</code></pre>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <!-- Unidad 4 (Placeholder) -->
+        <section id="unidad4" class="seccion-unidad">
+            <div class="header">
+                <h1>⚡ Unidad 4: Exposiciones</h1>
+                <p>En esta unidad encontrarás exposiciones para tu desarrollo</p>
+            </div>
+
+            <!-- SISTEMA DE SUBIDA DE DOCUMENTOS PARA UNIDAD 4 -->
+            <div class="acordeon">
+                <div class="acordeon-titulo">
+                    📤 Subir Documentos - Unidad 4
+                    <span class="tag">Documentos</span>
+                </div>
+                <div class="acordeon-contenido">
+                    <div class="teoria">
+                        <h3>📁 Sistema de Gestión de Documentos</h3>
+                        <p>Sube tus trabajos, proyectos y documentos relacionados con la Unidad 4. Puedes subir archivos PDF, presentaciones, documentos de Word, imágenes y enlaces web.</p>
+                    </div>
+                    
+                    <form class="formulario-subida" onsubmit="guardarDocumento(event, 'unidad4')">
+                        <div class="form-group">
+                            <label for="nombre-doc-unidad4">Nombre del trabajo:</label>
+                            <input type="text" id="nombre-doc-unidad4" required placeholder="Ej: Exposición Final del Proyecto">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="archivos-unidad4">Archivos (múltiples):</label>
+                            <input type="file" id="archivos-unidad4" multiple accept=".pdf,.ppt,.pptx,.pps,.ppsx,.odp,image/*,.doc,.docx,.txt,.zip,.rar,.js,.html,.css,.mp4,.avi,.mov">
+                            <small>Formatos aceptados: PDF, PowerPoint, Word, imágenes, texto, videos, ZIP</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="link-unidad4">Enlace web (opcional):</label>
+                            <input type="url" id="link-unidad4" placeholder="https://ejemplo.com/exposicion-final">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="descripcion-unidad4">Descripción (opcional):</label>
+                            <textarea id="descripcion-unidad4" placeholder="Describe brevemente tu trabajo..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-submit">📤 Subir Documento</button>
+                    </form>
+                    
+                    <div class="documentos-lista" id="lista-documentos-unidad4">
+                        <!-- Los documentos se cargarán aquí dinámicamente -->
+                    </div>
+                </div>
+            </div>
+            
+                    <!-- SECCIÓN 2: EJERCICIOS -->
+    <div class="acordeon">
+        <div class="acordeon-titulo">
+            Exposiciones
+            <span class="tag">Práctica</span>
+        </div>
+        <div class="acordeon-contenido">
+            <div class="teoria">
+                <h3>Exposiciones realizadas en este parcial</h3>
+            </div>
+            <div class="galeria-proyectos">
+                <!-- Exposiciones-->
+                <div class="proyecto">
+                    <h5>EXPOSICION 1 </h5>
+                    <div class="vista-previa">
+                        CLASIFICIACIÓN MEDIOS PUBLICACION
+                    </div>
+                    <a href="CLASEWEB.pdf" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>EXPOSICION 2</h5> 
+                    <div class="vista-previa">
+                        TRANSFERENCIA DE ARCHIVOS Y PUBLICACIÓN
+                    </div>
+                    <a href="herramientas para la transferencia de archivos y publicación de la aplicación web. (2).pdf" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>EXPOSICION 3</h5>
+                    <div class="vista-previa">
+                        PUBLICACION LOCAL Y REMOTA
+                    </div>
+                    <a href="Publicación local y remota (1).pdf" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>EXPOSICION 4</h5>
+                    <div class="vista-previa">
+                        METODOS (GET Y POST)
+                    </div>
+                    <a href="METODOS DE COMUNICACION ENTRE CLIENTE Y SERVIDOR (GET Y POST).pdf" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>EXPOSICION 5</h5>
+                    <div class="vista-previa">
+                        MANEJO DE SESIONES
+                    </div>
+                    <a href="manejo de sesiones.pdf" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>EXPOSICION 5</h5>
+                    <div class="vista-previa">
+                        BASES DE DATOS
+                    </div>
+                    <a href="Bases de datos.pdf" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+            </div>
+        </div>
+    </div>
+        </section>
+         <!-- Proyecto Final (Placeholder) -->
+        <section id="unidad5" class="seccion-unidad">
+            <div class="header">
+                <h1> 🔥RESTOFLOW🔥</h1>
+                <p>En esta unidad encontrarás un proyecto desarrollado por mi, usando Html, Css y JavaScript.</p>
+            </div>
+
+            <!-- SISTEMA DE SUBIDA DE DOCUMENTOS PARA UNIDAD 5 -->
+            <div class="acordeon">
+                <div class="acordeon-titulo">
+                    📤 Subir Documentos - Proyecto Final
+                    <span class="tag">Documentos</span>
+                </div>
+                <div class="acordeon-contenido">
+                    <div class="teoria">
+                        <h3>📁 Sistema de Gestión de Documentos</h3>
+                        <p>Sube tus trabajos, proyectos y documentos relacionados con la Unidad 5. Puedes subir archivos PDF, presentaciones, documentos de Word, imágenes y enlaces web.</p>
+                    </div>
+                    
+                    <form class="formulario-subida" onsubmit="guardarDocumento(event, 'unidad5')">
+                        <div class="form-group">
+                            <label for="nombre-doc-unidad5">Nombre del trabajo:</label>
+                            <input type="text" id="nombre-doc-unidad5" required placeholder="Ej: Exposición Final del Proyecto">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="archivos-unidad5">Archivos (múltiples):</label>
+                            <input type="file" id="archivos-unidad5" multiple accept=".pdf,.ppt,.pptx,.pps,.ppsx,.odp,image/*,.doc,.docx,.txt,.zip,.rar,.js,.html,.css,.mp4,.avi,.mov">
+                            <small>Formatos aceptados: PDF, PowerPoint, Word, imágenes, texto, videos, ZIP</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="link-unidad5">Enlace web (opcional):</label>
+                            <input type="url" id="link-unidad5" placeholder="https://ejemplo.com/exposicion-final">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="descripcion-unidad5">Descripción (opcional):</label>
+                            <textarea id="descripcion-unidad5" placeholder="Describe brevemente tu trabajo..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-submit">📤 Subir Documento</button>
+                    </form>
+                    
+                    <div class="documentos-lista" id="lista-documentos-unidad4">
+                        <!-- Los documentos se cargarán aquí dinámicamente -->
+                    </div>
+                </div>
+            </div>
+            
+                    <!-- SECCIÓN PROYECTO -->
+    <div class="acordeon">
+        <div class="acordeon-titulo">
+            MI PROYECTO FINAL
+            <span class="tag">Práctica</span>
+        </div>
+        <div class="acordeon-contenido">
+            <div class="teoria">
+                <h3>MI PROYECTO</h3>
+            </div>
+            <div class="galeria-proyectos">
+                <!-- PROYECTO FINAL -->
+                <div class="proyecto">
+                    <div class="vista-previa">
+                        🔥RESTOFLOW🔥
+                    </div>
+                    <a href="Restflow.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+    </div>
+        </section>
+
+         <!-- Unidad 6 revistas (Placeholder) -->
+        <section id="unidad6" class="seccion-unidad">
+            <div class="header">
+                <h1> Revistas creadas en el cuatrimestre </h1>
+                <p>En esta unidad encontrarás revistas creadas por mi, acerca del uso de CSS, JavaScript y un manual de usuario para mi proyecto final.</p>
+            </div>
+
+            <!-- SISTEMA DE SUBIDA DE DOCUMENTOS PARA UNIDAD 6 -->
+            <div class="acordeon">
+                <div class="acordeon-titulo">
+                    📤 Subir Documentos - Revistas
+                    <span class="tag">Documentos</span>
+                </div>
+                <div class="acordeon-contenido">
+                    <div class="teoria">
+                        <h3>📁 Sistema de Gestión de Documentos</h3>
+                        <p>Sube tus trabajos, proyectos y documentos relacionados con la Unidad de Revistas. Puedes subir archivos PDF, presentaciones, documentos de Word, imágenes y enlaces web.</p>
+                    </div>
+                    
+                    <form class="formulario-subida" onsubmit="guardarDocumento(event, 'unidad5')">
+                        <div class="form-group">
+                            <label for="nombre-doc-unidad6">Nombre del trabajo:</label>
+                            <input type="text" id="nombre-doc-unidad6" required placeholder="Ej: Exposición Final del Proyecto">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="archivos-unidad6">Archivos (múltiples):</label>
+                            <input type="file" id="archivos-unidad6" multiple accept=".pdf,.ppt,.pptx,.pps,.ppsx,.odp,image/*,.doc,.docx,.txt,.zip,.rar,.js,.html,.css,.mp4,.avi,.mov">
+                            <small>Formatos aceptados: PDF, PowerPoint, Word, imágenes, texto, videos, ZIP</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="link-unidad6">Enlace web (opcional):</label>
+                            <input type="url" id="link-unidad6" placeholder="https://ejemplo.com/exposicion-final">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="descripcion-unidad6">Descripción (opcional):</label>
+                            <textarea id="descripcion-unidad6" placeholder="Describe brevemente tu trabajo..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-submit">📤 Subir Documento</button>
+                    </form>
+                    
+                    <div class="documentos-lista" id="lista-documentos-unidad4">
+                        <!-- Los documentos se cargarán aquí dinámicamente -->
+                    </div>
+                </div>
+            </div>
+            
+                    <!-- SECCIÓN PROYECTO -->
+    <div class="acordeon">
+        <div class="acordeon-titulo">
+            MIS REVISTAS
+            <span class="tag">Práctica</span>
+        </div>
+        <div class="acordeon-contenido">
+            <div class="teoria">
+                <h3>MIS REVISTAS CREADAS EN EL CUATRIMESTRE</h3>
+            </div>
+            <div class="galeria-proyectos">
+                <!-- PROYECTO FINAL -->
+                <div class="proyecto">
+                    <div class="vista-previa">
+                        INTERFACES DE USABILIDAD
+                    </div>
+                    <a href="RevistaDigitalFINAL.pdf" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <div class="vista-previa">
+                        USO DE JAVASCRIPT
+                    </div>
+                    <a href="Revista2.pdf" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <div class="vista-previa">
+                        MANUAL DE USUARIO
+                    </div>
+                    <a href="MANUALRESTFLOW.pdf" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+    </div>
+        </section>
+
+         <!-- Unidad 7 Conclusiones (Placeholder) -->
+        <section id="unidad7" class="seccion-unidad">
+            <div class="header">
+                <h1> Propósitos y Conclusiones</h1>
+                <p>En esta sección encontrarás la conclusión final del cuatrimestre, lo que aprendí, lo que pude lograr. Y los propósitos esperados por el docente.</p>
+            </div>
+
+                    <!-- SECCIÓN CONCLUSIONES -->
+    <div class="acordeon">
+        <div class="acordeon-titulo">
+            PROPÓSITOS Y CONCLUSIONES
+            <span class="tag">Práctica</span>
+        </div>
+        <div class="acordeon-contenido">
+            <div class="teoria">
+                <h3>CONCLUSIONES DEL CUATRIMESTRE</h3>
+                <p>Durante este cuatrimestre, he adquirido un conocimiento sólido en el desarrollo web, abarcando desde los fundamentos de HTML y CSS hasta la implementación de JavaScript para crear experiencias interactivas. He aprendido a estructurar páginas web de manera efectiva, aplicar estilos visuales atractivos y utilizar JavaScript para mejorar la funcionalidad y la interactividad de los sitios web.</p>
+                <img src="Proposito.png" alt="Programa de asignatura" class="tabla-img" style="display: block; margin: 0 auto;">
+                <img src="Funciones.png" alt="Programa de asignatura" class="tabla-img" style="display: block; margin: 0 auto;">
+                </div>
+    </div>
+        </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

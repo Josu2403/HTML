@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tema 1</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <script>
+        let palabra = prompt("Ingrese alguna de estas palabras: casa, mesa, perro, gato:");
+        palabra = palabra ? palabra.toLowerCase().trim() : '';
+        let traduccion = '';
+        switch (palabra) {
+            case "casa":
+                traduccion = "house";
+                break;
+            case "mesa":
+                traduccion = "table";
+                break;
+            case "perro":
+                traduccion = "dog";
+                break;
+            case "gato":
+                traduccion = "cat";
+                break;
+            default:
+                traduccion = "La palabra ingresada no es válida.";
+        }
+        if (traduccion.includes('La palabra')) {
+            document.write(`<h1>ERROR:</h1><p>${traduccion}</p>`);
+        } else {
+            document.write(`<p>Palabra ingresada en español: <strong>${palabra.toUpperCase()}</strong></p>`);
+            document.write(`<p>Traducción en inglés: <strong>${traduccion.toUpperCase()}</strong></p>`);
+        }
+    </script>
+</body>
+</html>

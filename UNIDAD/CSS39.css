@@ -1,0 +1,134 @@
+/* Reset y estilos generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #f5f5f5;
+    padding: 20px;
+    color: #333;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+/* Barra inferior fija */
+#barrainferior {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    height: 50px;
+    background-color: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Barra lateral derecha fija */
+#barralateralderecha {
+    position: fixed;
+    right: 0px;
+    top: 0px;
+    width: 200px;
+    height: 100%;
+    background-color: #eee;
+    padding: 20px;
+    border-left: 2px solid #ccc;
+    z-index: 999;
+}
+
+.content {
+    margin-right: 220px; 
+    margin-bottom: 70px; 
+}
+
+.menu-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.menu-item:hover {
+    background-color: #ddd;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.footer-links a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.highlight {
+    background-color: #e8f4f8;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 20px 0;
+    border-left: 4px solid #3498db;
+}
+
+.code-example {
+    background-color: #2d2d2d;
+    color: #f8f8f2;
+    padding: 15px;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    margin: 20px 0;
+    overflow-x: auto;
+}
+
+/* Media Queries para Responsive */
+@media (max-width: 768px) {
+    #barralateralderecha {
+        width: 150px;
+    }
+    
+    .content {
+        margin-right: 170px;
+    }
+}
+
+@media (max-width: 480px) {
+    #barralateralderecha {
+        display: none;
+    }
+    
+    .content {
+        margin-right: 0;
+    }
+}

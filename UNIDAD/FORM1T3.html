@@ -1,0 +1,26 @@
+<form>
+  <fieldset>
+    <legend>Datos fiscales</legend>
+    <input type="radio" name="fiscal" value="paro"> En paro <br>
+    <input type="radio" name="fiscal" value="autonomo"> Autónomo <br>
+    <input type="radio" name="fiscal" value="ajena"> Por c. ajena <br>
+  </fieldset>
+
+  <fieldset>
+    <legend>Datos personales</legend>
+    Nombre: <input type="text" name="nombre"><br><br>
+    Apellidos: <input type="text" name="apellidos"><br><br>
+
+    Sueldo:
+    <select name="sueldo">
+      <option value="mas400">Más de 400</option>
+      <option value="menos400">Menos de 400</option>
+      <option value="variables">Variables</option>
+    </select>
+    <br><br>
+
+    <input type="checkbox" name="extra" value="enfermedad"> Con enfermedad profesional <br>
+    <input type="checkbox" name="extra" value="padres"> Con padres a cargo <br>
+    <input type="checkbox" name="extra" value="hijos"> Con hijos a cargo <br>
+  </fieldset>
+</form>

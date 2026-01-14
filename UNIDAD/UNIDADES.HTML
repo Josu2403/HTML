@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avance - Curso Desarrollo Web</title>
+</head>
+<body>
+    <h1>Curso de Desarrollo Web - Avance del Proyecto</h1>
+    
+    <h2>Navegación entre Unidades</h2>
+    <ul>
+        <li><a href="#unidad1">Unidad 1: Fundamentos del Desarrollo Web</a></li>
+        <li><a href="#unidad2">Unidad 2: HTML - Formularios y Tablas</a></li>
+        <li><a href="#unidad3">Unidad 3: CSS y Diseño Web</a></li>
+        <li><a href="#unidad4">Unidad 4: JavaScript Interactivo</a></li>
+    </ul>
+
+    <hr>
+
+    <!-- Unidad 1 -->
+    <section id="unidad1">
+        <h2>Unidad 1: Fundamentos del Desarrollo Web</h2>
+        
+        <h3>1. Conceptos Generales del Desarrollo Web</h3>
+        <p><strong>¿Qué es el Desarrollo Web?</strong></p>
+        <p>Es el proceso de crear y mantener sitios o aplicaciones que funcionan en un navegador web.</p>
+        
+        <p><strong>Frontend vs. Backend:</strong></p>
+        <ul>
+            <li><strong>Frontend (Cliente):</strong> Todo lo que el usuario ve e interactúa directamente</li>
+            <li><strong>Backend (Servidor):</strong> La lógica "detrás de escena" que gestiona los datos</li>
+            <li><strong>Full Stack:</strong> Desarrollador que trabaja en ambos lados</li>
+        </ul>
+        
+        <p><strong>Ejemplo: La Analogía del Restaurante</strong></p>
+        <p>Frontend: El menú, la decoración, la mesa y la comida presentada.</p>
+        <p>Backend: La cocina, los chefs, las recetas y el inventario.</p>
+
+        <h3>2. Entornos de Desarrollo Web</h3>
+        <p><strong>El Taller del Desarrollador</strong></p>
+        <ul>
+            <li>Editor de Código: VS Code, Sublime Text, Atom</li>
+            <li>Control de Versiones: Git con GitHub o GitLab</li>
+            <li>Herramientas de Diseño: Figma, Adobe XD</li>
+            <li>Navegador Web: Para testing y debugging</li>
+        </ul>
+        
+        <p><strong>Ejemplo: Flujo de Trabajo con Git</strong></p>
+        <pre>
+git init
+git add .
+git commit -m "Añadido formulario de contacto"
+git push origin main
+        </pre>
+
+        <h3>3. Configuración de Entornos de Desarrollo</h3>
+        <p><strong>Poner a Punto el Taller</strong></p>
+        <ul>
+            <li>Instalar VS Code + extensiones útiles</li>
+            <li>Configurar servidor local (XAMPP, WAMP, Live Server)</li>
+            <li>Instalar entorno de ejecución (Node.js, PHP, Python)</li>
+        </ul>
+        
+        <p><strong>Ejemplo: Configuración con XAMPP</strong></p>
+        <p>Paso 1: Descargar e instalar XAMPP</p>
+        <p>Paso 2: Iniciar Apache y MySQL</p>
+        <p>Paso 3: Guardar archivos en carpeta htdocs</p>
+        <p>Paso 4: Acceder via http://localhost/tu_proyecto</p>
+        <pre>
+&lt;?php
+echo "¡Mi primer sitio con XAMPP!";
+?&gt;
+        </pre>
+    </section>
+
+    <hr>
+
+    <!-- Unidad 2 -->
+    <section id="unidad2">
+        <h2>Unidad 2: HTML - Formularios y Tablas</h2>
+        
+        <h3>1. Formularios HTML</h3>
+        <p><strong>¿Qué son los Formularios HTML?</strong></p>
+        <p>Permiten a los usuarios introducir datos que pueden ser enviados a un servidor.</p>
+        <ul>
+            <li>Registro de usuarios</li>
+            <li>Inicios de sesión</li>
+            <li>Formularios de contacto</li>
+            <li>Búsquedas y filtros</li>
+        </ul>
+        
+        <p><strong>Ejemplo: Estructura Básica</strong></p>
+        <pre>
+&lt;form action="/procesar.php" method="POST"&gt;
+    &lt;label for="nombre"&gt;Nombre:&lt;/label&gt;
+    &lt;input type="text" id="nombre" name="nombre" required&gt;
+    
+    &lt;label for="email"&gt;Email:&lt;/label&gt;
+    &lt;input type="email" id="email" name="email" required&gt;
+    
+    &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;
+        </pre>
+
+        <h4>Mis Formularios Creados:</h4>
+        <ul>
+            <li><a href="formularios/registro.html" target="_blank">Formulario de Registro</a> - Formulario completo con validación</li>
+            <li><a href="formularios/contacto.html" target="_blank">Formulario de Contacto</a> - Formulario simple con campos de mensaje</li>
+            <li><a href="formularios/login.html" target="_blank">Formulario de Login</a> - Interfaz de inicio de sesión</li>
+        </ul>
+
+        <h3>2. Tablas HTML</h3>
+        <p><strong>¿Qué son las Tablas HTML?</strong></p>
+        <p>Permiten organizar datos en filas y columnas.</p>
+        <ul>
+            <li>Mostrar datos tabulares</li>
+            <li>Comparar información</li>
+            <li>Crear horarios o calendarios</li>
+            <li>Presentar datos estadísticos</li>
+        </ul>
+        
+        <p><strong>Ejemplo: Estructura Básica</strong></p>
+        <pre>
+&lt;table border="1"&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Nombre&lt;/th&gt;
+        &lt;th&gt;Edad&lt;/th&gt;
+        &lt;th&gt;Ciudad&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Ana&lt;/td&gt;
+        &lt;td&gt;25&lt;/td&gt;
+        &lt;td&gt;Madrid&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+        </pre>
+
+        <h4>Mis Tablas Creadas:</h4>
+        <ul>
+            <li><a href="tablas/productos.html" target="_blank">Tabla de Productos</a> - Información de productos y precios</li>
+            <li><a href="tablas/horarios.html" target="_blank">Tabla de Horarios</a> - Horario semanal de actividades</li>
+            <li><a href="tablas/estudiantes.html" target="_blank">Tabla de Estudiantes</a> - Lista de estudiantes con calificaciones</li>
+        </ul>
+
+        <h3>3. Demostración en Vivo</h3>
+        <h4>Añadir Producto</h4>
+        <form id="formProducto">
+            <div>
+                <label for="producto">Nombre del Producto:</label>
+                <input type="text" id="producto" required>
+            </div>
+            <div>
+                <label for="precio">Precio:</label>
+                <input type="number" id="precio" step="0.01" required>
+            </div>
+            <div>
+                <label for="categoria">Categoría:</label>
+                <select id="categoria" required>
+                    <option value="">Selecciona categoría</option>
+                    <option value="electronica">Electrónica</option>
+                    <option value="ropa">Ropa</option>
+                    <option value="hogar">Hogar</option>
+                </select>
+            </div>
+            <button type="submit">Agregar Producto</button>
+        </form>
+
+        <table border="1" id="tablaProductos">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Categoría</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Laptop Gaming</td>
+                    <td>$1,200.00</td>
+                    <td>Electrónica</td>
+                    <td><button onclick="this.parentElement.parentElement.remove()">Eliminar</button></td>
+                </tr>
+                <tr>
+                    <td>Camiseta Básica</td>
+                    <td>$25.99</td>
+                    <td>Ropa</td>
+                    <td><button onclick="this.parentElement.parentElement.remove()">Eliminar</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <hr>
+
+    <!-- Unidad 3 -->
+    <section id="unidad3">
+        <h2>Unidad 3: CSS y Diseño Web</h2>
+        <p><em>Contenido en desarrollo...</em></p>
+        <p>Esta unidad incluirá:</p>
+        <ul>
+            <li>Estilos CSS</li>
+            <li>Diseño Responsive</li>
+            <li>Flexbox y Grid</li>
+            <li>Animaciones CSS</li>
+        </ul>
+    </section>
+
+    <hr>
+
+    <!-- Unidad 4 -->
+    <section id="unidad4">
+        <h2>Unidad 4: JavaScript Interactivo</h2>
+        <p><em>Contenido en desarrollo...</em></p>
+        <p>Esta unidad incluirá:</p>
+        <ul>
+            <li>Fundamentos de JavaScript</li>
+            <li>Manipulación del DOM</li>
+            <li>Eventos y interactividad</li>
+            <li>APIs y Ajax</li>
+        </ul>
+    </section>
+
+    <script>
+        // JavaScript básico para el formulario de demostración
+        document.getElementById('formProducto').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const producto = document.getElementById('producto').value;
+            const precio = document.getElementById('precio').value;
+            const categoria = document.getElementById('categoria').value;
+            
+            const tabla = document.getElementById('tablaProductos').getElementsByTagName('tbody')[0];
+            const nuevaFila = tabla.insertRow();
+            
+            nuevaFila.innerHTML = `
+                <td>${producto}</td>
+                <td>$${parseFloat(precio).toFixed(2)}</td>
+                <td>${categoria}</td>
+                <td><button onclick="this.parentElement.parentElement.remove()">Eliminar</button></td>
+            `;
+            
+            // Limpiar formulario
+            this.reset();
+        });
+    </script>
+</body>
+</html>

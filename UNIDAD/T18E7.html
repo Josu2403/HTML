@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 7 - Pares e Impares</title>
+</head>
+<body>
+  <h1>Ejercicio 7: Contar números pares e impares</h1>
+
+  <p>Ingresa 5 números enteros y presiona el botón para saber cuántos son pares y cuántos son impares.</p>
+
+  <input type="number" id="n1" placeholder="Número 1">
+  <input type="number" id="n2" placeholder="Número 2">
+  <input type="number" id="n3" placeholder="Número 3">
+  <input type="number" id="n4" placeholder="Número 4">
+  <input type="number" id="n5" placeholder="Número 5">
+
+  <br><br>
+  <button onclick="contar()">Contar Pares e Impares</button>
+
+  <p id="resultado"></p>
+
+  <script>
+    function contar() {
+      // Obtenemos los 5 números del usuario
+      let n1 = parseInt(document.getElementById("n1").value) || 0;
+      let n2 = parseInt(document.getElementById("n2").value) || 0;
+      let n3 = parseInt(document.getElementById("n3").value) || 0;
+      let n4 = parseInt(document.getElementById("n4").value) || 0;
+      let n5 = parseInt(document.getElementById("n5").value) || 0;
+
+      // Guardamos todos los números en una lista 
+      let numeros = [n1, n2, n3, n4, n5];
+
+      // Contadores de pares e impares
+      let pares = 0;
+      let impares = 0;
+
+      // Recorremos cada número
+      for (let i = 0; i < numeros.length; i++) {
+        if (numeros[i] % 2 == 0) {
+          pares++;     // si el resto es 0, es par
+        } else {
+          impares++;   // si el resto no es 0, es impar
+        }
+      }
+
+      // Mostramos el resultado
+      document.getElementById("resultado").innerText =
+        "Pares: " + pares + " | Impares: " + impares;
+    }
+  </script>
+</body>
+</html>

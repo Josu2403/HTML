@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posicionamiento Fijo</title>
+    <link rel="stylesheet" href="CSS39.css">
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h1>Posicionamiento Fijo en CSS</h1>
+            
+            <div class="highlight">
+                <p>Esta página muestra el uso de <strong>position: fixed</strong> con dos elementos:</p>
+                <ul>
+                    <li>Una barra inferior fija (siempre visible en la parte inferior)</li>
+                    <li>Una barra lateral derecha fija (siempre visible a la derecha)</li>
+                </ul>
+            </div>
+
+            <h2>Características del posicionamiento fijo</h2>
+            <p>Los elementos con <strong>position: fixed</strong> se posicionan relativamente a la ventana del navegador, no se mueven al hacer scroll y permanecen en la misma posición.</p>
+
+            <div class="code-example">
+                #barrainferior {<br>
+                &nbsp;&nbsp;position: fixed;<br>
+                &nbsp;&nbsp;bottom: 0px;<br>
+                &nbsp;&nbsp;width: 100%;<br>
+                &nbsp;&nbsp;height: 50px;<br>
+                &nbsp;&nbsp;background-color: black;<br>
+                &nbsp;&nbsp;color: white;<br>
+                }<br><br>
+                #barralateralderecha {<br>
+                &nbsp;&nbsp;position: fixed;<br>
+                &nbsp;&nbsp;right: 0px;<br>
+                &nbsp;&nbsp;top: 0px;<br>
+                &nbsp;&nbsp;width: 200px;<br>
+                &nbsp;&nbsp;height: 100%;<br>
+                &nbsp;&nbsp;background-color: #eee;<br>
+                }
+            </div>
+
+            <h2>Contenido de ejemplo</h2>
+            <p>Este contenido es para demostrar cómo los elementos con posición fija permanecen visibles mientras haces scroll.</p>
+            
+            <p>Aquí va el texto que queramos mostrar.</p>
+            <p>Aquí va el texto que queramos mostrar.</p>
+            <p>Aquí va el texto que queramos mostrar.</p>
+            <p>Aquí va el texto que queramos mostrar.</p>
+
+            <h3>Más contenido</h3>
+            <p>Aquí seguimos el mismo patrón, texto que queremos mostrar.</p>
+            <p>Aquí seguimos el mismo patrón, texto que queremos mostrar.</p>
+            <p>Aquí seguimos el mismo patrón, texto que queremos mostrar.</p>
+            <p>Aquí seguimos el mismo patrón, texto que queremos mostrar.</p>
+
+            <h3>Continuamos...</h3>
+            <p>Y aquí seguiremos haciendo lo mismo, ya que ésta es una continuación.</p>
+            <p>Y aquí seguiremos haciendo lo mismo, ya que ésta es una continuación.</p>
+            <p>Y aquí seguiremos haciendo lo mismo, ya que ésta es una continuación.</p>
+            <p>Y aquí seguiremos haciendo lo mismo, ya que ésta es una continuación.</p>
+            
+            <h3>Última sección</h3>
+            <p>Ésta es la última sección que tenemos para mostrar texto.</p>
+            <p>Ésta es la última sección que tenemos para mostrar texto.</p>
+            <p>Ésta es la última sección que tenemos para mostrar texto.</p>
+            <p>Ésta es la última sección que tenemos para mostrar texto.</p>
+        </div>
+    </div>
+
+    <div id="barrainferior">
+        <div class="footer-content">
+            <div class="copyright">
+                &copy; 2024 - Todos los derechos reservados
+            </div>
+            <div class="footer-links">
+                <a href="#">Inicio</a>
+                <a href="#">Acerca de</a>
+                <a href="#">Contacto</a>
+                <a href="#">Privacidad</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="barralateralderecha">
+        <h3>Menú Lateral</h3>
+        <div class="menu-item">Inicio</div>
+        <div class="menu-item">Servicios</div>
+        <div class="menu-item">Productos</div>
+        <div class="menu-item">Galería</div>
+        <div class="menu-item">Blog</div>
+        <div class="menu-item">Contacto</div>
+        
+        <h3 style="margin-top: 30px;">Enlaces Rápidos</h3>
+        <div class="menu-item">Soporte</div>
+        <div class="menu-item">FAQ</div>
+        <div class="menu-item">Documentación</div>
+    </div>
+</body>
+</html>

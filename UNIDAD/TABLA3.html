@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ejercicio sobre tablas (III) - Blanco y Negro</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #fff; /* Fondo blanco */
+    color: #000; /* Texto negro */
+  }
+  .exercise-section {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 30px;
+  }
+  h2 {
+    color: #000; /* Título negro */
+    margin-top: 0;
+  }
+  table {
+    border-collapse: collapse;
+    width: auto;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #000; /* Borde negro */
+  }
+  th, td {
+    border: 1px solid #000; /* Borde negro */
+    padding: 8px 12px;
+    text-align: left;
+  }
+  th {
+    font-weight: bold;
+    color: #000; /* Texto negro */
+  }
+  .double-border-cell {
+   
+    padding: 5px;
+  }
+  .double-border-table {
+    border: 3px double #000; /* Borde doble negro */
+  }
+</style>
+</head>
+<body>
+  <div class="exercise-section">
+
+    <table class="double-border-table">
+      <thead>
+        <tr>
+          <th colspan="3">A</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="double-border-cell">B1</td>
+          <td colspan="2"></td>
+        </tr>
+        <tr>
+          <td class="double-border-cell">B2</td>
+          <td class="double-border-cell">C1</td>
+          <td class="double-border-cell">C2</td>
+        </tr>
+        <tr>
+          <td class="double-border-cell">B3</td>
+          <td colspan="2"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

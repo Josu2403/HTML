@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 19 - Propiedades de Fondo</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Fondo con imagen SVG (simulando fondo.jpg) */
+        body {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%23667eea"/><stop offset="100%" stop-color="%23764ba2"/></linearGradient></defs><rect width="200" height="200" fill="url(%23grad)" opacity="0.3"/><circle cx="50" cy="50" r="20" fill="%23ffffff" opacity="0.2"/><circle cx="150" cy="150" r="30" fill="%23ffffff" opacity="0.2"/><polygon points="100,20 140,100 60,100" fill="%23ffffff" opacity="0.2"/></svg>');
+            background-repeat: no-repeat;
+            background-attachment: scroll; /* Cambiar a fixed para ver la diferencia */
+            background-size: cover;
+            background-position: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+
+        .subtitulo {
+            color: #7f8c8d;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .demo-section {
+            background: rgba(255, 255, 255, 0.92);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .titulo-ejercicio {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .code-example {
+            background: #2d3436;
+            color: #dfe6e9;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+            overflow-x: auto;
+            border-left: 4px solid #3498db;
+        }
+
+        .propiedades-lista {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .propiedades-lista li {
+            background: white;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .texto-largo {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            line-height: 1.8;
+        }
+
+        .texto-largo p {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .comparacion {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-left: 4px solid #fdcb6e;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .control-fondo {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 0 10px;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+        }
+
+        .btn.active {
+            background: #e74c3c;
+        }
+
+        .explicacion {
+            background: #e8f4fc;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #3498db;
+        }
+
+        /* Efectos para mostrar el comportamiento del fondo */
+        .seccion-destacada {
+            background: rgba(52, 152, 219, 0.1);
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 10px;
+            border: 2px dashed #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Ejercicio 19 - Propiedades de Fondo</h1>
+            <div class="subtitulo">Probando background-attachment: scroll vs fixed</div>
+        </div>
+
+        <div class="demo-section">
+            <h2 class="titulo-ejercicio">Configuración del Fondo</h2>
+            
+            <div class="code-example">
+                body {<br>
+                &nbsp;&nbsp;background-image: url('fondo.jpg');<br>
+                &nbsp;&nbsp;background-repeat: no-repeat;<br>
+                &nbsp;&nbsp;background-attachment: <span id="attachment-value">scroll</span>;<br>
+                &nbsp;&nbsp;background-size: cover;<br>
+                &nbsp;&nbsp;background-position: center;<br>
+                }
+            </div>
+
+            <div class="control-fondo">
+                <h3>Cambiar background-attachment:</h3>
+                <button class="btn active" onclick="cambiarFondo('scroll')">scroll</button>
+                <button class="btn" onclick="cambiarFondo('fixed')">fixed</button>
+                <p><small>Haz scroll hacia abajo para ver la diferencia</small></p>
+            </div>
+
+            <div class="explicacion">
+                <h4>¿Qué hace background-attachment?</h4>
+                <p>Esta propiedad determina si la imagen de fondo se desplaza con el contenido (scroll) o permanece fija en la ventana gráfica (fixed).</p>
+                
+                <ul class="propiedades-lista">
+                    <li><strong>scroll</strong>: La imagen se desplaza con el contenido (comportamiento por defecto)</li>
+                    <li><strong>fixed</strong>: La imagen permanece fija en la pantalla mientras el contenido se desplaza</li>
+                    <li><strong>local</strong>: La imagen se desplaza con el contenido del elemento</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Texto largo para permitir scroll -->
+        <div class="texto-largo">
+            <h2>Contenido para Probar el Scroll</h2>
+            
+            <div class="seccion-destacada">
+                <h3>🔍 Comienza a hacer scroll desde aquí</h3>
+                <p>Observa cómo se comporta la imagen de fondo según la configuración elegida.</p>
+            </div>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+            
+            <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>
+
+            <div class="seccion-destacada">
+                <h3>📌 Punto de referencia intermedio</h3>
+                <p>Sigue desplazándote hacia abajo para continuar viendo el efecto.</p>
+            </div>
+
+            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+            
+            <p>Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit.</p>
+            
+            <p>Quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</p>
+
+            <div class="seccion-destacada">
+                <h3>🎯 Casi llegando al final</h3>
+                <p>Observa la posición de la imagen de fondo mientras te desplazas.</p>
+            </div>
+
+            <p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.</p>
+            
+            <p>Nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+            
+            <p>Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.</p>
+
+            <div class="seccion-destacada">
+                <h3>🏁 ¡Llegaste al final!</h3>
+                <p>Ahora cambia entre "scroll" y "fixed" y vuelve a hacer scroll para notar la diferencia.</p>
+            </div>
+
+            <p>Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt.</p>
+            
+            <p>Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien.</p>
+            
+            <p>Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Nullam accumsan lorem in dui. Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.</p>
+        </div>
+
+        <div class="comparacion">
+            <h4>📋 Resumen de la diferencia:</h4>
+            <p><strong>Con scroll:</strong> La imagen de fondo se desplaza junto con el contenido de la página.</p>
+            <p><strong>Con fixed:</strong> La imagen de fondo permanece estática en la pantalla mientras el contenido se desplaza sobre ella.</p>
+            <p><strong>Consejo:</strong> Prueba ambos modos y observa cómo cambia la experiencia visual al desplazarte.</p>
+        </div>
+    </div>
+
+    <script>
+        function cambiarFondo(tipo) {
+            // Cambiar el valor en el CSS
+            document.body.style.backgroundAttachment = tipo;
+            
+            // Actualizar el valor mostrado en el código
+            document.getElementById('attachment-value').textContent = tipo;
+            
+            // Actualizar botones activos
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Scroll hacia arriba para ver mejor el efecto
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>

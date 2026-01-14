@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posicionamiento Relativo</title>
+    <link rel="stylesheet" href="CSS36.css">
+</head>
+<body>
+    <div class="contenedor">
+        <h1>Posicionamiento Relativo</h1>
+        
+        <div class="parrafo1">
+            <strong>Primer Párrafo</strong><br>
+            Este es el primer párrafo en su posición normal dentro del flujo del documento. 
+            Tiene un fondo azul claro y se encuentra en su ubicación original sin ningún 
+            tipo de desplazamiento aplicado.
+        </div>
+
+        <div class="parrafo2">
+            <strong>Segundo Párrafo</strong><br>
+            Este es el segundo párrafo con <strong>position: relative</strong> aplicado. 
+            Se ha desplazado <strong>60px hacia arriba</strong> (top: -60px) y 
+            <strong>20px hacia la derecha</strong> (left: 20px) desde su posición original, 
+            quedando casi superpuesto sobre el primer párrafo.
+        </div>
+
+        <div class="explicacion">
+            <strong>Explicación:</strong> El posicionamiento relativo desplaza un elemento 
+            desde su posición original en el flujo normal del documento, pero sin afectar 
+            la posición de los elementos circundantes. El espacio original del elemento 
+            desplazado se mantiene reservado.
+        </div>
+
+        <div class="codigo">
+            .parrafo2 {<br>
+            &nbsp;&nbsp;position: relative;<br>
+            &nbsp;&nbsp;top: -60px;<br>
+            &nbsp;&nbsp;left: 20px;<br>
+            &nbsp;&nbsp;z-index: 1;<br>
+            }
+        </div>
+    </div>
+</body>
+</html>

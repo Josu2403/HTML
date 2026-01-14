@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla Avanzada - Gestión de Productos</title>
+    <style>
+        .table-controls {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .table-controls input, .table-controls select, .table-controls button {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .table-controls button {
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .table-controls button:hover {
+            background: #0056b3;
+        }
+        
+        .advanced-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+        
+        .advanced-table th, .advanced-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .advanced-table th {
+            background-color: #f8f9fa;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .advanced-table th:hover {
+            background-color: #e9ecef;
+        }
+        
+        .sort-indicator::after {
+            content: " ↕";
+            font-size: 12px;
+        }
+        
+        .sort-asc::after {
+            content: " ↑";
+            color: #007bff;
+        }
+        
+        .sort-desc::after {
+            content: " ↓";
+            color: #007bff;
+        }
+        
+        .table-footer {
+            margin: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .pagination {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .pagination button {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .pagination button.active {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        
+        .pagination button:hover:not(.active) {
+            background: #f8f9fa;
+        }
+        
+        .action-btn {
+            padding: 4px 8px;
+            margin: 0 2px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .edit-btn { background: #ffc107; color: black; }
+        .delete-btn { background: #dc3545; color: white; }
+        .view-btn { background: #28a745; color: white; }
+        
+        .highlight { background-color: #fff3cd !important; }
+        .low-stock { background-color: #f8d7da !important; }
+        
+        .stats {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h2>Tabla Avanzada - Gestión de Inventario</h2>
+
+    <!-- Controles de la tabla -->
+    <div class="table-controls">
+        <input type="text" id="searchInput" placeholder="Buscar en todos los campos...">
+        <select id="categoryFilter">
+            <option value="">Todas las categorías</option>
+            <option value="Electrónicos">Electrónicos</option>
+            <option value="Ropa">Ropa</option>
+            <option value="Hogar">Hogar</option>
+            <option value="Deportes">Deportes</option>
+        </select>
+        <select id="statusFilter">
+            <option value="">Todos los estados</option>
+            <option value="En stock">En stock</option>
+            <option value="Bajo stock">Bajo stock</option>
+            <option value="Agotado">Agotado</option>
+        </select>
+        <button onclick="addNewRow()">➕ Agregar Producto</button>
+        <button onclick="exportToCSV()">📊 Exportar CSV</button>
+        <button onclick="toggleEditMode()">✏️ Modo Edición</button>
+    </div>
+
+    <!-- Estadísticas -->
+    <div class="stats" id="tableStats">
+        Cargando estadísticas...
+    </div>
+
+    <!-- Tabla principal -->
+    <table class="advanced-table" id="productTable">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)" class="sort-indicator">ID</th>
+                <th onclick="sortTable(1)" class="sort-indicator">Producto</th>
+                <th onclick="sortTable(2)" class="sort-indicator">Categoría</th>
+                <th onclick="sortTable(3)" class="sort-indicator">Precio</th>
+                <th onclick="sortTable(4)" class="sort-indicator">Stock</th>
+                <th onclick="sortTable(5)" class="sort-indicator">Estado</th>
+                <th onclick="sortTable(6)" class="sort-indicator">Fecha</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <!-- Los datos se cargan con JavaScript -->
+        </tbody>
+    </table>
+
+    <!-- Paginación -->
+    <div class="table-footer">
+        <div>
+            Mostrando <span id="showingCount">0</span> de <span id="totalCount">0</span> productos
+        </div>
+        <div class="pagination" id="pagination">
+            <!-- La paginación se genera con JavaScript -->
+        </div>
+        <div>
+            <select id="rowsPerPage" onchange="changeRowsPerPage()">
+                <option value="5">5 por página</option>
+                <option value="10" selected>10 por página</option>
+                <option value="20">20 por página</option>
+                <option value="50">50 por página</option>
+            </select>
+        </div>
+    </div>
+
+    <script>
+        // Datos de ejemplo
+        let products = [
+            { id: 1, name: "Laptop Gaming", category: "Electrónicos", price: 1200, stock: 15, status: "En stock", date: "2024-01-15" },
+            { id: 2, name: "Smartphone", category: "Electrónicos", price: 800, stock: 8, status: "Bajo stock", date: "2024-01-10" },
+            { id: 3, name: "Camiseta Deportiva", category: "Ropa", price: 25, stock: 0, status: "Agotado", date: "2024-01-08" },
+            { id: 4, name: "Silla Oficina", category: "Hogar", price: 150, stock: 12, status: "En stock", date: "2024-01-12" },
+            { id: 5, name: "Balón Fútbol", category: "Deportes", price: 30, stock: 5, status: "Bajo stock", date: "2024-01-05" },
+            { id: 6, name: "Tablet", category: "Electrónicos", price: 400, stock: 20, status: "En stock", date: "2024-01-18" },
+            { id: 7, name: "Zapatos Running", category: "Ropa", price: 80, stock: 3, status: "Bajo stock", date: "2024-01-14" },
+            { id: 8, name: "Lámpara LED", category: "Hogar", price: 45, stock: 25, status: "En stock", date: "2024-01-20" },
+            { id: 9, name: "Raqueta Tenis", category: "Deportes", price: 120, stock: 0, status: "Agotado", date: "2024-01-03" },
+            { id: 10, name: "Monitor 24\"", category: "Electrónicos", price: 300, stock: 7, status: "Bajo stock", date: "2024-01-16" }
+        ];
+
+        let currentPage = 1;
+        let rowsPerPage = 10;
+        let currentSort = { column: 0, direction: 'asc' };
+        let editMode = false;
+
+        // Inicializar la tabla
+        function initializeTable() {
+            renderTable();
+            updateStats();
+            setupEventListeners();
+        }
+
+        // Renderizar la tabla
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+            const filteredData = filterData();
+            const paginatedData = paginateData(filteredData);
+            
+            tbody.innerHTML = '';
+            
+            paginatedData.forEach(product => {
+                const row = document.createElement('tr');
+                if (product.stock === 0) {
+                    row.classList.add('low-stock');
+                } else if (product.stock < 5) {
+                    row.classList.add('highlight');
+                }
+                
+                row.innerHTML = `
+                    <td>${product.id}</td>
+                    <td>${product.name}</td>
+                    <td>${product.category}</td>
+                    <td>$${product.price}</td>
+                    <td>${product.stock}</td>
+                    <td>${product.status}</td>
+                    <td>${formatDate(product.date)}</td>
+                    <td>
+                        <button class="action-btn view-btn" onclick="viewProduct(${product.id})">👁️</button>
+                        <button class="action-btn edit-btn" onclick="editProduct(${product.id})">✏️</button>
+                        <button class="action-btn delete-btn" onclick="deleteProduct(${product.id})">🗑️</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            updatePagination(filteredData.length);
+            updateShowingCount(paginatedData.length, filteredData.length);
+        }
+
+        // Filtrar datos
+        function filterData() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+            
+            return products.filter(product => {
+                const matchesSearch = !searchTerm || 
+                    Object.values(product).some(value => 
+                        value.toString().toLowerCase().includes(searchTerm)
+                    );
+                const matchesCategory = !categoryFilter || product.category === categoryFilter;
+                const matchesStatus = !statusFilter || product.status === statusFilter;
+                
+                return matchesSearch && matchesCategory && matchesStatus;
+            });
+        }
+
+        // Paginar datos
+        function paginateData(data) {
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            return data.slice(start, end);
+        }
+
+        // Actualizar paginación
+        function updatePagination(totalItems) {
+            const totalPages = Math.ceil(totalItems / rowsPerPage);
+            const paginationDiv = document.getElementById('pagination');
+            
+            paginationDiv.innerHTML = '';
+            
+            // Botón anterior
+            const prevButton = document.createElement('button');
+            prevButton.textContent = '←';
+            prevButton.disabled = currentPage === 1;
+            prevButton.onclick = () => changePage(currentPage - 1);
+            paginationDiv.appendChild(prevButton);
+            
+            // Botones de páginas
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.textContent = i;
+                button.classList.toggle('active', i === currentPage);
+                button.onclick = () => changePage(i);
+                paginationDiv.appendChild(button);
+            }
+            
+            // Botón siguiente
+            const nextButton = document.createElement('button');
+            nextButton.textContent = '→';
+            nextButton.disabled = currentPage === totalPages;
+            nextButton.onclick = () => changePage(currentPage + 1);
+            paginationDiv.appendChild(nextButton);
+        }
+
+        // Ordenar tabla
+        function sortTable(columnIndex) {
+            if (currentSort.column === columnIndex) {
+                currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSort.column = columnIndex;
+                currentSort.direction = 'asc';
+            }
+            
+            const headers = document.querySelectorAll('th');
+            headers.forEach((header, index) => {
+                header.classList.remove('sort-asc', 'sort-desc');
+                if (index === currentSort.column) {
+                    header.classList.add(`sort-${currentSort.direction}`);
+                }
+            });
+            
+            products.sort((a, b) => {
+                let aValue = Object.values(a)[columnIndex];
+                let bValue = Object.values(b)[columnIndex];
+                
+                // Convertir a números si es posible
+                if (!isNaN(aValue) && !isNaN(bValue)) {
+                    aValue = parseFloat(aValue);
+                    bValue = parseFloat(bValue);
+                }
+                
+                if (currentSort.direction === 'asc') {
+                    return aValue > bValue ? 1 : -1;
+                } else {
+                    return aValue < bValue ? 1 : -1;
+                }
+            });
+            
+            renderTable();
+        }
+
+        // Funciones de acciones
+        function viewProduct(id) {
+            const product = products.find(p => p.id === id);
+            alert(`Vista detallada:\n\nProducto: ${product.name}\nCategoría: ${product.category}\nPrecio: $${product.price}\nStock: ${product.stock}\nEstado: ${product.status}\nFecha: ${product.date}`);
+        }
+
+        function editProduct(id) {
+            const product = products.find(p => p.id === id);
+            const newName = prompt('Nuevo nombre:', product.name);
+            const newPrice = prompt('Nuevo precio:', product.price);
+            const newStock = prompt('Nuevo stock:', product.stock);
+            
+            if (newName && newPrice && newStock) {
+                product.name = newName;
+                product.price = parseFloat(newPrice);
+                product.stock = parseInt(newStock);
+                product.status = getStatus(product.stock);
+                renderTable();
+                updateStats();
+            }
+        }
+
+        function deleteProduct(id) {
+            if (confirm('¿Estás seguro de que quieres eliminar este producto?')) {
+                products = products.filter(p => p.id !== id);
+                renderTable();
+                updateStats();
+            }
+        }
+
+        function addNewRow() {
+            const newId = Math.max(...products.map(p => p.id)) + 1;
+            const newProduct = {
+                id: newId,
+                name: prompt('Nombre del nuevo producto:') || 'Nuevo Producto',
+                category: prompt('Categoría:') || 'General',
+                price: parseFloat(prompt('Precio:')) || 0,
+                stock: parseInt(prompt('Stock:')) || 0,
+                status: 'En stock',
+                date: new Date().toISOString().split('T')[0]
+            };
+            
+            newProduct.status = getStatus(newProduct.stock);
+            products.unshift(newProduct);
+            renderTable();
+            updateStats();
+        }
+
+        // Funciones utilitarias
+        function getStatus(stock) {
+            if (stock === 0) return 'Agotado';
+            if (stock < 5) return 'Bajo stock';
+            return 'En stock';
+        }
+
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleDateString('es-ES');
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            renderTable();
+        }
+
+        function changeRowsPerPage() {
+            rowsPerPage = parseInt(document.getElementById('rowsPerPage').value);
+            currentPage = 1;
+            renderTable();
+        }
+
+        function updateStats() {
+            const totalProducts = products.length;
+            const inStock = products.filter(p => p.status === 'En stock').length;
+            const lowStock = products.filter(p => p.status === 'Bajo stock').length;
+            const outOfStock = products.filter(p => p.status === 'Agotado').length;
+            const totalValue = products.reduce((sum, p) => sum + (p.price * p.stock), 0);
+            
+            document.getElementById('tableStats').innerHTML = `
+                <strong>Estadísticas:</strong> 
+                Total: ${totalProducts} productos | 
+                En stock: ${inStock} | 
+                Bajo stock: ${lowStock} | 
+                Agotados: ${outOfStock} |
+                Valor total: $${totalValue.toFixed(2)}
+            `;
+        }
+
+        function updateShowingCount(showing, total) {
+            document.getElementById('showingCount').textContent = showing;
+            document.getElementById('totalCount').textContent = total;
+        }
+
+        function exportToCSV() {
+            const headers = ['ID', 'Producto', 'Categoría', 'Precio', 'Stock', 'Estado', 'Fecha'];
+            const csvContent = [
+                headers.join(','),
+                ...products.map(product => [
+                    product.id,
+                    `"${product.name}"`,
+                    product.category,
+                    product.price,
+                    product.stock,
+                    product.status,
+                    product.date
+                ].join(','))
+            ].join('\n');
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'inventario.csv';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        function toggleEditMode() {
+            editMode = !editMode;
+            const button = document.querySelector('button[onclick="toggleEditMode()"]');
+            button.textContent = editMode ? '💾 Guardar' : '✏️ Modo Edición';
+            button.style.background = editMode ? '#28a745' : '#007bff';
+            
+            // Aquí puedes agregar funcionalidad para edición en línea
+            alert(editMode ? 'Modo edición activado - Haz doble clic en las celdas para editar' : 'Modo edición desactivado');
+        }
+
+        // Configurar event listeners
+        function setupEventListeners() {
+            document.getElementById('searchInput').addEventListener('input', () => {
+                currentPage = 1;
+                renderTable();
+            });
+            
+            document.getElementById('categoryFilter').addEventListener('change', () => {
+                currentPage = 1;
+                renderTable();
+            });
+            
+            document.getElementById('statusFilter').addEventListener('change', () => {
+                currentPage = 1;
+                renderTable();
+            });
+        }
+
+        // Inicializar cuando se carga la página
+        document.addEventListener('DOMContentLoaded', initializeTable);
+    </script>
+</body>
+</html>

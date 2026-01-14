@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Clasificacion</title></head>
+<body>
+<script>
+  let neg=0, pos=0, mult15=0, acumPares=0;
+
+  for (let i=1; i<=10; i++){
+    let n = parseInt(prompt("Ingrese numero " + i + ":"));
+    if (n < 0) neg++;
+    else if (n > 0) pos++;
+    if (n % 15 == 0) mult15++;
+    if (n % 2 == 0) acumPares += n;
+  }
+
+  document.write("Negativos: "+neg+"<br>");
+  document.write("Positivos: "+pos+"<br>");
+  document.write("Multiplos de 15: "+mult15+"<br>");
+  document.write("Suma de pares: "+acumPares);
+</script>
+</body>
+</html>

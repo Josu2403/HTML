@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Coordenadas</title></head>
+<body>
+<script>
+  let n = parseInt(prompt("¿Cuantos puntos desea ingresar?"));
+  let c1=0, c2=0, c3=0, c4=0;
+
+  for (let i=1; i<=n; i++){
+    let x = parseInt(prompt("Coordenada X del punto "+i+":"));
+    let y = parseInt(prompt("Coordenada Y del punto "+i+":"));
+    if (x>0 && y>0) c1++;
+    else if (x<0 && y>0) c2++;
+    else if (x<0 && y<0) c3++;
+    else if (x>0 && y<0) c4++;
+  }
+
+  document.write("Cuadrante I: "+c1+"<br>");
+  document.write("Cuadrante II: "+c2+"<br>");
+  document.write("Cuadrante III: "+c3+"<br>");
+  document.write("Cuadrante IV: "+c4);
+</script>
+</body>
+</html>

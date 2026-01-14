@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejemplos de Citaciones en HTML</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+      background: #f9f9f9;
+    }
+
+    /* Estilo general */
+    h2 {
+      color: #2c3e50;
+      margin-top: 30px;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+    }
+
+    /* q */
+    q {
+      color: #555;
+      font-style: italic;
+      background: #eef;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* blockquote */
+    blockquote {
+      border-left: 5px solid #3498db;
+      margin: 15px 0;
+      padding: 10px 20px;
+      background: #ecf6fc;
+      color: #2c3e50;
+      font-style: italic;
+    }
+    blockquote::before {
+      content: "❝ ";
+      font-size: 1.5em;
+      color: #3498db;
+    }
+    blockquote::after {
+      content: " ❞";
+      font-size: 1.5em;
+      color: #3498db;
+    }
+
+    /* abbr */
+    abbr {
+      border-bottom: 1px dotted #333;
+      cursor: help;
+      color: #c0392b;
+    }
+
+    /* address */
+    address {
+      background: #fff3cd;
+      border-left: 4px solid #e67e22;
+      padding: 10px 15px;
+      margin-top: 10px;
+      font-style: normal;
+      color: #7f6000;
+    }
+
+    /* cite */
+    cite {
+      font-style: italic;
+      color: #8e44ad;
+    }
+
+    /* bdo */
+    .rtl-text {
+      display: inline-block;
+      padding: 5px 10px;
+      background: #d1f7d6;
+      border-radius: 4px;
+      font-weight: bold;
+      color: #2e7d32;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Ejemplos de citaciones en HTML con CSS</h1>
+
+  <h2>&lt;q&gt; – Cotización breve</h2>
+  <p>WWF dice: <q>Protect nature for future generations</q>.</p>
+
+  <h2>&lt;blockquote&gt; – Cotización extensa</h2>
+  <blockquote cite="https://www.wwf.org/about">
+    Our vision is a world where human needs are met in harmony with nature.
+  </blockquote>
+
+  <h2>&lt;abbr&gt; – Abreviatura</h2>
+  <p>La <abbr title="Organización de las Naciones Unidas">ONU</abbr> fue fundada en 1945.</p>
+
+  <h2>&lt;address&gt; – Información de contacto</h2>
+  <address>
+    Escrita por María Pérez.<br>
+    Contáctame en: <a href="mailto:maria@example.com">maria@example.com</a><br>
+    Aguascalientes, México
+  </address>
+
+  <h2>&lt;cite&gt; – Título de una obra</h2>
+  <p>Mi película favorita es <cite>El Laberinto del Fauno</cite>.</p>
+
+  <h2>&lt;bdo&gt; – Dirección del texto</h2>
+  <p>Texto normal.</p>
+  <p><bdo dir="rtl" class="rtl-text">Texto de derecha a izquierda</bdo></p>
+
+</body>
+</html>

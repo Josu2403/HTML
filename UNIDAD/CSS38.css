@@ -1,0 +1,165 @@
+/* Reset y estilos generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: #333;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.description {
+    text-align: center;
+    color: white;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+.demo-container {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    margin-bottom: 40px;
+    overflow: hidden;
+}
+
+/* Estilos para los divs con posicionamiento absoluto */
+.box {
+    position: absolute;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.box:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.box-1 {
+    width: 400px;
+    height: 300px;
+    background: linear-gradient(45deg, #FF416C, #FF4B2B);
+    top: 50px;
+    left: 50px;
+    z-index: 1; /* El más pequeño z-index, queda abajo */
+}
+
+.box-2 {
+    width: 350px;
+    height: 250px;
+    background: linear-gradient(45deg, #38ef7d, #11998e);
+    top: 100px;
+    left: 100px;
+    z-index: 2; /* z-index medio, queda en el medio */
+}
+
+.box-3 {
+    width: 300px;
+    height: 200px;
+    background: linear-gradient(45deg, #4A00E0, #8E2DE2);
+    top: 150px;
+    left: 150px;
+    z-index: 3; /* El mayor z-index, queda encima */
+}
+
+.controls {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+}
+
+.controls h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #4A00E0;
+}
+
+.z-index-control {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.z-index-control label {
+    font-weight: bold;
+    width: 120px;
+}
+
+.z-index-control span {
+    font-weight: bold;
+    width: 30px;
+    text-align: center;
+}
+
+input[type="range"] {
+    flex-grow: 1;
+    margin: 0 15px;
+}
+
+.explanation {
+    margin-top: 30px;
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.explanation h2 {
+    color: #4A00E0;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.explanation p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.note {
+    background-color: #fff9e6;
+    padding: 15px;
+    border-left: 4px solid #ffc107;
+    margin-top: 15px;
+}

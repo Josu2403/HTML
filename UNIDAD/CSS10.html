@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Estilos por contexto - Escala de grises</title>
+    <style>
+        /* 
+        ESCALA DE GRISES:
+        Cuando los tres valores RGB son iguales, obtenemos un gris
+        #dabbbb = NO es gris (valores diferentes)
+        #888888 = SÍ es gris (mismo valor para R, G y B)
+        */
+
+        /* Elementos em dentro de h1 - Gris más claro */
+        h1 em {
+            color: #f0f0f0;
+            background-color: #333333;
+            padding: 2px 5px;
+        }
+
+        /* Elementos em dentro de h2 */
+        h2 em {
+            color: #d8d8d8;
+            background-color: #444444;
+            padding: 2px 5px;
+        }
+
+        /* Elementos em dentro de h3 */
+        h3 em {
+            color: #c0c0c0;
+            background-color: #555555;
+            padding: 2px 5px;
+        }
+
+        /* Elementos em dentro de h4 */
+        h4 em {
+            color: #a8a8a8;
+            background-color: #666666;
+            padding: 2px 5px;
+        }
+
+        /* Elementos em dentro de h5 */
+        h5 em {
+            color: #909090;
+            background-color: #777777;
+            padding: 2px 5px;
+        }
+
+        /* Elementos em dentro de h6 - Gris más oscuro */
+        h6 em {
+            color: #787878;
+            background-color: #888888;
+            padding: 2px 5px;
+        }
+
+        /* Estilos base para los títulos */
+        h1, h2, h3, h4, h5, h6 {
+            margin: 20px 0;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Título nivel 1 con texto <em>énfasis en h1</em> - Gris más claro</h1>
+    <h2>Título nivel 2 con texto <em>énfasis en h2</em></h2>
+    <h3>Título nivel 3 con texto <em>énfasis en h3</em></h3>
+    <h4>Título nivel 4 con texto <em>énfasis en h4</em></h4>
+    <h5>Título nivel 5 con texto <em>énfasis en h5</em></h5>
+    <h6>Título nivel 6 con texto <em>énfasis en h6</em> - Gris más oscuro</h6>
+
+    <div style="margin-top: 40px; padding: 20px; background: #2a2a2a;">
+        <h3>Explicación de la escala de grises:</h3>
+        <p>Los valores de gris van de más claro a más oscuro:</p>
+        <ul>
+            <li><strong>h1 em:</strong> #f0f0f0 (más claro)</li>
+            <li><strong>h2 em:</strong> #d8d8d8</li>
+            <li><strong>h3 em:</strong> #c0c0c0</li>
+            <li><strong>h4 em:</strong> #a8a8a8</li>
+            <li><strong>h5 em:</strong> #909090</li>
+            <li><strong>h6 em:</strong> #787878 (más oscuro)</li>
+        </ul>
+        <p><em>Nota: Cuando los tres valores RGB son iguales (ej: #888888) obtenemos un color gris puro.</em></p>
+    </div>
+</body>
+</html>

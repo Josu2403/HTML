@@ -1,0 +1,29 @@
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fecha actual</title>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <script>
+      function mostrarFecha() {
+        let fecha = new Date();
+        let dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+        let diaSemana = dias[fecha.getDay()];
+
+        document.write("Hoy es: " + diaSemana + "<br>");
+        document.write(fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear());
+      }
+
+      mostrarFecha();
+    </script>
+  </body>
+</html>
+
+
+<!-- Obtiene la fecha actual.
+Usa getDay() para saber qué día de la semana es (0 = Domingo, 6 = Sábado).
+Usa un arreglo (dias[]) para convertir ese número en texto.
+Muestra el día y la fecha completa con document.write(). -->

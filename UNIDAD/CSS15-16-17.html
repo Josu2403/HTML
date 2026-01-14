@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios 15, 16 y 17 - Bordes, Padding y Márgenes</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        
+        .ejercicio {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 5px solid #3498db;
+        }
+        
+        .titulo-ejercicio {
+            color: #2c3e50;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #bdc3c7;
+        }
+        
+        .demo-area {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px dashed #7f8c8d;
+        }
+        
+        .code-example {
+            background: #2d3436;
+            color: #dfe6e9;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        
+        /* Ejercicio 15 - Clase titulosecundario */
+        .titulosecundario {
+            border-top-width: 2px;
+            border-bottom-width: 2px;
+            border-left-width: 0;
+            border-right-width: 0;
+            border-style: dashed;
+            border-color: #e74c3c;
+            padding: 15px;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            text-align: center;
+            color: #2d3436;
+            font-size: 1.4em;
+            margin: 20px 0;
+        }
+        
+        /* Ejercicio 16 - Clase titulo con padding */
+        .titulo {
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 1.8em;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Ejercicio 17 - Márgenes para títulos */
+        h1, h2 {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            padding: 12px;
+            border-radius: 5px;
+        }
+        
+        h1 {
+            background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+            color: white;
+        }
+        
+        h2 {
+            background: linear-gradient(135deg, #81ecec 0%, #00cec9 100%);
+            color: #2d3436;
+        }
+        
+        /* Estilos para visualización de márgenes */
+        .margen-demo {
+            background: #dfe6e9;
+            padding: 10px;
+            border: 2px solid #636e72;
+            margin: 10px 0;
+        }
+        
+        .margen-demo h1,
+        .margen-demo h2 {
+            background: white;
+            border: 1px solid #b2bec3;
+        }
+        
+        .info-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-left: 4px solid #fdcb6e;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .propiedades-lista {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .propiedades-lista li {
+            background: white;
+            margin: 8px 0;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .propiedades-lista strong {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ejercicios 15, 16 y 17 - Bordes, Padding y Márgenes</h1>
+        
+        <!-- Ejercicio 15 - Bordes superior e inferior -->
+        <div class="ejercicio">
+            <h2 class="titulo-ejercicio">Ejercicio 15: Bordes Superior e Inferior</h2>
+            
+            <div class="demo-area">
+                <h3 class="titulosecundario">Título Secundario con Bordes Superior e Inferior</h3>
+                <p>Este título utiliza la clase <strong>.titulosecundario</strong> que define bordes solo en la parte superior e inferior.</p>
+                
+                <div class="code-example">
+                    .titulosecundario {<br>
+                    &nbsp;&nbsp;border-top-width: 2px;<br>
+                    &nbsp;&nbsp;border-bottom-width: 2px;<br>
+                    &nbsp;&nbsp;border-left-width: 0;<br>
+                    &nbsp;&nbsp;border-right-width: 0;<br>
+                    &nbsp;&nbsp;border-style: dashed;<br>
+                    &nbsp;&nbsp;border-color: #e74c3c;<br>
+                    &nbsp;&nbsp;padding: 15px;<br>
+                    }
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <h4>Propiedades aplicadas:</h4>
+                <ul class="propiedades-lista">
+                    <li><strong>border-top-width</strong>: 2px - Grosor del borde superior</li>
+                    <li><strong>border-bottom-width</strong>: 2px - Grosor del borde inferior</li>
+                    <li><strong>border-left-width</strong>: 0 - Sin borde izquierdo</li>
+                    <li><strong>border-right-width</strong>: 0 - Sin borde derecho</li>
+                    <li><strong>border-style</strong>: dashed - Estilo de línea discontinua</li>
+                    <li><strong>border-color</strong>: #e74c3c - Color rojo para los bordes</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Ejercicio 16 - Propiedades de padding -->
+        <div class="ejercicio">
+            <h2 class="titulo-ejercicio">Ejercicio 16: Propiedades de Padding</h2>
+            
+            <div class="demo-area">
+                <h1 class="titulo">Prueba de Título con Padding Personalizado</h1>
+                <p>Este título utiliza la clase <strong>.titulo</strong> con padding específico en todas las direcciones.</p>
+                
+                <div class="code-example">
+                    .titulo {<br>
+                    &nbsp;&nbsp;padding-left: 20px;<br>
+                    &nbsp;&nbsp;padding-right: 20px;<br>
+                    &nbsp;&nbsp;padding-top: 10px;<br>
+                    &nbsp;&nbsp;padding-bottom: 10px;<br>
+                    &nbsp;&nbsp;background: #3498db;<br>
+                    &nbsp;&nbsp;color: white;<br>
+                    &nbsp;&nbsp;text-align: center;<br>
+                    }
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <h4>Valores de padding aplicados:</h4>
+                <ul class="propiedades-lista">
+                    <li><strong>padding-left</strong>: 20px - Espacio interno izquierdo</li>
+                    <li><strong>padding-right</strong>: 20px - Espacio interno derecho</li>
+                    <li><strong>padding-top</strong>: 10px - Espacio interno superior</li>
+                    <li><strong>padding-bottom</strong>: 10px - Espacio interno inferior</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Ejercicio 17 - Propiedades de margen -->
+        <div class="ejercicio">
+            <h2 class="titulo-ejercicio">Ejercicio 17: Propiedades de Margen</h2>
+            
+            <div class="demo-area">
+                <div class="margen-demo">
+                    <h1>Título de Primer Nivel</h1>
+                    <h2>Título de Segundo Nivel</h2>
+                    <p>Los títulos anteriores tienen márgenes de 5px en la parte superior e inferior.</p>
+                </div>
+                
+                <div class="code-example">
+                    h1, h2 {<br>
+                    &nbsp;&nbsp;margin-top: 5px;<br>
+                    &nbsp;&nbsp;margin-bottom: 5px;<br>
+                    &nbsp;&nbsp;padding: 12px;<br>
+                    }
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <h4>Diferencias clave:</h4>
+                <ul class="propiedades-lista">
+                    <li><strong>Margin</strong>: Espacio EXTERNO alrededor del elemento</li>
+                    <li><strong>Padding</strong>: Espacio INTERNO dentro del elemento</li>
+                    <li><strong>Border</strong>: Línea que separa el margin del padding</li>
+                </ul>
+                
+                <div style="background: #e17055; color: white; padding: 10px; border-radius: 5px; margin: 10px 0;">
+                    <strong>Modelo de Caja CSS:</strong> Content → Padding → Border → Margin
+                </div>
+            </div>
+        </div>
+        
+        <!-- Resumen comparativo -->
+        <div class="ejercicio">
+            <h2 class="titulo-ejercicio">Resumen Comparativo</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div style="background: white; padding: 20px; border-radius: 8px; text-align: center;">
+                    <h3 style="color: #e74c3c;">Bordes</h3>
+                    <div style="border: 2px dashed #e74c3c; padding: 20px; margin: 10px 0;">
+                        Define el contorno del elemento
+                    </div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; text-align: center;">
+                    <h3 style="color: #3498db;">Padding</h3>
+                    <div style="background: #3498db; color: white; padding: 20px; margin: 10px 0;">
+                        Espacio interno alrededor del contenido
+                    </div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; text-align: center;">
+                    <h3 style="color: #00b894;">Margin</h3>
+                    <div style="background: #00b894; color: white; padding: 20px; margin: 20px 0;">
+                        Espacio externo entre elementos
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

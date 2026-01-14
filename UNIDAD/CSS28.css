@@ -1,0 +1,27 @@
+    .menu-vertical {
+            list-style: none;
+            padding: 0;
+            width: 220px;
+            background: #f5f5dc; 
+            border: 2px solid #000; 
+            
+        }
+        .menu-vertical li {
+            margin: 0;
+            border-bottom: 2px solid #000;
+        }
+        .menu-vertical li:last-child {
+            border-bottom: none;
+        }
+        .menu-vertical li a {
+            display: block;
+            padding: 16px 24px;
+            color: red;
+            text-decoration: none;
+            text-align: center;
+            font-size: 18px;
+            transition: background 0.2s;
+        }
+        .menu-vertical li a:hover {
+            background: #e0cda9;
+        }

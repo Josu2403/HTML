@@ -1,0 +1,13 @@
+/* Lista 1: pares subrayados, impares tachados */
+.lista1 li:nth-child(odd) {
+  text-decoration: line-through;
+}
+
+.lista1 li:nth-child(even) {
+  text-decoration: underline;
+}
+
+/* Lista 2: múltiplos de 4 en verde */
+.lista2 li:nth-child(4n) {
+  color: green;
+}

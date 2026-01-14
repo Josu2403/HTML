@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2 - Modelo de Caja</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        
+        .explicacion {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+        }
+        
+        /* EJERCICIO: Completa las propiedades CSS según las instrucciones */
+        
+        .caja-ejemplo {
+            /* 1. Añade un margen externo de 20px en todos los lados */
+            margin: 20px;
+            
+            /* 2. Añade un relleno interno de 15px en todos los lados */
+            padding: 15px;
+            
+            /* 3. Añade un borde sólido de 2px color #e74c3c */
+            border: 2px solid #e74c3c;
+            
+            /* 4. Establece el ancho a 200px y alto a 150px */
+            width: 200px;
+            height: 150px;
+            
+            /* 5. Centra esta caja horizontalmente */
+            margin-left: auto;
+            margin-right: auto;
+            
+            /* 6. Añade un fondo color #ecf0f1 */
+            background-color: #ecf0f1;
+            
+            /* 7. Añade esquinas redondeadas de 10px */
+            border-radius: 10px;
+            
+            /* 8. Añade una sombra: offset-x: 5px, offset-y: 5px, blur: 15px, color: rgba(0,0,0,0.1) */
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+            
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .comparacion {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .content-box {
+            /* MODELO TRADICIONAL: content-box */
+            box-sizing: content-box;
+            width: 200px;
+            padding: 20px;
+            border: 5px solid #3498db;
+            background: #e74c3c;
+            color: white;
+            text-align: center;
+        }
+        
+        .border-box {
+            /* MODELO MODERNO: border-box */
+            box-sizing: border-box;
+            width: 200px;
+            padding: 20px;
+            border: 5px solid #2ecc71;
+            background: #34495e;
+            color: white;
+            text-align: center;
+        }
+        
+        .medidas {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ejercicio 2: Modelo de Caja CSS</h1>
+        
+        <div class="explicacion">
+            <h3>📚 ¿Qué es el Box Model?</h3>
+            <p>Cada elemento en HTML es una caja rectangular compuesta por:</p>
+            <ul>
+                <li><strong>Content:</strong> El contenido real (texto, imagen, etc.)</li>
+                <li><strong>Padding:</strong> Espacio interno entre el contenido y el borde</li>
+                <li><strong>Border:</strong> Borde alrededor del padding</li>
+                <li><strong>Margin:</strong> Espacio externo entre elementos</li>
+            </ul>
+        </div>
+        
+        <div class="caja-ejemplo">
+            ¡Soy una caja con modelo de caja aplicado!
+        </div>
+        
+        <div class="comparacion">
+            <div class="content-box">
+                <h4>content-box</h4>
+                <p>Ancho total: 200 + 40 + 10 = 250px</p>
+            </div>
+            
+            <div class="border-box">
+                <h4>border-box</h4>
+                <p>Ancho total: 200px (incluye padding y border)</p>
+            </div>
+        </div>
+        
+        <div class="medidas">
+            <h4>🚀 Reto Adicional</h4>
+            <p>Intenta crear una caja que tenga:</p>
+            <ul>
+                <li>Margin: 10px arriba/abajo, 20px izquierda/derecha</li>
+                <li>Padding: 15px arriba/abajo, 25px izquierda/derecha</li>
+                <li>Border: 3px dotted #f39c12</li>
+                <li>Box-shadow: 0 0 10px rgba(243, 156, 18, 0.5)</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Control PASSWORD</title>
+</head>
+<body>
+  <h3>Verificar contraseña</h3>
+
+  <input type="password" id="pass1" placeholder="Ingrese contraseña"><br><br>
+  <input type="password" id="pass2" placeholder="Repita contraseña"><br><br>
+
+  <button onclick="verificar()">Comprobar</button>
+
+  <p id="resultado"></p>
+
+  <script>
+    function verificar() {
+      let p1 = document.getElementById("pass1").value;
+      let p2 = document.getElementById("pass2").value;
+
+      if (p1 === p2)
+        document.getElementById("resultado").innerText = "Las contraseñas coinciden ✅";
+      else
+        document.getElementById("resultado").innerText = "Las contraseñas no coinciden ❌";
+    }
+  </script>
+</body>
+</html>

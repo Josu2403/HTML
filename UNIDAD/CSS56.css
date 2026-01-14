@@ -1,0 +1,17 @@
+/* Bordes y formato general */
+table {
+  border-collapse: collapse;
+  margin: 20px;
+}
+
+td {
+  width: 120px;
+  height: 40px;
+  text-align: center;
+  border: 1px solid black;
+}
+
+/* Aplica fondo amarillo solo a las celdas vacías */
+td:empty {
+  background-color: yellow;
+}

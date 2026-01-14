@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROYECTO FINAL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #ee7752, #888b5b, #2b5969, #639489);
+            background-size: 400% 400%;
+            animation: gradient 20s ease infinite;
+            color: #333;
+            padding: 20px;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Navegación */
+        .navegacion {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .navegacion h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .menu-unidades {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .boton-unidad {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .boton-unidad:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .boton-unidad.activa {
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid white;
+        }
+
+        /* Secciones de unidades */
+        .seccion-unidad {
+            display: none;
+        }
+
+        .seccion-unidad.activa {
+            display: block;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+        }
+
+        .acordeon {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .acordeon:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .acordeon-titulo {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .acordeon-titulo:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .acordeon-titulo::after {
+            content: '+';
+            font-size: 1.5rem;
+            font-weight: 300;
+            transition: transform 0.3s ease;
+        }
+
+        .acordeon.active .acordeon-titulo::after {
+            transform: rotate(45deg);
+        }
+
+        .acordeon-contenido {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.3s ease;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .acordeon.active .acordeon-contenido {
+            max-height: 3000px;
+            padding: 25px;
+        }
+
+        .teoria {
+            margin-bottom: 20px;
+        }
+
+        .teoria h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .teoria p {
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .teoria ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .teoria li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .teoria li::before {
+            content: '▸';
+            color: #e73c7e;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .ejemplo {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            margin: 15px 0;
+        }
+
+        .ejemplo h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .ejemplo p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        code {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin: 5px 5px 5px 0;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .galeria-proyectos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .proyecto {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .proyecto:hover {
+            transform: translateY(-5px);
+        }
+
+        .proyecto h5 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .proyecto p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .vista-previa {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 15px 0;
+            height: 200px;
+            background: linear-gradient(135deg, #3d756c 0%, #4e2429 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .boton-pequeno {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .boton-pequeno:hover {
+            background: #5a6fd8;
+        }
+
+        /* Estilos para formularios y tablas de ejemplo */
+        .formulario-ejemplo {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e1e5e9;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .btn-submit {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .tabla-ejemplo {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .tabla-ejemplo th, .tabla-ejemplo td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e1e5e9;
+        }
+
+        .tabla-ejemplo th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+
+        .tabla-ejemplo tr:hover {
+            background: #f8f9fa;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .acordeon-titulo {
+                padding: 15px 20px;
+                font-size: 1.1rem;
+            }
+            
+            .acordeon-contenido {
+                padding: 0 20px;
+            }
+            
+            .acordeon.active .acordeon-contenido {
+                padding: 20px;
+            }
+
+            .galeria-proyectos {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-unidades {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navegación entre unidades -->
+        <nav class="navegacion">
+            <h2> ¿Qué aprenderás hoy? 🧑‍💻 </h2>
+            <div class="menu-unidades">
+                <a href="#unidad1" class="boton-unidad activa" data-unidad="unidad1"> Unidad 1</a>
+                <a href="#unidad2" class="boton-unidad" data-unidad="unidad2"> Unidad 2</a>
+                <a href="#unidad3" class="boton-unidad" data-unidad="unidad3"> Unidad 3</a>
+                <a href="#unidad4" class="boton-unidad" data-unidad="unidad4"> Unidad 4</a>
+            </div>
+        </nav>
+<!-- Unidad 1 -->
+<section id="unidad1" class="seccion-unidad activa">
+    <div class="header">
+        <h1>🚀 Unidad 1: Fundamentos del Desarrollo Web</h1>
+        <p>Explora los conceptos básicos, herramientas y configuraciones esenciales para el desarrollo web</p>
+    </div>
+
+    <div class="acordeon">
+        <div class="acordeon-titulo">
+            1. Conceptos Generales del Desarrollo Web
+            <span class="tag">Básico</span>
+        </div>
+        <div class="acordeon-contenido">
+            <div class="teoria">
+                <h3>¿Qué es el Desarrollo Web?</h3>
+                <p>Es el proceso de crear y mantener sitios o aplicaciones que funcionan en un navegador web. Abarca desde una página simple de texto hasta complejas plataformas web.</p>
+                
+                <h3>Frontend vs. Backend</h3>
+                <ul>
+                    <li><strong>Frontend (Cliente):</strong> Todo lo que el usuario ve e interactúa directamente</li>
+                    <li><strong>Backend (Servidor):</strong> La lógica "detrás de escena" que gestiona los datos</li>
+                    <li><strong>Full Stack:</strong> Desarrollador que trabaja en ambos lados</li>
+                </ul>
+            </div>
+            
+            <div class="ejemplo">
+                <h4>🎯 Ejemplo: La Analogía del Restaurante</h4>
+                <p><strong>Frontend:</strong> El menú, la decoración, la mesa y la comida presentada. Es la experiencia del cliente.</p>
+                <p><strong>Backend:</strong> La cocina, los chefs, las recetas y el inventario. El cliente no lo ve, pero es esencial.</p>
+                <p><strong>Interacción:</strong> El cliente pide → Mesero (HTTP) lleva la orden → Cocina (backend) prepara → Se sirve al cliente (frontend).</p>
+            </div>
+            
+            <!-- Galería de PDFs -->
+            <h4 style="color: #070f18; margin: 25px 0 15px 0;">📚 Material de Estudio</h4>
+            <div class="galeria-proyectos">
+                <div class="proyecto">
+                    <h5>Conceptos Básicos</h5>
+                    <p>Introducción al desarrollo web</p>
+                    <div class="vista-previa">
+                        📄 PDF
+                    </div>
+                    <a href="pdfs/ConceptosGeneralesWeb.pdf" target="_blank" class="boton-pequeno">
+                        📖 Ver PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="acordeon">
+        <div class="acordeon-titulo">
+            2. Entornos de Desarrollo Web
+            <span class="tag">Herramientas</span>
+        </div>
+        <div class="acordeon-contenido">
+            <div class="teoria">
+                <h3>El Taller del Desarrollador</h3>
+                <p>Son el conjunto de herramientas que un desarrollador usa para crear un sitio web de manera eficiente.</p>
+                
+                <ul>
+                    <li><strong>Editor de Código:</strong> VS Code, Sublime Text, Atom</li>
+                    <li><strong>Control de Versiones:</strong> Git con GitHub o GitLab</li>
+                    <li><strong>Herramientas de Diseño:</strong> Figma, Adobe XD</li>
+                    <li><strong>Navegador Web:</strong> Para testing y debugging</li>
+                </ul>
+            </div>
+            
+            <div class="ejemplo">
+                <h4>💻 Ejemplo: Flujo de Trabajo con Git</h4>
+                <pre><code># Inicializar repositorio
+git init
+
+# Añadir archivos al área de staging
+git add .
+
+# Guardar cambios con un mensaje
+git commit -m "Añadido formulario de contacto"
+
+# Subir cambios al repositorio remoto
+git push origin main</code></pre>
+                <p>Este flujo permite mantener un historial de cambios y colaborar con otros desarrolladores.</p>
+            </div>
+            
+            <!-- Galería de PDFs -->
+            <h4 style="color: #2c3e50; margin: 25px 0 15px 0;">📚 Material de Estudio</h4>
+            <div class="galeria-proyectos">
+                <div class="proyecto">
+                    <h5>Herramientas de Desarrollo</h5>
+                    <p>Guía completa de herramientas</p>
+                    <div class="vista-previa">
+                        📄 PDF
+                    </div>
+                    <a href="pdfs/EntornoDesarrolloWeb.pdf" target="_blank" class="boton-pequeno">
+                        📖 Ver PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="acordeon">
+        <div class="acordeon-titulo">
+            3. Configuración de Entornos de Desarrollo
+            <span class="tag">Configuración</span>
+        </div>
+        <div class="acordeon-contenido">
+            <div class="teoria">
+                <h3>Poner a Punto el Taller</h3>
+                <p>Proceso de instalar y preparar todas las herramientas para que funcionen juntas en tu computadora.</p>
+                
+                <ul>
+                    <li><strong>Editor de Código:</strong> Instalar VS Code + extensiones útiles</li>
+                    <li><strong>Servidor Local:</strong> XAMPP, WAMP, o el servidor Live Server</li>
+                    <li><strong>Entorno de Ejecución:</strong> Node.js, PHP, Python según necesidades</li>
+                    <li><strong>Herramientas Adicionales:</strong> Git, Docker, etc.</li>
+                </ul>
+            </div>
+            
+            <div class="ejemplo">
+                <h4>⚙️ Ejemplo: Configuración con XAMPP</h4>
+                <p><strong>Paso 1:</strong> Descargar e instalar XAMPP desde Apache Friends</p>
+                <p><strong>Paso 2:</strong> Abrir el Panel de Control y iniciar Apache y MySQL</p>
+                <p><strong>Paso 3:</strong> Guardar archivos PHP en la carpeta <code>htdocs</code></p>
+                <p><strong>Paso 4:</strong> Acceder via <code>http://localhost/tu_proyecto</code></p>
+                
+                <pre><code>&lt;?php
+// Ejemplo de archivo en htdocs
+echo "¡Mi primer sitio con XAMPP!";
+?&gt;</code></pre>
+            </div>
+            
+            <!-- Galería de PDFs -->
+            <h4 style="color: #2c3e50; margin: 25px 0 15px 0;">📚 Material de Estudio</h4>
+            <div class="galeria-proyectos">
+                <div class="proyecto">
+                    <h5>Configuración de Entornos</h5>
+                    <p>Guía paso a paso</p>
+                    <div class="vista-previa">
+                        📄 PDF
+                    </div>
+                    <a href="pdfs/Configuración del Ambiente de Desarrollo Web.pdf" target="_blank" class="boton-pequeno">
+                        📖 Ver PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+                <!-- Unidad 2 -->
+        <section id="unidad2" class="seccion-unidad">
+            <div class="header">
+                <h1>📝 Unidad 2: HTML - Formularios y Tablas</h1>
+                <p>Aprendiendo a crear interfaces interactivas con formularios y estructurar datos con tablas</p>
+            </div>
+
+            <div class="acordeon">
+                <div class="acordeon-titulo">
+                    1. Formularios HTML
+                    <span class="tag">Interactivo</span>
+                </div>
+                <div class="acordeon-contenido">
+                    <div class="teoria">
+                        <h3>¿Qué son los Formularios HTML?</h3>
+                        <p>Los formularios permiten a los usuarios introducir datos que pueden ser enviados a un servidor para su procesamiento. Son esenciales para:</p>
+                        <ul>
+                            <li>Registro de usuarios</li>
+                            <li>Inicios de sesión</li>
+                            <li>Formularios de contacto</li>
+                            <li>Búsquedas y filtros</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="ejemplo">
+                        <h4>🎯 Ejemplo: Estructura Básica de un Formulario</h4>
+                        <pre><code>&lt;form action="/procesar.php" method="POST"&gt;
+    &lt;label for="nombre"&gt;Nombre:&lt;/label&gt;
+    &lt;input type="text" id="nombre" name="nombre" required&gt;
+    
+    &lt;label for="email"&gt;Email:&lt;/label&gt;
+    &lt;input type="email" id="email" name="email" required&gt;
+    
+    &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+                    </div>
+
+                    <!-- Galería de formularios creados -->
+                    <h4 style="color: #2c3e50; margin: 25px 0 15px 0;">📂 Mis Formularios Creados</h4>
+                    <div class="galeria-proyectos">
+                        <div class="proyecto">
+                            <h5>Formulario 1</h5>
+                            <p>Formulario de registro</p>
+                            <div class="vista-previa">
+                                📋 REGISTRO
+                            </div>
+                            <a href="FORMULARIO2.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Formulario
+                            </a>
+                        </div>
+                        
+                        <div class="proyecto">
+                            <h5>Formulario 2</h5>
+                            <p>Formulario de prueba</p>
+                            <div class="vista-previa">
+                                🎨 PRUEBA
+                            </div>
+                            <a href="FORMULARIOHTML5.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Formulario
+                            </a>
+                        </div>
+
+                        <div class="proyecto">
+                            <h5>Formulario 3</h5>
+                            <p>Formulario avanzado con validaciones</p>
+                            <div class="vista-previa">
+                                ⚡ AVANZADO
+                            </div>
+                            <a href="FORM3T3.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Formulario
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="acordeon">
+                <div class="acordeon-titulo">
+                    2. Tablas HTML
+                    <span class="tag">Estructura</span>
+                </div>
+                <div class="acordeon-contenido">
+                    <div class="teoria">
+                        <h3>¿Qué son las Tablas HTML?</h3>
+                        <p>Las tablas permiten organizar datos en filas y columnas. Son ideales para:</p>
+                        <ul>
+                            <li>Mostrar datos tabulares</li>
+                            <li>Comparar información</li>
+                            <li>Crear horarios o calendarios</li>
+                            <li>Presentar datos estadísticos</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="ejemplo">
+                        <h4>🎯 Ejemplo: Estructura de una Tabla</h4>
+                        <pre><code>&lt;table border="1"&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Nombre&lt;/th&gt;
+        &lt;th&gt;Edad&lt;/th&gt;
+        &lt;th&gt;Ciudad&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Ana&lt;/td&gt;
+        &lt;td&gt;25&lt;/td&gt;
+        &lt;td&gt;Madrid&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+                    </div>
+
+                    <!-- Galería de tablas creadas -->
+                    <h4 style="color: #2c3e50; margin: 25px 0 15px 0;">📊 Mis Tablas Creadas</h4>
+                    <div class="galeria-proyectos">
+                        <div class="proyecto">
+                            <h5>Tabla 1</h5>
+                            <p>Tabla básica con estructura simple</p>
+                            <div class="vista-previa">
+                                📊  SIMPLE
+                            </div>
+                            <a href="TABLA1.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Tabla
+                            </a>
+                        </div>
+                        
+                        <div class="proyecto">
+                            <h5>Tabla 2</h5>
+                            <p>Tabla con diseño mejorado</p>
+                            <div class="vista-previa">
+                                📈 MEJORADA
+                            </div>
+                            <a href="TABLAS2.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Tabla
+                            </a>
+                        </div>
+
+                        <div class="proyecto">
+                            <h5>Tabla 3</h5>
+                            <p>Tabla avanzada con múltiples funciones</p>
+                            <div class="vista-previa">
+                                🎯 AVANZADA
+                            </div>
+                            <a href="TABLA10.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Tabla
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="acordeon">
+                <div class="acordeon-titulo">
+                    3. Demostración en Vivo
+                    <span class="tag">Práctica</span>
+                </div>
+                <div class="acordeon-contenido">
+                    <div class="teoria">
+                        <h3>Formulario y Tabla Funcional</h3>
+                        <p>Aquí puedes ver un ejemplo funcional de formulario y tabla trabajando juntos:</p>
+                    </div>
+
+                    <div class="formulario-ejemplo">
+                        <h4>➕ Añadir Producto</h4>
+                        <form id="formProducto">
+                            <div class="form-group">
+                                <label for="producto">Nombre del Producto:</label>
+                                <input type="text" id="producto" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="precio">Precio:</label>
+                                <input type="number" id="precio" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="categoria">Categoría:</label>
+                                <select id="categoria" required>
+                                    <option value="">Selecciona categoría</option>
+                                    <option value="electronica">Electrónica</option>
+                                    <option value="ropa">Ropa</option>
+                                    <option value="hogar">Hogar</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn-submit">Agregar Producto</button>
+                        </form>
+                    </div>
+
+                    <table class="tabla-ejemplo" id="tablaProductos">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Precio</th>
+                                <th>Categoría</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Laptop Gaming</td>
+                                <td>$1,200.00</td>
+                                <td>Electrónica</td>
+                                <td style="cursor: pointer;" onclick="this.parentElement.remove()">❌</td>
+                            </tr>
+                            <tr>
+                                <td>Camiseta Básica</td>
+                                <td>$25.99</td>
+                                <td>Ropa</td>
+                                <td style="cursor: pointer;" onclick="this.parentElement.remove()">❌</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                    <!-- Sección de Ejercicios - Unidad 2 -->
+            <div class="acordeon">
+                <div class="acordeon-titulo">
+                    Mis 15 Ejercicios
+                    <span class="tag">Práctica</span>
+                </div>
+                <div class="acordeon-contenido">
+                    <div class="teoria">
+                        <h3>Ejercicios Realizados</h3>
+                        <p>Esta sección contiene todos los ejercicios prácticos realizados durante la Unidad 2, enfocados en el desarrollo de formularios y tablas HTML.</p>
+                    </div>
+
+                    <!-- Galería de ejercicios -->
+                    <h4 style="color: #2c3e50; margin: 25px 0 15px 0;">📂 Mis Ejercicios</h4>
+                    <div class="galeria-proyectos">
+                        <!-- Ejercicio 1 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 1</h5>
+                            <p>Ej: EJERCICIOS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="EJERCICIO1.HTML" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+                        
+                        <!-- Ejercicio 2 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 2</h5>
+                            <p>Ej: EJERCICIOS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="EJERCICIO2.HTML" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 3 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 3</h5>
+                            <p>Ej: EJERCICIOS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="EJERCICIO3.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 4 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 4</h5>
+                            <p>Ej: EJERCICIOS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="EJERCICIO4.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 5 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 5</h5>
+                            <p>Ej: EJERCICIOS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="EJERCICIO5.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 6 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 6</h5>
+                            <p>Ej: ENLACES</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="ENLACES.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 7 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 7</h5>
+                            <p>Ej: LISTAS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="LISTAS1.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 8 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 8</h5>
+                            <p>Ej: LISTAS</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="LISTAS2.HTML" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 9 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 9</h5>
+                            <p>Ej: FORMULARIO</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="FORMULARIO1.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 10 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 10</h5>
+                            <p>Ej: FORMULARIO</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="FORMULARIO2.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 11 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 11</h5>
+                            <p>Ej: INDEX</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="index2.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 12 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 12</h5>
+                            <p>Ej: INDEX</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="indexejercicio.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 13 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 13</h5>
+                            <p>Ej: TABLA</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="TABLA6.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 14 -->
+                        <div class="proyecto">
+                            <h5>Ejercicio 14</h5>
+                            <p>Ej: TABLA</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="TABLA7.html" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+
+                        <!-- Ejercicio 15 -->
+                        <div class="proyecto">
+                            <h5>TABLA PERIODICA</h5>
+                            <p>Creación de tabla periodica en HTML</p>
+                            <div class="vista-previa">
+                                📄 EJERCICIO
+                            </div>
+                            <a href="TABLACORR.HTML" target="_blank" class="boton-pequeno">
+                                🔗 Abrir Ejercicio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        </section>
+
+       <!-- Unidad 3: CSS y Diseño Web -->
+<section id="unidad3" class="seccion-unidad">
+    <div class="header">
+        <h1>🎨 Unidad 3: CSS y Diseño Web</h1>
+        <p>Domina los estilos, layouts responsive y diseño moderno para tus proyectos web</p>
+    </div>
+
+    <!-- SECCIÓN 2: EJERCICIOS -->
+    <div class="acordeon">
+        <div class="acordeon-titulo">
+            Mis Ejercicios de CSS
+            <span class="tag">Práctica</span>
+        </div>
+        <div class="acordeon-contenido">
+            <div class="teoria">
+                <h3>Trabajos realizados en este parcial</h3>
+                <p>Trabajos prácticos de CSS.</p>
+            </div>
+
+            <div class="galeria-proyectos">
+                <!-- Ejercicios 1-5: Fundamentos -->
+                <div class="proyecto">
+                    <h5>Ejercicio 1 </h5>
+                    <p>Estilos a nivel de elemento</p>
+                    <div class="vista-previa">
+                        🎯 
+                    </div>
+                    <a href="CSS2.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 2</h5>
+                    <p>Estilos a nivel de página</p>
+                    <div class="vista-previa">
+                        📦 
+                    </div>
+                    <a href="CSS3.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 3</h5>
+                    <p>Propiedades de fuentes</p>
+                    <div class="vista-previa">
+                        🌈 
+                    </div>
+                    <a href="CSS4.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 4</h5>
+                    <p>Agrupación de elementos</p>
+                    <div class="vista-previa">
+                        🔤 
+                    </div>
+                    <a href="CSS5.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 5</h5>
+                    <p>Múltiples reglas</p>
+                    <div class="vista-previa">
+                        📍
+                    </div>
+                    <a href="CSS6.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <!-- Ejercicios 6-10: Layouts -->
+                <div class="proyecto">
+                    <h5>Ejercicio 6</h5>
+                    <p>Propiedades de texto</p>
+                    <div class="vista-previa">
+                        ⚡ 
+                    </div>
+                    <a href="CSS7.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 7</h5>
+                    <p>Propiedades avanzadas de texto</p>
+                    <div class="vista-previa">
+                        ⚡ 
+                    </div>
+                    <a href="CSS8.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 8</h5>
+                    <p>Herencia de propiedades</p>
+                    <div class="vista-previa">
+                        🎯 
+                    </div>
+                    <a href="CSS9.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 9 </h5>
+                    <p>Estilos por contexto</p>
+                    <div class="vista-previa">
+                        🎯 
+                    </div>
+                    <a href="CSS10.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 10: Diseño Responsive</h5>
+                    <p>Media queries y unidades flexibles</p>
+                    <div class="vista-previa">
+                        📱 RESPONSIVE
+                    </div>
+                    <a href="ejercicios/ejercicio10-responsive.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <!-- Ejercicios 11-15: Avanzados -->
+                <div class="proyecto">
+                    <h5>Ejercicio 11: Transiciones</h5>
+                    <p>Efectos hover y cambios suaves</p>
+                    <div class="vista-previa">
+                        ✨ TRANSICIONES
+                    </div>
+                    <a href="ejercicios/ejercicio11-transiciones.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 12: Animaciones</h5>
+                    <p>Keyframes y animaciones complejas</p>
+                    <div class="vista-previa">
+                        🎬 ANIMACIONES
+                    </div>
+                    <a href="ejercicios/ejercicio12-animaciones.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 13: Transformaciones</h5>
+                    <p>Rotate, scale, skew y translate</p>
+                    <div class="vista-previa">
+                        🔄 TRANSFORM
+                    </div>
+                    <a href="ejercicios/ejercicio13-transform.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 14: Variables CSS</h5>
+                    <p>Custom properties y temas</p>
+                    <div class="vista-previa">
+                        🎨 VARIABLES
+                    </div>
+                    <a href="ejercicios/ejercicio14-variables.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+
+                <div class="proyecto">
+                    <h5>Ejercicio 15: Proyecto Final CSS</h5>
+                    <p>Portfolio personal con todo lo aprendido</p>
+                    <div class="vista-previa">
+                        🏆 PROYECTO
+                    </div>
+                    <a href="ejercicios/ejercicio15-proyecto-final.html" target="_blank" class="boton-pequeno">
+                        🔗 Abrir Ejercicio
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 3: EJEMPLOS -->
+    <div class="acordeon">
+        <div class="acordeon-titulo">
+            Ejemplos Interactivos
+            <span class="tag">Demostración</span>
+        </div>
+        <div class="acordeon-contenido">
+            <div class="teoria">
+                <h3>Demostraciones en Vivo</h3>
+                <p>Experimenta con CSS directamente en el navegador y comprende los conceptos visualmente.</p>
+            </div>
+
+            <!-- Ejemplo 1: Flexbox -->
+            <div class="ejemplo">
+                <h4>🎯 Ejemplo 1: Flexbox en Acción</h4>
+                <p>Modifica las propiedades del contenedor flex:</p>
+                
+                <div class="contenedor-flex-demo" style="display: flex; gap: 10px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 10px; margin: 15px 0;">
+                    <div style="padding: 20px; background: #e73c7e; color: white; border-radius: 5px;">Item 1</div>
+                    <div style="padding: 20px; background: #23a6d5; color: white; border-radius: 5px;">Item 2</div>
+                    <div style="padding: 20px; background: #23d5ab; color: white; border-radius: 5px;">Item 3</div>
+                </div>
+                
+                <pre><code>.contenedor-flex {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}</code></pre>
+            </div>
+
+            <!-- Ejemplo 2: Grid -->
+            <div class="ejemplo">
+                <h4>🎯 Ejemplo 2: CSS Grid Layout</h4>
+                <p>Estructura de página con Grid:</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 10px; margin: 15px 0;">
+                    <div style="padding: 20px; background: #667eea; color: white; border-radius: 5px;">Header</div>
+                    <div style="padding: 20px; background: #667eea; color: white; border-radius: 5px;">Header</div>
+                    <div style="padding: 20px; background: #667eea; color: white; border-radius: 5px;">Header</div>
+                    
+                    <div style="padding: 40px; background: #764ba2; color: white; border-radius: 5px; grid-column: 1 / 2;">Sidebar</div>
+                    <div style="padding: 40px; background: #f093fb; color: white; border-radius: 5px; grid-column: 2 / 4;">Main Content</div>
+                    
+                    <div style="padding: 20px; background: #667eea; color: white; border-radius: 5px; grid-column: 1 / 4;">Footer</div>
+                </div>
+                
+                <pre><code>.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: auto 1fr auto;
+    gap: 10px;
+    height: 300px;
+}</code></pre>
+            </div>
+
+            <!-- Ejemplo 3: Animaciones -->
+            <div class="ejemplo">
+                <h4>🎯 Ejemplo 3: Animaciones CSS</h4>
+                <p>Observa esta animación de carga:</p>
+                
+                <div style="display: flex; gap: 10px; justify-content: center; margin: 20px 0;">
+                    <div style="width: 20px; height: 20px; background: #e73c7e; border-radius: 50%; animation: bounce 1s infinite;"></div>
+                    <div style="width: 20px; height: 20px; background: #23a6d5; border-radius: 50%; animation: bounce 1s infinite 0.1s;"></div>
+                    <div style="width: 20px; height: 20px; background: #23d5ab; border-radius: 50%; animation: bounce 1s infinite 0.2s;"></div>
+                </div>
+                
+                <pre><code>@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.punto {
+    animation: bounce 1s infinite;
+}</code></pre>
+            </div>
+
+            <!-- Ejemplo 4: Hover Effects -->
+            <div class="ejemplo">
+                <h4>🎯 Ejemplo 4: Efectos Hover</h4>
+                <p>Pasa el mouse sobre estos botones:</p>
+                
+                <div style="display: flex; gap: 15px; justify-content: center; margin: 20px 0;">
+                    <button style="padding: 12px 24px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; border-radius: 25px; cursor: pointer; transition: all 0.3s ease;">Efecto 1</button>
+                    <button style="padding: 12px 24px; background: #23a6d5; color: white; border: none; border-radius: 8px; cursor: pointer; transition: transform 0.3s ease;">Efecto 2</button>
+                    <button style="padding: 12px 24px; background: #23d5ab; color: white; border: 2px solid #23d5ab; border-radius: 5px; cursor: pointer; transition: all 0.3s ease;">Efecto 3</button>
+                </div>
+                
+                <pre><code>.boton-hover {
+    transition: all 0.3s ease;
+}
+
+.boton-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}</code></pre>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Estilos adicionales para los ejemplos interactivos */
+    .contenedor-flex-demo div:hover,
+    .ejemplo button:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3) !important;
+    }
+    
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+</style>
+
+        <!-- Unidad 4 (Placeholder) -->
+        <section id="unidad4" class="seccion-unidad">
+            <div class="header">
+                <h1>⚡ Unidad 4: JavaScript Interactivo</h1>
+                <p>Próximamente: Programación web interactiva y dinámica</p>
+            </div>
+            <div class="acordeon">
+                <div class="acordeon-titulo">
+                    Contenido en Desarrollo
+                    <span class="tag">Próximamente</span>
+                </div>
+                <div class="acordeon-contenido">
+                    <div style="text-align: center; padding: 40px;">
+                        <h3 style="color: #2c3e50; margin-bottom: 20px;">🚧 Unidad en Construcción</h3>
+                        <p>Esta unidad estará disponible pronto con contenido sobre JavaScript, DOM manipulation y interactividad.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Navegación entre unidades
+        document.querySelectorAll('.boton-unidad').forEach(boton => {
+            boton.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remover clase activa de todos los botones
+                document.querySelectorAll('.boton-unidad').forEach(b => {
+                    b.classList.remove('activa');
+                });
+                
+                // Añadir clase activa al botón clickeado
+                this.classList.add('activa');
+                
+                // Ocultar todas las secciones
+                document.querySelectorAll('.seccion-unidad').forEach(seccion => {
+                    seccion.classList.remove('activa');
+                });
+                
+                // Mostrar sección correspondiente
+                const unidadId = this.getAttribute('data-unidad');
+                document.getElementById(unidadId).classList.add('activa');
+                
+                // Cerrar todos los acordeones al cambiar de unidad
+                document.querySelectorAll('.acordeon').forEach(acc => {
+                    acc.classList.remove('active');
+                });
+            });
+        });
+
+        // JavaScript para el acordeón
+        document.querySelectorAll('.acordeon-titulo').forEach(button => {
+            button.addEventListener('click', () => {
+                const acordeon = button.parentNode;
+                const isActive = acordeon.classList.contains('active');
+                
+                // Cerrar todos los acordeones de la misma unidad
+                const unidad = acordeon.closest('.seccion-unidad');
+                unidad.querySelectorAll('.acordeon').forEach(acc => {
+                    acc.classList.remove('active');
+                });
+                
+                // Abrir el actual si no estaba activo
+                if (!isActive) {
+                    acordeon.classList.add('active');
+                }
+            });
+        });
+
+        // JavaScript para el formulario de demostración (Unidad 2)
+        document.getElementById('formProducto')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const producto = document.getElementById('producto').value;
+            const precio = document.getElementById('precio').value;
+            const categoria = document.getElementById('categoria').value;
+            
+            const tabla = document.getElementById('tablaProductos').getElementsByTagName('tbody')[0];
+            const nuevaFila = tabla.insertRow();
+            
+            nuevaFila.innerHTML = `
+                <td>${producto}</td>
+                <td>$${parseFloat(precio).toFixed(2)}</td>
+                <td>${categoria}</td>
+                <td style="cursor: pointer;" onclick="this.parentElement.remove()">❌</td>
+            `;
+            
+            // Limpiar formulario
+            this.reset();
+        });
+
+        // Efecto de partículas para el fondo
+        document.addEventListener('DOMContentLoaded', function() {
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: fixed;
+                    width: 2px;
+                    height: 2px;
+                    background: white;
+                    border-radius: 50%;
+                    pointer-events: none;
+                    opacity: ${Math.random() * 0.6};
+                    z-index: -1;
+                `;
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                document.body.appendChild(particle);
+            }
+        });
+    </script>
+</body>
+</html>

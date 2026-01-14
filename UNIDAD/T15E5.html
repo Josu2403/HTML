@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Tipo de triángulos</title></head>
+<body>
+<script>
+  let equilatero = 0, isosceles = 0, escaleno = 0;
+
+  for (let i = 1; i <= 4; i++) {
+    let l1 = parseInt(prompt("Triangulo " + i + " lado 1:"));
+    let l2 = parseInt(prompt("Triangulo " + i + " lado 2:"));
+    let l3 = parseInt(prompt("Triangulo " + i + " lado 3:"));
+
+    if (l1 === l2 && l2 === l3) {
+      equilatero++;
+      document.write("Triangulo " + i + ": Equilatero<br>");
+    } else if (l1 === l2 || l1 === l3 || l2 === l3) {
+      isosceles++;
+      document.write("Triangulo " + i + ": Isosceles<br>");
+    } else {
+      escaleno++;
+      document.write("Triangulo " + i + ": Escaleno<br>");
+    }
+  }
+
+  document.write("<hr>");
+  document.write("Equilateros: " + equilatero + "<br>");
+  document.write("Isosceles: " + isosceles + "<br>");
+  document.write("Escalenos: " + escaleno + "<br>");
+
+  let menor = Math.min(equilatero, isosceles, escaleno);
+  if (menor === equilatero) document.write("Menor cantidad: Equilateros");
+  else if (menor === isosceles) document.write("Menor cantidad: Isosceles");
+  else document.write("Menor cantidad: Escalenos");
+</script>
+</body>
+</html>

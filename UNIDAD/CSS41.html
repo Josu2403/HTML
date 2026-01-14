@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propiedad Float - Letra Grande</title>
+    <link rel="stylesheet" href="CSS41.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Propiedad Float Aplicada a Letras</h1>
+        
+        <div class="description">
+            Demostración del uso de float:left con letras grandes que permiten que el texto las envuelva
+        </div>
+
+        <div class="explanation">
+            <h3>¿Cómo funciona?</h3>
+            <p>La clase <strong>.letragrande</strong> aplica <strong>float:left</strong> y <strong>font-size:300%</strong> a la primera letra de cada párrafo, haciendo que el texto fluya alrededor de ella.</p>
+        </div>
+
+        <!-- Primer párrafo -->
+        <p>
+            <span class="letragrande">S</span>abemos que el HTML está constituido de elementos que el navegador interpreta y las despliega en la pantalla de acuerdo a su objetivo. Veremos que hay elementos para disponer imágenes sobre una página, hipervínculos que nos permiten dirigirnos a otra página, listas, tablas para tabular datos, etc.
+            <br><br>
+            Muchos otros elementos HTML nos facilitan la presentación de información.
+        </p>
+
+        <!-- Segundo párrafo -->
+        <p>
+            <span class="letragrande">P</span>ara poder crear una página HTML se requiere un simple editor de texto (en nuestro caso emplearemos este sitio) y un navegador de internet (Chrome, IExplorer, FireFox, Safari etc.), emplearemos el navegador que en este preciso momento está utilizando (recuerde que usted está viendo en este preciso momento una página HTML con su navegador). La creación de páginas web es una habilidad fundamental en el mundo digital actual, permitiendo compartir información de manera efectiva y accesible para usuarios en todo el mundo.
+        </p>
+
+        <!-- Tercer párrafo adicional para demostración -->
+        <p>
+            <span class="letragrande">E</span>l diseño web moderno combina HTML con CSS y JavaScript para crear experiencias interactivas y atractivas. CSS nos permite controlar el aspecto visual de las páginas, incluyendo colores, fuentes, disposición de elementos y efectos visuales. JavaScript añade interactividad y dinamismo, haciendo que las páginas respondan a las acciones del usuario y puedan actualizar su contenido sin necesidad de recargar la página completa.
+        </p>
+
+        <div class="code-example">
+            .letragrande {<br>
+            &nbsp;&nbsp;float: left;<br>
+            &nbsp;&nbsp;font-size: 300%;<br>
+            &nbsp;&nbsp;font-weight: bold;<br>
+            &nbsp;&nbsp;color: #3498db;<br>
+            &nbsp;&nbsp;margin-right: 8px;<br>
+            &nbsp;&nbsp;margin-top: 5px;<br>
+            &nbsp;&nbsp;line-height: 0.8;<br>
+            &nbsp;&nbsp;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);<br>
+            }
+        </div>
+
+        <div class="note">
+            <strong>Nota:</strong> La propiedad float saca el elemento del flujo normal del documento y lo posiciona a la izquierda o derecha, permitiendo que el contenido siguiente fluya alrededor de él. En este caso, aplicamos float:left a la primera letra para que el texto del párrafo la envuelva.
+        </div>
+
+        <div class="explanation">
+            <h3>Ventajas del uso de float:</h3>
+            <ul>
+                <li>Permite crear diseños de texto envolvente atractivos</li>
+                <li>Es compatible con todos los navegadores</li>
+                <li>Proporciona un control preciso sobre la disposición de elementos</li>
+                <li>Ideal para capitulares y efectos tipográficos</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

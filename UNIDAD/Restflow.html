@@ -1,0 +1,2707 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurante - Sistema de Gestión Gastronómica</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- QRCode.js -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+
+    <style>
+        /* Estilos personalizados */
+        :root {
+            --primary-restaurant: #E74C3C;
+            --secondary-restaurant: #2ECC71;
+            --accent-gold: #F39C12;
+            --dark-bg: #1E293B;
+            --darker-bg: #0F172A;
+            --light-text: #F8FAFC;
+            --muted-text: #94A3B8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(185deg, #da23eb 0%, #2a804e 100%);
+            color: var(--light-text);
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: rgba(49, 56, 66, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-tab {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            color: #CBD5E1;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        .nav-tab:hover {
+            background: rgba(71, 85, 105, 0.5);
+            color: white;
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, #9c7a56 50%, #9c7a56 100%);
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        .metric-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: transform 0.2s;
+        }
+
+        .metric-card:hover {
+            transform: scale(1.05);
+        }
+
+        .metric-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .metric-label {
+            color: #CBD5E1;
+            font-size: 0.875rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #e69696 0%, #060402 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            transform: scale(1.05);
+        }
+
+        .btn-secondary {
+            background: rgba(71, 85, 105, 0.5);
+            color: #CBD5E1;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(100, 116, 139, 0.5);
+            color: white;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(100, 116, 139, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Estilos para las mesas */
+        .table {
+            position: absolute;
+            border-radius: 12px;
+            padding: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .table:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .table.available {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+        }
+
+        .table.occupied {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+        }
+
+        .table.reserved {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+        }
+
+        .table.cleaning {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+        }
+
+        .table-number {
+            font-weight: bold;
+            font-size: 0.875rem;
+        }
+
+        .table-status {
+            font-size: 0.75rem;
+            opacity: 0.9;
+        }
+
+        .table-capacity {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .table-2 { width: 80px; height: 80px; }
+        .table-4 { width: 100px; height: 100px; }
+        .table-6 { width: 120px; height: 120px; }
+        .table-8 { width: 140px; height: 140px; }
+
+        /* Alertas */
+        .alert {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .alert.success {
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #4ADE80;
+        }
+
+        .alert.warning {
+            background: rgba(245, 158, 11, 0.2);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: #FBBF24;
+        }
+
+        .alert.error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #FCA5A5;
+        }
+
+        .alert.info {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #93C5FD;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: rgba(30, 41, 59, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        /* Scrollbar personalizado */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #EF4444 0%, #F59E0B 100%);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #DC2626 0%, #D97706 100%);
+        }
+
+        /* Tarjetas de producto */
+        .product-card {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 12px;
+            padding: 1rem;
+            transition: all 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+                /* Selector de Usuario - Fondo transparente */
+        #user-role {
+            background: transparent;
+            color: white;
+            border: none;
+            outline: none;
+        }
+
+        #user-role option {
+            background: #341ba1;
+            color: white;
+        }
+
+       /* Cajero - Mostrar cuando esté activo */
+        #cashier-section.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="font-inter">
+    <!-- Fondo de Partículas -->
+    <div id="particles-js" class="fixed inset-0 -z-10" style="background: linear-gradient(185deg, #b5b08a 30%, #696161 100%);"></div>
+    <!-- Contenedor Principal -->
+    <div class="min-h-screen bg-gold-900/80 backdrop-blur-sm">
+        
+        <!-- Header -->
+        <header class="bg-slate-600/60 border-b border-slate-700/50">
+            <div class="container mx-auto px-4 py-4">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-gradient-to-r from-pink-300 to-pink-300 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-utensils text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-bold text-white">Restaurante</h1>
+                            <p class="text-white-300 text-sm">Sistema Inteligente de Gestión</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <!-- Estado del Sistema -->
+                        <div class="hidden md:flex items-center space-x-2 bg-rose-300/70 px-3 py-2 rounded-lg">
+                            <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                            <span class="text-white-300 text-sm">Sistema Activo</span>
+                        </div>
+                        
+                        <!-- Reloj en Tiempo Real -->
+<div id="live-clock" class="bg-rose-300/70 px-3 py-2 rounded-lg">
+    <span class="text-white-300 font-mono">00:00:00</span>
+</div>
+
+<!-- Selector de Usuario -->
+<div class="flex items-center space-x-2 bg-rose-300/70 px-3 py-2 rounded-lg">
+    <i class="fas fa-user text-white-300"></i>
+    <select id="user-role" class="bg-transparent text-white border-none outline-none cursor-pointer">
+        <option value="admin">👑 Admin</option>
+        <option value="mesero">🍽️ Mesero</option>
+        <option value="cocinero">👨‍🍳 Cocinero</option>
+        <option value="cajero">💰 Cajero</option>
+    </select>
+</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navegación Principal -->
+        <nav class="bg-slate-700/35 border-b border-slate-700/35">
+            <div class="container mx-auto px-4">
+                <div class="flex space-x-1 overflow-x-auto py-2">
+                    <button class="nav-tab active" data-tab="dashboard">
+                        <i class="fas fa-chart-bar mr-2"></i>Dashboard
+                    </button>
+                    <button class="nav-tab" data-tab="tables">
+                        <i class="fas fa-map-marked-alt mr-2"></i>Mapa de Mesas
+                    </button>
+                    <button class="nav-tab" data-tab="reservations">
+                        <i class="fas fa-calendar-check mr-2"></i>Reservas
+                    </button>
+                    <button class="nav-tab" data-tab="orders">
+                        <i class="fas fa-receipt mr-2"></i>Pedidos
+                    </button>
+                    <button class="nav-tab" data-tab="kitchen">
+                        <i class="fas fa-utensils mr-2"></i>Cocina
+                    </button>
+                    <button class="nav-tab" data-tab="menu" style="display: none;">
+                        <i class="fas fa-book-open mr-2"></i>Menú
+                    </button>
+                    <button class="nav-tab" data-tab="cashier">
+                        <i class="fas fa-cash-register mr-2"></i>Cobro
+                    </button>
+                    <button class="nav-tab" data-tab="analytics">
+                        <i class="fas fa-chart-line mr-2"></i>Analytics
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Panel de Alertas -->
+        <div id="alerts-panel" class="container mx-auto px-4 pt-4 space-y-2">
+            <!-- Las alertas se generarán dinámicamente -->
+        </div>
+
+        <!-- Contenido Principal -->
+        <main class="container mx-auto px-4 py-6">
+            <!-- Secciones de Contenido -->
+            <div id="content-sections">
+                
+                <!-- Dashboard -->
+                <section id="dashboard-section" class="content-section active">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                        <!-- Métricas en tiempo real -->
+                        <div class="metric-card">
+                            <div class="metric-icon bg-blue-500/20 text-blue-400">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="metric-content">
+                                <h3 class="metric-value" id="current-occupancy">0%</h3>
+                                <p class="metric-label">Ocupación Actual</p>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-icon bg-green-500/20 text-green-400">
+                                <i class="fas fa-calendar-day"></i>
+                            </div>
+                            <div class="metric-content">
+                                <h3 class="metric-value" id="today-reservations">0</h3>
+                                <p class="metric-label">Reservas Hoy</p>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-icon bg-purple-400/20 text-purple-400">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <div class="metric-content">
+                                <h3 class="metric-value" id="active-orders">0</h3>
+                                <p class="metric-label">Pedidos Activos</p>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-icon bg-amber-500/20 text-amber-400">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="metric-content">
+                                <h3 class="metric-value" id="today-revenue">$0</h3>
+                                <p class="metric-label">Ingresos Hoy</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gráficos Dashboard -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="glass-card">
+                            <h3 class="card-title">Ocupación por Hora</h3>
+                            <canvas id="occupation-chart" height="250"></canvas>
+                        </div>
+                        <div class="glass-card">
+                            <h3 class="card-title">Pedidos por Categoría</h3>
+                            <canvas id="orders-chart" height="250"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Mapa de Mesas -->
+                <section id="tables-section" class="content-section">
+                    <div class="glass-card">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold text-white">Mapa Interactivo de Mesas</h2>
+                            <div class="flex space-x-3">
+                                <button class="btn btn-primary" onclick="openAddTableModal()">
+                                    <i class="fas fa-plus mr-2"></i>Nueva Mesa
+                                </button>
+                                <button class="btn btn-secondary" onclick="refreshTableMap()">
+                                    <i class="fas fa-sync-alt mr-2"></i>Actualizar
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Controles del Mapa -->
+                        <div class="flex flex-wrap gap-4 mb-6 p-4 bg-slate-800/30 rounded-lg">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-4 h-4 bg-green-500 rounded"></div>
+                                <span class="text-slate-300">Disponible</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-4 h-4 bg-red-500 rounded"></div>
+                                <span class="text-slate-300">Ocupada</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-4 h-4 bg-yellow-500 rounded"></div>
+                                <span class="text-slate-300">Reservada</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-4 h-4 bg-blue-500 rounded"></div>
+                                <span class="text-slate-300">Limpieza</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Mapa Interactivo -->
+                        <div id="table-map-container" class="bg-slate-800/20 rounded-xl p-6 min-h-[500px] relative border-2 border-dashed border-slate-600/30">
+                            <!-- Las mesas se generarán dinámicamente aquí -->
+                            <div class="text-center text-slate-400 py-20" id="loading-tables">
+                                <i class="fas fa-spinner fa-spin text-3xl mb-4"></i>
+                                <p>Cargando mapa de mesas...</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Reservas -->
+                <section id="reservations-section" class="content-section">
+                    <div class="glass-card">
+                        <h2 class="text-2xl font-bold text-white mb-6">Sistema de Reservas</h2>
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <div class="lg:col-span-2">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h3 class="text-lg font-semibold text-white">Reservas de Hoy</h3>
+                                    <button class="btn btn-primary" onclick="openNewReservationModal()">
+                                        <i class="fas fa-plus mr-2"></i>Nueva Reserva
+                                    </button>
+                                </div>
+                                <div id="reservations-list" class="space-y-3">
+                                    <!-- Reservas se cargarán aquí -->
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-white mb-4">Calendario</h3>
+                                <div id="reservation-calendar" class="bg-slate-800/30 rounded-lg p-4">
+                                    <!-- Calendario simple -->
+                                    <div class="text-center text-slate-400 py-8">
+                                        <i class="fas fa-calendar text-2xl mb-2"></i>
+                                        <p>Calendario de Reservas</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pedidos -->
+<section id="orders-section" class="content-section">
+    <div class="glass-card">
+        <h2 class="text-2xl font-bold text-white mb-6">Gestión de Pedidos</h2>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Columna Izquierda: Pedidos Activos -->
+            <div>
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold text-white">Pedidos Activos</h3>
+                    <button class="btn btn-secondary" onclick="refreshOrders()">
+                        <i class="fas fa-sync-alt mr-2"></i>Actualizar
+                    </button>
+                </div>
+                <div id="active-orders-list" class="space-y-3 max-h-96 overflow-y-auto">
+                    <!-- Los pedidos activos aparecerán aquí -->
+                </div>
+            </div>
+            
+            <!-- Columna Derecha: Crear Nuevo Pedido -->
+            <div>
+                <h3 class="text-lg font-semibold text-white mb-4">Crear Nuevo Pedido</h3>
+                <div class="bg-slate-800/30 rounded-lg p-6">
+                    <!-- Selección de Mesa -->
+                    <div class="mb-4">
+                        <label class="block text-slate-300 mb-2">Seleccionar Mesa</label>
+                        <select id="order-table-select" class="w-full p-3 rounded-lg bg-slate-700/50 text-white border border-slate-600 focus:border-red-500 focus:ring-1 focus:ring-red-500">
+                            <option value="">Selecciona una mesa...</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Productos -->
+                    <div class="mb-4">
+                        <label class="block text-slate-300 mb-2">Agregar Productos</label>
+                        <div class="space-y-2">
+                            <select id="product-select" class="w-full p-3 rounded-lg bg-slate-700/50 text-white border border-slate-600 focus:border-red-500 focus:ring-1 focus:ring-red-500">
+                                <option value="">Selecciona un producto...</option>
+                            </select>
+                            <div class="flex space-x-2">
+                                <input type="number" id="product-quantity" min="1" value="1" class="flex-1 p-3 rounded-lg bg-slate-700/50 text-white border border-slate-600 focus:border-red-500 focus:ring-1 focus:ring-red-500">
+                                <button class="btn btn-primary" onclick="addProductToOrder()">
+                                    <i class="fas fa-plus mr-2"></i>Agregar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Lista de Productos del Pedido -->
+                    <div class="mb-4">
+                        <h4 class="text-slate-300 mb-2">Productos en el Pedido:</h4>
+                        <div id="order-items-list" class="bg-slate-800/50 rounded-lg p-3 min-h-20 max-h-40 overflow-y-auto">
+                            <p class="text-slate-400 text-center py-4">No hay productos agregados</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Total y Botones -->
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-white font-semibold">Total: $<span id="order-total">0</span></span>
+                        <button class="btn btn-primary" onclick="createOrder()">
+                            <i class="fas fa-paper-plane mr-2"></i>Enviar a Cocina
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+                <!-- Cocina -->
+                <section id="kitchen-section" class="content-section">
+                    <div class="glass-card">
+                        <h2 class="text-2xl font-bold text-white mb-6">Panel de Cocina</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                            <div class="text-center p-4 bg-slate-800/30 rounded-lg">
+                                <div class="text-2xl font-bold text-green-400" id="pending-orders">0</div>
+                                <div class="text-slate-300">Pendientes</div>
+                            </div>
+                            <div class="text-center p-4 bg-slate-800/30 rounded-lg">
+                                <div class="text-2xl font-bold text-yellow-400" id="preparing-orders">0</div>
+                                <div class="text-slate-300">En Preparación</div>
+                            </div>
+                            <div class="text-center p-4 bg-slate-800/30 rounded-lg">
+                                <div class="text-2xl font-bold text-blue-400" id="ready-orders">0</div>
+                                <div class="text-slate-300">Listos</div>
+                            </div>
+                        </div>
+                        <div id="kitchen-orders" class="space-y-3">
+                            <!-- Órdenes de cocina -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Gestión de Menú -->
+                <section id="menu-section" class="content-section">
+                    <div class="glass-card">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold text-white">Gestión del Menú</h2>
+                            <button class="btn btn-primary" onclick="openAddProductModal()">
+                                <i class="fas fa-plus mr-2"></i>Nuevo Producto
+                            </button>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="menu-items-container">
+                            <!-- Los productos del menú se cargarán aquí -->
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Sección de Cajero -->
+<section id="cashier-section" class="content-section">
+    <div class="glass-card">
+        <h2 class="text-2xl font-bold text-white mb-6">Módulo de Cajero</h2>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Columna Izquierda: Cuentas Pendientes -->
+            <div>
+                <h3 class="text-lg font-semibold text-white mb-4">Cuentas por Pagar</h3>
+                <div id="pending-bills" class="space-y-3 max-h-96 overflow-y-auto">
+                    <!-- Las cuentas pendientes aparecerán aquí -->
+                </div>
+            </div>
+            
+            <!-- Columna Derecha: Procesar Pago -->
+            <div>
+                <h3 class="text-lg font-semibold text-white mb-4">Procesar Pago</h3>
+                <div class="bg-slate-800/30 rounded-lg p-6">
+                    <!-- Selección de Orden -->
+                    <div class="mb-4">
+                        <label class="block text-slate-300 mb-2">Seleccionar Orden a Pagar</label>
+                        <select id="order-to-pay" class="w-full p-3 rounded-lg bg-slate-700/50 text-white border border-slate-600 focus:border-red-500 focus:ring-1 focus:ring-red-500">
+                            <option value="">Selecciona una orden...</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Detalles de la Orden -->
+                    <div id="order-details" class="mb-4 hidden">
+                        <h4 class="text-slate-300 mb-2">Detalles de la Orden:</h4>
+                        <div id="order-items" class="bg-slate-800/50 rounded-lg p-3 mb-2">
+                            <!-- Items de la orden -->
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-white font-semibold">Total a Pagar:</span>
+                            <span class="text-green-400 font-bold text-xl">$<span id="order-total-amount">0</span></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Método de Pago -->
+                    <div class="mb-4">
+                        <label class="block text-slate-300 mb-2">Método de Pago</label>
+                        <select id="payment-method" class="w-full p-3 rounded-lg bg-slate-700/50 text-white border border-slate-600">
+                            <option value="efectivo">💵 Efectivo</option>
+                            <option value="tarjeta">💳 Tarjeta</option>
+                            <option value="transferencia">📱 Transferencia</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Botones de Acción -->
+                    <div class="flex space-x-2">
+                        <button class="btn btn-primary flex-1" onclick="processPayment()">
+                            <i class="fas fa-cash-register mr-2"></i>Procesar Pago
+                        </button>
+                        <button class="btn btn-secondary flex-1" onclick="splitBill()">
+                            <i class="fas fa-divide mr-2"></i>Dividir Cuenta
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+                <!-- Analytics -->
+                <section id="analytics-section" class="content-section">
+                    <div class="glass-card">
+                        <h2 class="text-2xl font-bold text-white mb-6">Analytics y Reportes</h2>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <h3 class="card-title">Ventas del Día</h3>
+                                <canvas id="sales-chart" height="200"></canvas>
+                            </div>
+                            <div>
+                                <h3 class="card-title">Productos Más Vendidos</h3>
+                                <canvas id="products-chart" height="200"></canvas>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="text-center p-4 bg-slate-800/30 rounded-lg">
+                                <div class="text-xl font-bold text-white" id="avg-order-value">$0</div>
+                                <div class="text-slate-300">Ticket Promedio</div>
+                            </div>
+                            <div class="text-center p-4 bg-slate-800/30 rounded-lg">
+                                <div class="text-xl font-bold text-white" id="total-customers">0</div>
+                                <div class="text-slate-300">Clientes Hoy</div>
+                            </div>
+                            <div class="text-center p-4 bg-slate-800/30 rounded-lg">
+                                <div class="text-xl font-bold text-white" id="table-turnover">0</div>
+                                <div class="text-slate-300">Rotación de Mesas</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+
+    <!-- Modal para Nueva Mesa -->
+    <div id="add-table-modal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-white">Agregar Nueva Mesa</h3>
+                <button onclick="closeModal('add-table-modal')" class="text-slate-400 hover:text-white">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form id="add-table-form" onsubmit="addNewTable(event)">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-slate-300 mb-2">Número de Mesa</label>
+                        <input type="text" id="table-number" class="w-full p-3 rounded-lg bg-slate-700/50 text-white border border-slate-600 focus:border-red-500 focus:ring-1 focus:ring-red-500" required>
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 mb-2">Capacidad</label>
+                        <select id="table-capacity" class="w-full p-3 rounded-lg bg-slate-700/50 text-white border border-slate-600 focus:border-red-500 focus:ring-1 focus:ring-red-500" required>
+                            <option value="2">2 personas</option>
+                            <option value="4">4 personas</option>
+                            <option value="6">6 personas</option>
+                            <option value="8">8 personas</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 mb-2">Ubicación (Coordenadas)</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <input type="number" id="table-x" placeholder="X" class="p-3 rounded-lg bg-slate-700/50 text-white border border-slate-600 focus:border-red-500 focus:ring-1 focus:ring-red-500" required>
+                            <input type="number" id="table-y" placeholder="Y" class="p-3 rounded-lg bg-slate-700/50 text-white border border-slate-600 focus:border-red-500 focus:ring-1 focus:ring-red-500" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex space-x-3 mt-6">
+                    <button type="button" onclick="closeModal('add-table-modal')" class="btn btn-secondary flex-1">Cancelar</button>
+                    <button type="submit" class="btn btn-primary flex-1">Agregar Mesa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para Nueva Reserva -->
+    <div id="reservation-modal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-white">Nueva Reserva</h3>
+                <button onclick="closeModal('reservation-modal')" class="text-slate-400 hover:text-white">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form id="reservation-form" onsubmit="createReservation(event)">
+                <div class="space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-slate-300 mb-2">Fecha</label>
+                            <input type="date" id="reservation-date" class="w-full p-3 rounded-lg bg-slate-700/50 text-white border border-slate-600 focus:border-red-500 focus:ring-1 focus:ring-red-500" required>
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 mb-2">Hora</label>
+                            <input type="time" id="reservation-time" class="w-full p-3 rounded-lg bg-slate-700/50 text-white border border-slate-600 focus:border-red-500 focus:ring-1 focus:ring-red-500" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 mb-2">Nombre del Cliente</label>
+                        <input type="text" id="customer-name" class="w-full p-3 rounded-lg bg-slate-700/50 text-white border border-slate-600 focus:border-red-500 focus:ring-1 focus:ring-red-500" required>
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 mb-2">Número de Personas</label>
+                        <input type="number" id="party-size" min="1" max="20" class="w-full p-3 rounded-lg bg-slate-700/50 text-white border border-slate-600 focus:border-red-500 focus:ring-1 focus:ring-red-500" required>
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 mb-2">Mesa Preferida</label>
+                        <select id="preferred-table" class="w-full p-3 rounded-lg bg-slate-700/50 text-white border border-slate-600 focus:border-red-500 focus:ring-1 focus:ring-red-500">
+                            <option value="">Cualquier mesa disponible</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 mb-2">Notas Especiales</label>
+                        <textarea id="reservation-notes" rows="3" class="w-full p-3 rounded-lg bg-slate-700/50 text-white border border-slate-600 focus:border-red-500 focus:ring-1 focus:ring-red-500"></textarea>
+                    </div>
+                </div>
+                <div class="flex space-x-3 mt-6">
+                    <button type="button" onclick="closeModal('reservation-modal')" class="btn btn-secondary flex-1">Cancelar</button>
+                    <button type="submit" class="btn btn-primary flex-1">Crear Reserva</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para Agregar Producto -->
+    <div id="add-product-modal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-white">Agregar Producto al Menú</h3>
+                <button onclick="closeModal('add-product-modal')" class="text-slate-400 hover:text-white">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form id="add-product-form" onsubmit="addNewProduct(event)">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-slate-300 mb-2">Nombre del Producto</label>
+                        <input type="text" id="product-name" class="w-full p-3 rounded-lg bg-slate-700/50 text-white border border-slate-600 focus:border-red-500 focus:ring-1 focus:ring-red-500" required>
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 mb-2">Descripción</label>
+                        <textarea id="product-description" rows="2" class="w-full p-3 rounded-lg bg-slate-700/50 text-white border border-slate-600 focus:border-red-500 focus:ring-1 focus:ring-red-500"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 mb-2">Precio</label>
+                        <input type="number" id="product-price" step="0.01" class="w-full p-3 rounded-lg bg-slate-700/50 text-white border border-slate-600 focus:border-red-500 focus:ring-1 focus:ring-red-500" required>
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 mb-2">Categoría</label>
+                        <select id="product-category" class="w-full p-3 rounded-lg bg-slate-700/50 text-white border border-slate-600 focus:border-red-500 focus:ring-1 focus:ring-red-500" required>
+                            <option value="entradas">Entradas</option>
+                            <option value="platos_fuertes">Platos Fuertes</option>
+                            <option value="postres">Postres</option>
+                            <option value="bebidas">Bebidas</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 mb-2">Tiempo de Preparación (minutos)</label>
+                        <input type="number" id="product-preparation-time" class="w-full p-3 rounded-lg bg-slate-700/50 text-white border border-slate-600 focus:border-red-500 focus:ring-1 focus:ring-red-500" required>
+                    </div>
+                </div>
+                <div class="flex space-x-3 mt-6">
+                    <button type="button" onclick="closeModal('add-product-modal')" class="btn btn-secondary flex-1">Cancelar</button>
+                    <button type="submit" class="btn btn-primary flex-1">Agregar Producto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para Detalles de Mesa -->
+    <div id="table-details-modal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-white" id="table-details-title">Detalles de Mesa</h3>
+                <button onclick="closeModal('table-details-modal')" class="text-slate-400 hover:text-white">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div id="table-details-content">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts de la Aplicación -->
+    <script>
+        // =============================================
+        // DATOS Y CONFIGURACIÓN INICIAL
+        // =============================================
+
+        // Base de datos simulada
+        const restaurantDB = {
+    tables: [
+        { id: 'T01', number: 'Mesa 1', type: '2_personas', capacity: 2, position: { x: 100, y: 150 }, status: 'available', section: 'terraza' },
+        { id: 'T02', number: 'Mesa 2', type: '2_personas', capacity: 2, position: { x: 200, y: 150 }, status: 'occupied', section: 'terraza' },
+        { id: 'T03', number: 'Mesa 3', type: '4_personas', capacity: 4, position: { x: 300, y: 150 }, status: 'available', section: 'interior' },
+        { id: 'T04', number: 'Mesa 4', type: '4_personas', capacity: 4, position: { x: 100, y: 300 }, status: 'reserved', section: 'interior' },
+        { id: 'T05', number: 'Mesa 5', type: '6_personas', capacity: 6, position: { x: 250, y: 300 }, status: 'available', section: 'vip' },
+        { id: 'T06', number: 'Mesa 6', type: '8_personas', capacity: 8, position: { x: 400, y: 300 }, status: 'cleaning', section: 'vip' }
+    ],
+    reservations: [
+        { id: 'R001', tableId: 'T04', customerName: 'Ana García', date: new Date().toISOString().split('T')[0], time: '19:00', partySize: 4, status: 'confirmed', notes: 'Aniversario de boda' }
+    ],
+    orders: [
+        { id: 'ORD001', tableId: 'T02', items: [{ name: 'Ceviche', price: 45, quantity: 2 }], status: 'preparing', total: 90, timestamp: new Date() }
+    ],
+    menu: {
+        categories: [
+            {
+                id: 'entradas',
+                name: 'Entradas',
+                items: [
+                    { 
+                        id: 'ENT001', 
+                        name: 'Ceviche Clásico', 
+                        description: 'Pescado fresco marinado en limón', 
+                        price: 45, 
+                        preparationTime: 15, 
+                        available: true,
+                        image: 'https://images.unsplash.com/photo-1626700051175-6818013e0571?w=300&h=200&fit=crop'
+                    },
+                    { 
+                        id: 'ENT002', 
+                        name: 'Tequeños', 
+                        description: 'Dedos de queso envueltos en masa', 
+                        price: 35, 
+                        preparationTime: 10, 
+                        available: true,
+                        image: 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=300&h=200&fit=crop'
+                    }
+                ]
+            },
+            {
+                id: 'platos_fuertes',
+                name: 'Platos Fuertes',
+                items: [
+                    { 
+                        id: 'PF001', 
+                        name: 'Lomo Saltado', 
+                        description: 'Lomo de res salteado con cebolla, tomate y papas fritas', 
+                        price: 65, 
+                        preparationTime: 25, 
+                        available: true,
+                        image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=300&h=200&fit=crop'
+                    },
+                    { 
+                        id: 'PF002', 
+                        name: 'Arroz con Mariscos', 
+                        description: 'Arroz con mix de mariscos y ají amarillo', 
+                        price: 70, 
+                        preparationTime: 30, 
+                        available: true,
+                        image: 'https://images.unsplash.com/photo-1559847844-5315695dadae?w=300&h=200&fit=crop'
+                    }
+                ]
+            },
+            {
+                id: 'postres',
+                name: 'Postres',
+                items: [
+                    { 
+                        id: 'POST001', 
+                        name: 'Suspiro Limeño', 
+                        description: 'Dulce de leche con merengue', 
+                        price: 25, 
+                        preparationTime: 5, 
+                        available: true,
+                        image: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=300&h=200&fit=crop'
+                    },
+                    { 
+                        id: 'POST002', 
+                        name: 'Mazamorra Morada', 
+                        description: 'Postre tradicional de maíz morado', 
+                        price: 20, 
+                        preparationTime: 5, 
+                        available: true,
+                        image: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=300&h=200&fit=crop'
+                    }
+                ]
+            },
+            {
+                id: 'bebidas',
+                name: 'Bebidas',
+                items: [
+                    { 
+                        id: 'BEB001', 
+                        name: 'Chicha Morada', 
+                        description: 'Bebida de maíz morado', 
+                        price: 15, 
+                        preparationTime: 2, 
+                        available: true,
+                        image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=300&h=200&fit=crop'
+                    },
+                    { 
+                        id: 'BEB002', 
+                        name: 'Pisco Sour', 
+                        description: 'Coctel tradicional peruano', 
+                        price: 30, 
+                        preparationTime: 5, 
+                        available: true,
+                        image: 'https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=300&h=200&fit=crop'
+                    }
+                ]
+            }
+        ]
+    }
+};
+        // Estado de la aplicación
+        let appState = {
+            currentSection: 'dashboard',
+            currentUser: null,
+            notifications: [],
+            charts: {}
+        };
+
+        // =============================================
+        // FUNCIONES DE INICIALIZACIÓN
+        // =============================================
+
+        function initRestoFlow() {
+            console.log('🚀 Inicializando RestoFlow...');
+            
+            // Inicializar componentes
+            initParticles();
+            initNavigation();
+            initLiveClock();
+            initUserSystem();
+            initDashboard();
+            initTableMap();
+            initReservations();
+            initOrders();
+            initKitchen();
+            initCashier();
+            initAnalytics();
+            
+            renderMenuItems();
+
+            // Simular datos en tiempo real
+            startRealTimeUpdates();
+            
+            // Mostrar alerta de bienvenida
+            // showAlert('Sistema RestoFlow inicializado correctamente', 'success');
+        }
+
+        function initParticles() {
+    particlesJS('particles-js', {
+        particles: {
+            number: { value: 80, density: { enable: true, value_area: 800 } },
+            color: { value: '#C19A6B' },  // ← CAMBIA A DORADO CREMA
+            shape: { type: 'circle' },
+            opacity: { value: 0.5, random: true },
+            size: { value: 3, random: true },
+            line_linked: {
+                enable: true,
+                distance: 150,
+                color: '#D4AF37',  // ← CAMBIA A DORADO
+                opacity: 0.4,
+                width: 1
+            },
+            move: {
+                enable: true,
+                speed: 2,
+                direction: 'none',
+                random: true,
+                straight: false,
+                out_mode: 'out',
+                bounce: false
+            }
+        },
+        interactivity: {
+            detect_on: 'canvas',
+            events: {
+                onhover: { enable: true, mode: 'repulse' },
+                onclick: { enable: true, mode: 'push' },
+                resize: true
+            }
+        }
+    });
+}
+
+        function initNavigation() {
+            // Navegación por pestañas
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetTab = this.getAttribute('data-tab');
+                    
+                    // Actualizar pestañas activas
+                    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Mostrar sección correspondiente
+                    document.querySelectorAll('.content-section').forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    document.getElementById(`${targetTab}-section`).classList.add('active');
+                    
+                    appState.currentSection = targetTab;
+                });
+            });
+        }
+
+        function initLiveClock() {
+            function updateClock() {
+                const now = new Date();
+                const timeString = now.toLocaleTimeString('es-ES', { hour12: false });
+                document.getElementById('live-clock').querySelector('span').textContent = timeString;
+            }
+            
+            updateClock();
+            setInterval(updateClock, 1000);
+        }
+
+        // =============================================
+        // SISTEMA DE LOGIN Y ROLES
+        // =============================================
+// =============================================
+// SISTEMA DE USUARIOS MEJORADO
+// =============================================
+
+function initUserSystem() {
+    const userSelect = document.getElementById('user-role');
+    
+    // Establecer usuario por defecto
+    appState.currentUser = 'admin';
+    updateUIForRole('admin');
+    
+    userSelect.addEventListener('change', function() {
+        const role = this.value;
+        switchUserRole(role);
+    });
+}
+
+function switchUserRole(role) {
+    appState.currentUser = role;
+    updateUIForRole(role);
+    
+    const roleNames = {
+        'admin': '👑 Administrador',
+        'mesero': '🍽️ Mesero', 
+        'cocinero': '👨‍🍳 Cocinero',
+        'cajero': '💰 Cajero'
+    };
+    
+    showAlert(`Modo ${roleNames[role]} activado`, 'success');
+}
+
+function updateUIForRole(role) {
+    // Ocultar todas las secciones primero
+    document.querySelectorAll('.content-section').forEach(section => {
+        section.classList.remove('active');
+    });
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+
+    // Mostrar secciones según el rol
+    let defaultTab = 'dashboard';
+    switch(role) {
+        case 'admin':
+            defaultTab = 'dashboard';
+            break;
+        case 'mesero':
+            defaultTab = 'tables';
+            break;
+        case 'cocinero':
+            defaultTab = 'kitchen';
+            break;
+        case 'cajero':
+            defaultTab = 'cashier';
+            break;
+    }
+
+    // ✅ ACTIVAR LA PESTAÑA Y SECCIÓN CORRESPONDIENTE
+    document.querySelector(`[data-tab="${defaultTab}"]`).classList.add('active');
+    document.getElementById(`${defaultTab}-section`).classList.add('active');
+
+    // Ocultar/mostrar pestañas según el rol
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+        const tabName = tab.getAttribute('data-tab');
+        
+        switch(role) {
+            case 'admin':
+                // Admin ve todo
+                tab.style.display = 'flex';
+                break;
+            case 'mesero':
+                // Mesero: dashboard, tables, reservations, orders
+                if (['dashboard', 'tables', 'reservations', 'orders'].includes(tabName)) {
+                    tab.style.display = 'flex';
+                } else {
+                    tab.style.display = 'none';
+                }
+                break;
+            case 'cocinero':
+                // Cocinero: solo kitchen
+                if (tabName === 'kitchen') {
+                    tab.style.display = 'flex';
+                } else {
+                    tab.style.display = 'none';
+                }
+                break;
+            case 'cajero':
+                // Cajero: cashier, orders
+                if (['cashier', 'orders'].includes(tabName)) {
+                    tab.style.display = 'flex';
+                } else {
+                    tab.style.display = 'none';
+                }
+                break;
+        }
+    });
+
+    // ✅ NUEVO: CARGAR DATOS SEGÚN EL ROL
+    setTimeout(() => {
+        switch(role) {
+            case 'admin':
+                renderMenuItems(); // ← ADMIN VE EL MENÚ COMPLETO
+                break;
+            case 'mesero':
+                populateOrderTableSelect(); // ← MESERO VE MESAS PARA PEDIDOS
+                populateProductSelect();
+                break;
+            case 'cajero':
+                loadPendingBills(); // ← CAJERO VE CUENTAS PENDIENTES
+                populateOrdersToPay();
+                break;
+            case 'cocinero':
+                renderKitchenOrders(); // ← COCINERO VE ÓRDENES
+                break;
+        }
+    }, 100);
+}
+        // =============================================
+        // SISTEMA DE MESAS
+        // =============================================
+
+        function initTableMap() {
+            renderTableMap();
+            updateTableMetrics();
+        }
+
+        function renderTableMap() {
+            const container = document.getElementById('table-map-container');
+            const loadingElement = document.getElementById('loading-tables');
+            
+            if (loadingElement) {
+                loadingElement.remove();
+            }
+            
+            container.innerHTML = '';
+            
+            restaurantDB.tables.forEach(table => {
+                const tableElement = document.createElement('div');
+                tableElement.className = `table table-${table.capacity} ${table.status}`;
+                tableElement.style.left = `${table.position.x}px`;
+                tableElement.style.top = `${table.position.y}px`;
+                tableElement.setAttribute('data-table-id', table.id);
+                
+                tableElement.innerHTML = `
+                    <div class="table-number">${table.number}</div>
+                    <div class="table-status">${getStatusText(table.status)}</div>
+                    <div class="table-capacity">${table.capacity} pers.</div>
+                `;
+                
+                tableElement.addEventListener('click', () => openTableDetails(table.id));
+                container.appendChild(tableElement);
+            });
+        }
+
+        function getStatusText(status) {
+            const statusMap = {
+                'available': 'Disponible',
+                'occupied': 'Ocupada',
+                'reserved': 'Reservada',
+                'cleaning': 'Limpieza'
+            };
+            return statusMap[status] || status;
+        }
+
+        function openTableDetails(tableId) {
+            const table = restaurantDB.tables.find(t => t.id === tableId);
+            if (table) {
+                document.getElementById('table-details-title').textContent = `Detalles de ${table.number}`;
+                
+                let content = `
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="text-slate-300">Estado</h4>
+                                <p class="text-white font-semibold">${getStatusText(table.status)}</p>
+                            </div>
+                            <div>
+                                <h4 class="text-slate-300">Capacidad</h4>
+                                <p class="text-white font-semibold">${table.capacity} personas</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-slate-300">Ubicación</h4>
+                            <p class="text-white font-semibold">${table.section}</p>
+                        </div>
+                `;
+                
+                // Mostrar opciones según el estado de la mesa
+                if (table.status === 'available') {
+                    content += `
+                        <div class="flex space-x-2">
+                            <button class="btn btn-primary flex-1" onclick="occupyTable('${table.id}')">
+                                <i class="fas fa-users mr-2"></i>Ocupar Mesa
+                            </button>
+                            <button class="btn btn-secondary flex-1" onclick="reserveTable('${table.id}')">
+                                <i class="fas fa-calendar mr-2"></i>Reservar
+                            </button>
+                        </div>
+                    `;
+                } else if (table.status === 'occupied') {
+                    // Buscar pedidos activos para esta mesa
+                    const order = restaurantDB.orders.find(o => o.tableId === table.id && o.status !== 'paid');
+                    if (order) {
+                        content += `
+                            <div class="bg-slate-800/30 rounded-lg p-4">
+                                <h4 class="text-slate-300 mb-2">Pedido Activo</h4>
+                                <p class="text-white">${order.items.map(item => `${item.quantity}x ${item.name}`).join(', ')}</p>
+                                <p class="text-white font-semibold mt-2">Total: $${order.total}</p>
+                                <div class="flex space-x-2 mt-3">
+                                    <button class="btn btn-primary flex-1" onclick="addItemsToOrder('${table.id}')">
+                                        <i class="fas fa-plus mr-2"></i>Agregar Items
+                                    </button>
+                                    <button class="btn btn-secondary flex-1" onclick="closeOrder('${order.id}')">
+                                        <i class="fas fa-receipt mr-2"></i>Cerrar Cuenta
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        content += `
+                            <div class="flex space-x-2">
+                                <button class="btn btn-primary flex-1" onclick="createOrder('${table.id}')">
+                                    <i class="fas fa-utensils mr-2"></i>Tomar Pedido
+                                </button>
+                                <button class="btn btn-secondary flex-1" onclick="freeTable('${table.id}')">
+                                    <i class="fas fa-door-open mr-2"></i>Liberar Mesa
+                                </button>
+                            </div>
+                        `;
+                    }
+                } else if (table.status === 'reserved') {
+                    // Buscar reserva para esta mesa
+                    const reservation = restaurantDB.reservations.find(r => r.tableId === table.id && r.status === 'confirmed');
+                    if (reservation) {
+                        content += `
+                            <div class="bg-slate-800/30 rounded-lg p-4">
+                                <h4 class="text-slate-300 mb-2">Reserva</h4>
+                                <p class="text-white">${reservation.customerName}</p>
+                                <p class="text-white">${reservation.partySize} personas - ${reservation.time}</p>
+                                <p class="text-slate-400 text-sm">${reservation.notes || 'Sin notas'}</p>
+                                <div class="flex space-x-2 mt-3">
+                                    <button class="btn btn-primary flex-1" onclick="checkInReservation('${reservation.id}')">
+                                        <i class="fas fa-check mr-2"></i>Check-in
+                                    </button>
+                                    <button class="btn btn-secondary flex-1" onclick="cancelReservation('${reservation.id}')">
+                                        <i class="fas fa-times mr-2"></i>Cancelar
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    }
+                } else if (table.status === 'cleaning') {
+                    content += `
+                        <div class="flex space-x-2">
+                            <button class="btn btn-primary flex-1" onclick="markTableClean('${table.id}')">
+                                <i class="fas fa-check mr-2"></i>Mesa Limpia
+                            </button>
+                        </div>
+                    `;
+                }
+                
+                content += `</div>`;
+                
+                document.getElementById('table-details-content').innerHTML = content;
+                document.getElementById('table-details-modal').classList.add('active');
+            }
+        }
+
+        function occupyTable(tableId) {
+            const table = restaurantDB.tables.find(t => t.id === tableId);
+            if (table) {
+                table.status = 'occupied';
+                renderTableMap();
+                updateTableMetrics();
+                closeModal('table-details-modal');
+                showAlert(`${table.number} ocupada`, 'success');
+            }
+        }
+
+        function freeTable(tableId) {
+            const table = restaurantDB.tables.find(t => t.id === tableId);
+            if (table) {
+                table.status = 'cleaning';
+                renderTableMap();
+                updateTableMetrics();
+                closeModal('table-details-modal');
+                showAlert(`${table.number} liberada para limpieza`, 'success');
+            }
+        }
+
+        function reserveTable(tableId) {
+            const table = restaurantDB.tables.find(t => t.id === tableId);
+            if (table) {
+                table.status = 'reserved';
+                
+                // Crear una reserva simulada
+                const reservation = {
+                    id: 'R' + String(restaurantDB.reservations.length + 1).padStart(3, '0'),
+                    tableId: tableId,
+                    customerName: 'Cliente Walk-in',
+                    date: new Date().toISOString().split('T')[0],
+                    time: new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }),
+                    partySize: table.capacity,
+                    status: 'confirmed',
+                    notes: 'Reserva walk-in'
+                };
+                
+                restaurantDB.reservations.push(reservation);
+                renderTableMap();
+                updateTableMetrics();
+                renderReservationsList();
+                closeModal('table-details-modal');
+                showAlert(`${table.number} reservada`, 'success');
+            }
+        }
+
+        function markTableClean(tableId) {
+            const table = restaurantDB.tables.find(t => t.id === tableId);
+            if (table) {
+                table.status = 'available';
+                renderTableMap();
+                updateTableMetrics();
+                closeModal('table-details-modal');
+                showAlert(`${table.number} disponible`, 'success');
+            }
+        }
+
+        function openAddTableModal() {
+            document.getElementById('add-table-modal').classList.add('active');
+        }
+
+        function addNewTable(event) {
+            event.preventDefault();
+            
+            const number = document.getElementById('table-number').value;
+            const capacity = parseInt(document.getElementById('table-capacity').value);
+            const x = parseInt(document.getElementById('table-x').value);
+            const y = parseInt(document.getElementById('table-y').value);
+            
+            const newTable = {
+                id: `T${String(restaurantDB.tables.length + 1).padStart(2, '0')}`,
+                number: number,
+                type: `${capacity}_personas`,
+                capacity: capacity,
+                position: { x: x, y: y },
+                status: 'available',
+                section: 'interior'
+            };
+            
+            restaurantDB.tables.push(newTable);
+            renderTableMap();
+            updateTableMetrics();
+            closeModal('add-table-modal');
+            document.getElementById('add-table-form').reset();
+            
+            showAlert(`Mesa ${number} agregada correctamente`, 'success');
+        }
+
+        function refreshTableMap() {
+            showAlert('Mapa de mesas actualizado', 'info');
+            renderTableMap();
+        }
+
+        // =============================================
+        // SISTEMA DE PEDIDOS
+        // =============================================
+
+        function createOrder(tableId) {
+            const table = restaurantDB.tables.find(t => t.id === tableId);
+            if (table) {
+                const newOrder = {
+                    id: 'ORD' + String(restaurantDB.orders.length + 1).padStart(3, '0'),
+                    tableId: tableId,
+                    items: [],
+                    status: 'received',
+                    total: 0,
+                    timestamp: new Date()
+                };
+                
+                restaurantDB.orders.push(newOrder);
+                updateOrderMetrics();
+                closeModal('table-details-modal');
+                showAlert(`Pedido creado para ${table.number}`, 'success');
+                
+                // Abrir modal para agregar items
+                openAddItemsModal(tableId);
+            }
+        }
+
+        function openAddItemsModal(tableId) {
+            // Por simplicidad, vamos a agregar algunos items automáticamente
+            const order = restaurantDB.orders.find(o => o.tableId === tableId && o.status === 'received');
+            if (order) {
+                // Agregar algunos items aleatorios del menú
+                const categories = restaurantDB.menu.categories;
+                const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+                const randomItem = randomCategory.items[Math.floor(Math.random() * randomCategory.items.length)];
+                
+                order.items.push({
+                    name: randomItem.name,
+                    price: randomItem.price,
+                    quantity: 1
+                });
+                
+                order.total = order.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                order.status = 'preparing';
+                
+                updateOrderMetrics();
+                renderKitchenOrders();
+                showAlert(`Item agregado al pedido: ${randomItem.name}`, 'success');
+            }
+        }
+
+        function closeOrder(orderId) {
+            const order = restaurantDB.orders.find(o => o.id === orderId);
+            if (order) {
+                order.status = 'paid';
+                
+                // Liberar la mesa
+                const table = restaurantDB.tables.find(t => t.id === order.tableId);
+                if (table) {
+                    table.status = 'cleaning';
+                }
+                
+                renderTableMap();
+                updateOrderMetrics();
+                updateTableMetrics();
+                closeModal('table-details-modal');
+                showAlert(`Cuenta cerrada para orden ${orderId}`, 'success');
+            }
+        }
+
+        // =============================================
+        // SISTEMA DE RESERVAS
+        // =============================================
+
+        function initReservations() {
+            renderReservationsList();
+            updateReservationMetrics();
+        }
+
+        function renderReservationsList() {
+            const container = document.getElementById('reservations-list');
+            const today = new Date().toISOString().split('T')[0];
+            
+            const todayReservations = restaurantDB.reservations.filter(res => res.date === today);
+            
+            if (todayReservations.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center text-slate-400 py-8">
+                        <i class="fas fa-calendar-day text-2xl mb-2"></i>
+                        <p>No hay reservas para hoy</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = todayReservations.map(reservation => {
+                const table = restaurantDB.tables.find(t => t.id === reservation.tableId);
+                return `
+                <div class="bg-slate-800/30 rounded-lg p-4 border-l-4 border-yellow-500">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="font-semibold text-white">${reservation.customerName}</h4>
+                            <p class="text-slate-300 text-sm">${table ? table.number : 'Mesa por asignar'} • ${reservation.partySize} personas</p>
+                            <p class="text-slate-400 text-sm">${reservation.time} • ${reservation.notes || 'Sin notas'}</p>
+                        </div>
+                        <span class="px-2 py-1 bg-yellow-500/20 text-yellow-300 rounded text-xs">${reservation.status}</span>
+                    </div>
+                    <div class="flex space-x-2 mt-3">
+                        <button class="btn btn-primary text-xs" onclick="checkInReservation('${reservation.id}')">
+                            <i class="fas fa-check mr-1"></i>Check-in
+                        </button>
+                        <button class="btn btn-secondary text-xs" onclick="cancelReservation('${reservation.id}')">
+                            <i class="fas fa-times mr-1"></i>Cancelar
+                        </button>
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        function checkInReservation(reservationId) {
+            const reservation = restaurantDB.reservations.find(r => r.id === reservationId);
+            if (reservation) {
+                reservation.status = 'checked-in';
+                
+                // Si hay una mesa asignada, ocuparla
+                if (reservation.tableId) {
+                    const table = restaurantDB.tables.find(t => t.id === reservation.tableId);
+                    if (table) {
+                        table.status = 'occupied';
+                    }
+                }
+                
+                renderReservationsList();
+                renderTableMap();
+                updateTableMetrics();
+                showAlert(`Check-in realizado para ${reservation.customerName}`, 'success');
+            }
+        }
+
+        function cancelReservation(reservationId) {
+            const reservation = restaurantDB.reservations.find(r => r.id === reservationId);
+            if (reservation) {
+                reservation.status = 'cancelled';
+                
+                // Liberar la mesa si estaba asignada
+                if (reservation.tableId) {
+                    const table = restaurantDB.tables.find(t => t.id === reservation.tableId);
+                    if (table) {
+                        table.status = 'available';
+                    }
+                }
+                
+                renderReservationsList();
+                renderTableMap();
+                updateTableMetrics();
+                showAlert(`Reserva cancelada para ${reservation.customerName}`, 'warning');
+            }
+        }
+
+        function openNewReservationModal() {
+            // Llenar select de mesas disponibles
+            const tableSelect = document.getElementById('preferred-table');
+            tableSelect.innerHTML = '<option value="">Cualquier mesa disponible</option>';
+            
+            restaurantDB.tables
+                .filter(table => table.status === 'available')
+                .forEach(table => {
+                    const option = document.createElement('option');
+                    option.value = table.id;
+                    option.textContent = `${table.number} (${table.capacity} pers.)`;
+                    tableSelect.appendChild(option);
+                });
+            
+            // Establecer fecha de hoy por defecto
+            document.getElementById('reservation-date').value = new Date().toISOString().split('T')[0];
+            
+            document.getElementById('reservation-modal').classList.add('active');
+        }
+
+        function createReservation(event) {
+            event.preventDefault();
+            
+            const reservationData = {
+                id: `R${String(restaurantDB.reservations.length + 1).padStart(3, '0')}`,
+                tableId: document.getElementById('preferred-table').value || null,
+                customerName: document.getElementById('customer-name').value,
+                date: document.getElementById('reservation-date').value,
+                time: document.getElementById('reservation-time').value,
+                partySize: parseInt(document.getElementById('party-size').value),
+                status: 'confirmed',
+                notes: document.getElementById('reservation-notes').value
+            };
+            
+            restaurantDB.reservations.push(reservationData);
+            
+            // Si se asignó una mesa específica, marcarla como reservada
+            if (reservationData.tableId) {
+                const table = restaurantDB.tables.find(t => t.id === reservationData.tableId);
+                if (table) {
+                    table.status = 'reserved';
+                }
+            }
+            
+            renderReservationsList();
+            renderTableMap();
+            updateReservationMetrics();
+            closeModal('reservation-modal');
+            document.getElementById('reservation-form').reset();
+            
+            showAlert(`Reserva creada para ${reservationData.customerName}`, 'success');
+        }
+
+        // =============================================
+        // SISTEMA DE MENÚ
+        // =============================================
+
+        function openAddProductModal() {
+            document.getElementById('add-product-modal').classList.add('active');
+        }
+
+        function addNewProduct(event) {
+            event.preventDefault();
+            
+            const productData = {
+                id: generateProductId(),
+                name: document.getElementById('product-name').value,
+                description: document.getElementById('product-description').value,
+                price: parseFloat(document.getElementById('product-price').value),
+                preparationTime: parseInt(document.getElementById('product-preparation-time').value),
+                available: true
+            };
+            
+            const category = document.getElementById('product-category').value;
+            const categoryObj = restaurantDB.menu.categories.find(c => c.id === category);
+            
+            if (categoryObj) {
+                categoryObj.items.push(productData);
+                renderMenuItems();
+                closeModal('add-product-modal');
+                document.getElementById('add-product-form').reset();
+                showAlert(`Producto ${productData.name} agregado al menú`, 'success');
+            }
+        }
+
+        function generateProductId() {
+            const categories = restaurantDB.menu.categories;
+            let maxId = 0;
+            
+            categories.forEach(category => {
+                category.items.forEach(item => {
+                    const idNum = parseInt(item.id.slice(3));
+                    if (idNum > maxId) maxId = idNum;
+                });
+            });
+            
+            return 'PRO' + String(maxId + 1).padStart(3, '0');
+        }
+
+        function renderMenuItems() {
+    const container = document.getElementById('menu-items-container');
+    container.innerHTML = '';
+    
+    restaurantDB.menu.categories.forEach(category => {
+        category.items.forEach(item => {
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card';
+            productCard.innerHTML = `
+                <!-- IMAGEN DEL PRODUCTO - NUEVO -->
+                <div class="product-image-container mb-3">
+                    <img src="${item.image}" 
+                         alt="${item.name}"
+                         class="product-image w-full h-32 object-cover rounded-lg"
+                         onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300&h=200&fit=crop'">
+                </div>
+                
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="font-semibold text-white">${item.name}</h3>
+                    <span class="text-green-400 font-bold">$${item.price}</span>
+                </div>
+                <p class="text-slate-300 text-sm mb-3">${item.description}</p>
+                <div class="flex justify-between items-center text-slate-400 text-xs">
+                    <span>${category.name}</span>
+                    <span>${item.preparationTime} min</span>
+                </div>
+                <div class="flex space-x-2 mt-3">
+                    <button class="btn btn-secondary text-xs flex-1" onclick="editProduct('${item.id}')">
+                        <i class="fas fa-edit mr-1"></i>Editar
+                    </button>
+                    <button class="btn btn-secondary text-xs flex-1" onclick="toggleProductAvailability('${item.id}')">
+                        <i class="fas fa-eye${item.available ? '' : '-slash'} mr-1"></i>${item.available ? 'Ocultar' : 'Mostrar'}
+                    </button>
+                </div>
+            `;
+            container.appendChild(productCard);
+        });
+    });
+}
+        function toggleProductAvailability(productId) {
+            let product = null;
+            
+            restaurantDB.menu.categories.forEach(category => {
+                const found = category.items.find(item => item.id === productId);
+                if (found) product = found;
+            });
+            
+            if (product) {
+                product.available = !product.available;
+                renderMenuItems();
+                showAlert(`Producto ${product.name} ${product.available ? 'disponible' : 'oculto'}`, 'success');
+            }
+        }
+
+    // =============================================
+    // SISTEMA DE PEDIDOS DIRECTOS (SIN QR)
+    // =============================================
+
+let currentOrder = {
+    tableId: null,
+    items: [],
+    total: 0
+};
+
+function initOrders() {
+    console.log("🔄 Inicializando sistema de pedidos...");
+    
+    // Primero actualizar métricas
+    updateOrderMetrics();
+    
+    // Luego poblar los selects
+    setTimeout(() => {
+        console.log("📝 Poblando selects...");
+        populateOrderTableSelect();
+        populateProductSelect();
+    }, 500);
+    
+    // Finalmente renderizar órdenes activas
+    setTimeout(() => {
+        renderActiveOrders();
+        console.log("✅ Sistema de pedidos inicializado");
+        
+        // DEBUG: Verificar estado final
+        const mesaSelect = document.getElementById('order-table-select');
+        const productSelect = document.getElementById('product-select');
+        console.log("🔍 Estado final - Mesas:", mesaSelect?.options?.length, "Productos:", productSelect?.options?.length);
+    }, 1000);
+}
+
+function populateOrderTableSelect() {
+    const select = document.getElementById('order-table-select');
+    if (!select) {
+        console.error("❌ ERROR: No se encuentra el elemento order-table-select");
+        return;
+    }
+    
+    // Limpiar select
+    select.innerHTML = '';
+    
+    // Opción por defecto
+    const defaultOption = document.createElement('option');
+    defaultOption.value = "";
+    defaultOption.textContent = "Selecciona una mesa...";
+    select.appendChild(defaultOption);
+    
+    // Buscar mesas disponibles
+    const mesasDisponibles = restaurantDB.tables.filter(table => {
+        return table.status !== 'cleaning';
+    });
+    
+    if (mesasDisponibles.length === 0) {
+        const noMesasOption = document.createElement('option');
+        noMesasOption.value = "";
+        noMesasOption.textContent = "No hay mesas disponibles";
+        noMesasOption.disabled = true;
+        select.appendChild(noMesasOption);
+        return;
+    }
+    
+    // Agregar mesas al select
+    mesasDisponibles.forEach(table => {
+        const option = document.createElement('option');
+        option.value = table.id;
+        option.textContent = `${table.number} - ${getStatusText(table.status)} (${table.capacity} pers.)`;
+        select.appendChild(option);
+    });
+    
+    // Asignar el evento change
+    select.addEventListener('change', function() {
+        currentOrder.tableId = this.value;
+        updateOrderUI();
+    });
+}
+
+function initOrders() {
+    updateOrderMetrics();
+    populateOrderTableSelect();
+    populateProductSelect();
+    renderActiveOrders();
+}
+
+function handleTableSelectChange() {
+    console.log("Mesa seleccionada:", this.value);
+    currentOrder.tableId = this.value;
+    updateOrderUI();
+}
+
+function populateProductSelect() {
+    const select = document.getElementById('product-select');
+    select.innerHTML = '<option value="">Selecciona un producto...</option>';
+    
+    // Llenar el select con productos del menú
+    restaurantDB.menu.categories.forEach(category => {
+        const group = document.createElement('optgroup');
+        group.label = category.name;
+        
+        category.items.forEach(item => {
+            if (item.available) {
+                const option = document.createElement('option');
+                option.value = item.id;
+                option.textContent = `${item.name} - $${item.price}`;
+                option.setAttribute('data-price', item.price);
+                option.setAttribute('data-name', item.name);
+                group.appendChild(option);
+            }
+        });
+        
+        select.appendChild(group);
+    });
+}
+
+function addProductToOrder() {
+    const productSelect = document.getElementById('product-select');
+    const quantityInput = document.getElementById('product-quantity');
+    
+    if (!productSelect.value) {
+        showAlert('Selecciona un producto primero', 'warning');
+        return;
+    }
+    
+    if (!currentOrder.tableId) {
+        showAlert('Selecciona una mesa primero', 'warning');
+        return;
+    }
+    
+    const selectedOption = productSelect.options[productSelect.selectedIndex];
+    const productId = productSelect.value;
+    const productName = selectedOption.getAttribute('data-name');
+    const price = parseFloat(selectedOption.getAttribute('data-price'));
+    const quantity = parseInt(quantityInput.value);
+    
+    // Verificar si el producto ya está en el pedido
+    const existingItem = currentOrder.items.find(item => item.id === productId);
+    if (existingItem) {
+        existingItem.quantity += quantity;
+    } else {
+        // Agregar al pedido actual
+        currentOrder.items.push({
+            id: productId,
+            name: productName,
+            price: price,
+            quantity: quantity
+        });
+    }
+    
+    // Recalcular total
+    currentOrder.total = currentOrder.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    
+    updateOrderUI();
+    showAlert(`${quantity}x ${productName} agregado al pedido`, 'success');
+    
+    // Resetear inputs
+    productSelect.value = '';
+    quantityInput.value = 1;
+}
+
+function updateOrderUI() {
+    // Actualizar lista de productos
+    const itemsList = document.getElementById('order-items-list');
+    const totalElement = document.getElementById('order-total');
+    
+    if (currentOrder.items.length === 0) {
+        itemsList.innerHTML = '<p class="text-slate-400 text-center py-4">No hay productos agregados</p>';
+    } else {
+        itemsList.innerHTML = currentOrder.items.map(item => `
+            <div class="flex justify-between items-center py-2 border-b border-slate-600/50">
+                <div>
+                    <span class="text-white">${item.quantity}x ${item.name}</span>
+                    <span class="text-slate-400 text-sm block">$${item.price} c/u</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="text-green-400 font-semibold">$${(item.price * item.quantity).toFixed(2)}</span>
+                    <button onclick="removeOrderItem('${item.id}')" class="text-red-400 hover:text-red-300 p-1">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    // Actualizar total
+    totalElement.textContent = currentOrder.total.toFixed(2);
+}
+
+function removeOrderItem(productId) {
+    currentOrder.items = currentOrder.items.filter(item => item.id !== productId);
+    currentOrder.total = currentOrder.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    updateOrderUI();
+    showAlert('Producto removido del pedido', 'warning');
+}
+
+function createOrder() {
+    if (!currentOrder.tableId) {
+        showAlert('Selecciona una mesa primero', 'error');
+        return;
+    }
+    
+    if (currentOrder.items.length === 0) {
+        showAlert('Agrega al menos un producto al pedido', 'error');
+        return;
+    }
+    
+    // Crear el pedido
+    const newOrder = {
+        id: 'ORD' + String(restaurantDB.orders.length + 1).padStart(3, '0'),
+        tableId: currentOrder.tableId,
+        items: [...currentOrder.items],
+        status: 'preparing',
+        total: currentOrder.total,
+        timestamp: new Date()
+    };
+    
+    restaurantDB.orders.push(newOrder);
+    
+    // Marcar la mesa como ocupada
+    const table = restaurantDB.tables.find(t => t.id === currentOrder.tableId);
+    if (table && table.status === 'available') {
+        table.status = 'occupied';
+    }
+    
+    // Resetear pedido actual
+    currentOrder = { tableId: null, items: [], total: 0 };
+    
+    // Actualizar UI
+    updateOrderUI();
+    renderTableMap();
+    renderActiveOrders();
+    renderKitchenOrders();
+    updateOrderMetrics();
+    updateTableMetrics();
+    populateOrderTableSelect(); // Actualizar select de mesas
+    
+    showAlert(`Pedido ${newOrder.id} enviado a cocina!`, 'success');
+}
+
+function renderActiveOrders() {
+    const container = document.getElementById('active-orders-list');
+    const activeOrders = restaurantDB.orders.filter(order => 
+        order.status !== 'completed' && order.status !== 'paid'
+    );
+    
+    if (activeOrders.length === 0) {
+        container.innerHTML = `
+            <div class="text-center text-slate-400 py-8">
+                <i class="fas fa-receipt text-2xl mb-2"></i>
+                <p>No hay pedidos activos</p>
+            </div>
+        `;
+        return;
+    }
+    
+    container.innerHTML = activeOrders.map(order => {
+        const table = restaurantDB.tables.find(t => t.id === order.tableId);
+        const timeAgo = Math.floor((new Date() - order.timestamp) / 60000);
+        
+        return `
+            <div class="bg-slate-800/30 rounded-lg p-4 border-l-4 border-blue-500">
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <h4 class="font-semibold text-white">Pedido ${order.id}</h4>
+                        <p class="text-slate-300 text-sm">${table ? table.number : 'Mesa'} • Hace ${timeAgo} min</p>
+                    </div>
+                    <span class="px-2 py-1 bg-blue-500/20 text-blue-300 rounded text-xs">${order.status}</span>
+                </div>
+                <div class="text-slate-400 text-sm mb-3">
+                    ${order.items.slice(0, 2).map(item => `${item.quantity}x ${item.name}`).join(', ')}
+                    ${order.items.length > 2 ? `... +${order.items.length - 2} más` : ''}
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-white font-semibold">Total: $${order.total}</span>
+                    <div class="flex space-x-2">
+                        ${order.status === 'ready' ? `
+                        <button class="btn btn-primary text-xs" onclick="serveOrder('${order.id}')">
+                            <i class="fas fa-check mr-1"></i>Servir
+                        </button>
+                        ` : ''}
+                        ${order.status === 'served' ? `
+                        <button class="btn btn-secondary text-xs" onclick="closeOrder('${order.id}')">
+                            <i class="fas fa-receipt mr-1"></i>Cobrar
+                        </button>
+                        ` : ''}
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function serveOrder(orderId) {
+    const order = restaurantDB.orders.find(o => o.id === orderId);
+    if (order) {
+        order.status = 'served';
+        renderActiveOrders();
+        showAlert(`Pedido ${orderId} marcado como servido`, 'success');
+    }
+}
+
+function refreshOrders() {
+    renderActiveOrders();
+    showAlert('Pedidos actualizados', 'info');
+}
+        // =============================================
+        // SISTEMA DE COCINA
+        // =============================================
+
+        function initKitchen() {
+            updateKitchenMetrics();
+            renderKitchenOrders();
+        }
+
+        function renderKitchenOrders() {
+            const container = document.getElementById('kitchen-orders');
+            const activeOrders = restaurantDB.orders.filter(order => order.status !== 'completed' && order.status !== 'paid');
+            
+            if (activeOrders.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center text-slate-400 py-8">
+                        <i class="fas fa-utensils text-2xl mb-2"></i>
+                        <p>No hay órdenes en cocina</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = activeOrders.map(order => {
+                const table = restaurantDB.tables.find(t => t.id === order.tableId);
+                return `
+                <div class="bg-slate-800/30 rounded-lg p-4 border-l-4 border-blue-500">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h4 class="font-semibold text-white">Orden ${order.id}</h4>
+                            <p class="text-slate-300 text-sm">${table ? table.number : 'Mesa'} • Hace ${Math.floor((new Date() - order.timestamp) / 60000)} min</p>
+                        </div>
+                        <span class="px-2 py-1 bg-blue-500/20 text-blue-300 rounded text-xs">${order.status}</span>
+                    </div>
+                    <div class="text-slate-400 text-sm">
+                        ${order.items.map(item => `${item.quantity}x ${item.name}`).join(', ')}
+                    </div>
+                    <div class="flex justify-between items-center mt-3">
+                        <span class="text-white font-semibold">Total: $${order.total}</span>
+                        <div class="flex space-x-2">
+                            ${order.status === 'received' ? `
+                            <button class="btn btn-primary text-xs" onclick="updateOrderStatus('${order.id}', 'preparing')">
+                                <i class="fas fa-play mr-1"></i>Preparar
+                            </button>
+                            ` : ''}
+                            ${order.status === 'preparing' ? `
+                            <button class="btn btn-primary text-xs" onclick="updateOrderStatus('${order.id}', 'ready')">
+                                <i class="fas fa-check mr-1"></i>Listo
+                            </button>
+                            ` : ''}
+                            ${order.status === 'ready' ? `
+                            <button class="btn btn-primary text-xs" onclick="updateOrderStatus('${order.id}', 'served')">
+                                <i class="fas fa-check-double mr-1"></i>Servido
+                            </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        function updateOrderStatus(orderId, newStatus) {
+            const order = restaurantDB.orders.find(o => o.id === orderId);
+            if (order) {
+                order.status = newStatus;
+                renderKitchenOrders();
+                updateKitchenMetrics();
+                showAlert(`Orden ${orderId} actualizada a: ${newStatus}`, 'success');
+            }
+        }
+
+        // =============================================
+        // SISTEMA DE ANALYTICS
+        // =============================================
+
+        function initAnalytics() {
+            updateAnalyticsMetrics();
+            createAnalyticsCharts();
+        }
+
+        function createAnalyticsCharts() {
+            // Gráfico de ocupación
+            const occupationCtx = document.getElementById('occupation-chart').getContext('2d');
+            appState.charts.occupation = new Chart(occupationCtx, {
+                type: 'line',
+                data: {
+                    labels: ['10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
+                    datasets: [{
+                        label: 'Ocupación %',
+                        data: [20, 45, 80, 60, 85, 95, 70],
+                        borderColor: '#EF4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: { color: 'rgba(255,255,255,0.1)' },
+                            ticks: { color: '#94A3B8' }
+                        },
+                        x: {
+                            grid: { color: 'rgba(255,255,255,0.1)' },
+                            ticks: { color: '#94A3B8' }
+                        }
+                    }
+                }
+            });
+
+            // Gráfico de pedidos por categoría
+            const ordersCtx = document.getElementById('orders-chart').getContext('2d');
+            appState.charts.orders = new Chart(ordersCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Entradas', 'Platos Fuertes', 'Postres', 'Bebidas'],
+                    datasets: [{
+                        data: [30, 45, 15, 10],
+                        backgroundColor: ['#EF4444', '#F59E0B', '#10B981', '#3B82F6']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#94A3B8' }
+                        }
+                    }
+                }
+            });
+        }
+         
+// =============================================
+// SISTEMA DE CAJERO
+function initCashier() {
+    loadPendingBills();
+    populateOrdersToPay();
+}
+// =============================================
+// NUEVAS FUNCIONES PARA EL CAJERO - AGREGAR DESPUÉS DE initCashier()
+// =============================================
+
+function selectOrderForPayment(orderId) {
+    console.log("🔄 Seleccionando orden para pago:", orderId);
+    
+    // 1. Seleccionar automáticamente en el dropdown
+    const orderSelect = document.getElementById('order-to-pay');
+    orderSelect.value = orderId;
+    
+    // 2. Mostrar los detalles de la orden
+    showOrderDetails(orderId);
+    
+    // 3. Hacer scroll a la sección de pago
+    document.getElementById('order-details').scrollIntoView({ 
+        behavior: 'smooth' 
+    });
+    
+    showAlert(`Orden ${orderId} seleccionada para pago`, 'success');
+}
+
+function processOrderPayment(orderId) {
+    const order = restaurantDB.orders.find(o => o.id === orderId);
+    if (!order) return;
+    
+    // Pago rápido en efectivo por defecto
+    order.status = 'paid';
+    
+    // Liberar la mesa
+    const table = restaurantDB.tables.find(t => t.id === order.tableId);
+    if (table) {
+        table.status = 'cleaning';
+    }
+    
+    // Mostrar comprobante rápido
+    const tableInfo = restaurantDB.tables.find(t => t.id === order.tableId);
+    showAlert(`✅ Pago rápido procesado: Orden ${orderId} - $${order.total} - Mesa ${tableInfo ? tableInfo.number : 'N/A'}`, 'success');
+    
+    // Actualizar interfaces
+    loadPendingBills();
+    populateOrdersToPay();
+    renderTableMap();
+    renderActiveOrders();
+    
+    console.log(`💰 Pago rápido procesado: ${orderId}`);
+}
+function loadPendingBills() {
+    const container = document.getElementById('pending-bills');
+    const pendingOrders = restaurantDB.orders.filter(order => 
+        order.status === 'served' || order.status === 'ready'
+    );
+    
+    if (pendingOrders.length === 0) {
+        container.innerHTML = `
+            <div class="text-center text-slate-400 py-8">
+                <i class="fas fa-receipt text-2xl mb-2"></i>
+                <p>No hay cuentas pendientes</p>
+            </div>
+        `;
+        return;
+    }
+    
+    container.innerHTML = pendingOrders.map(order => {
+        const table = restaurantDB.tables.find(t => t.id === order.tableId);
+        return `
+            <div class="bg-slate-800/30 rounded-lg p-4 border-l-4 border-yellow-500">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h4 class="font-semibold text-white">Orden ${order.id}</h4>
+                        <p class="text-slate-300 text-sm">${table ? table.number : 'Mesa'} • $${order.total}</p>
+                        <p class="text-slate-400 text-sm">${order.items.length} productos</p>
+                    </div>
+                    <span class="px-2 py-1 bg-yellow-500/20 text-yellow-300 rounded text-xs">Por Pagar</span>
+                </div>
+                <div class="flex space-x-2 mt-3">
+                    <button class="btn btn-primary text-xs flex-1" onclick="selectOrderForPayment('${order.id}')">
+                        <i class="fas fa-dollar-sign mr-1"></i>Seleccionar para Pago
+                    </button>
+                    <button class="btn btn-secondary text-xs" onclick="processOrderPayment('${order.id}')">
+                        <i class="fas fa-bolt mr-1"></i>Pago Rápido
+                    </button>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function populateOrdersToPay() {
+    const select = document.getElementById('order-to-pay');
+    select.innerHTML = '<option value="">Selecciona una orden...</option>';
+    
+    const pendingOrders = restaurantDB.orders.filter(order => 
+        order.status === 'served' || order.status === 'ready'
+    );
+    
+    pendingOrders.forEach(order => {
+        const table = restaurantDB.tables.find(t => t.id === order.tableId);
+        const option = document.createElement('option');
+        option.value = order.id;
+        option.textContent = `Orden ${order.id} - ${table ? table.number : 'Mesa'} - $${order.total}`;
+        select.appendChild(option);
+    });
+    
+    // Cuando seleccionen una orden
+    select.addEventListener('change', function() {
+        if (this.value) {
+            showOrderDetails(this.value);
+        } else {
+            document.getElementById('order-details').classList.add('hidden');
+        }
+    });
+}
+
+function showOrderDetails(orderId) {
+    const order = restaurantDB.orders.find(o => o.id === orderId);
+    if (!order) return;
+    
+    const itemsContainer = document.getElementById('order-items');
+    const totalAmount = document.getElementById('order-total-amount');
+    const orderDetails = document.getElementById('order-details');
+    
+    // Mostrar items
+    itemsContainer.innerHTML = order.items.map(item => `
+        <div class="flex justify-between items-center py-1 border-b border-slate-600/30">
+            <span class="text-white">${item.quantity}x ${item.name}</span>
+            <span class="text-green-400">$${(item.price * item.quantity).toFixed(2)}</span>
+        </div>
+    `).join('');
+    
+    // Mostrar total
+    totalAmount.textContent = order.total.toFixed(2);
+    
+    // Mostrar sección
+    orderDetails.classList.remove('hidden');
+}
+
+function processPayment() {
+    const orderSelect = document.getElementById('order-to-pay');
+    const paymentMethod = document.getElementById('payment-method').value;
+    
+    if (!orderSelect.value) {
+        showAlert('Selecciona una orden para procesar el pago', 'error');
+        return;
+    }
+    
+    const order = restaurantDB.orders.find(o => o.id === orderSelect.value);
+    if (!order) return;
+    
+    // Marcar orden como pagada
+    order.status = 'paid';
+    
+    // Liberar la mesa
+    const table = restaurantDB.tables.find(t => t.id === order.tableId);
+    if (table) {
+        table.status = 'cleaning';
+    }
+    
+    // Mostrar comprobante
+    showReceipt(order, paymentMethod);
+    
+    // Actualizar interfaces
+    loadPendingBills();
+    populateOrdersToPay();
+    renderTableMap();
+    renderActiveOrders();
+    
+    showAlert(`Pago procesado para Orden ${order.id}`, 'success');
+}
+
+function showReceipt(order, paymentMethod) {
+    const table = restaurantDB.tables.find(t => t.id === order.tableId);
+    const paymentMethods = {
+        'efectivo': 'Efectivo',
+        'tarjeta': 'Tarjeta', 
+        'transferencia': 'Transferencia'
+    };
+    
+    const receiptContent = `
+        <div class="bg-white text-black p-6 rounded-lg max-w-md">
+            <div class="text-center mb-4">
+                <h3 class="text-xl font-bold">RESTAURANTE</h3>
+                <p class="text-gray-600">Comprobante de Pago</p>
+            </div>
+            
+            <div class="border-t border-b border-gray-300 py-3">
+                <div class="flex justify-between mb-2">
+                    <span>Orden:</span>
+                    <span class="font-semibold">${order.id}</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span>Mesa:</span>
+                    <span>${table ? table.number : 'N/A'}</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span>Fecha:</span>
+                    <span>${new Date().toLocaleDateString()}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Hora:</span>
+                    <span>${new Date().toLocaleTimeString()}</span>
+                </div>
+            </div>
+            
+            <div class="my-4">
+                ${order.items.map(item => `
+                    <div class="flex justify-between py-1">
+                        <span>${item.quantity}x ${item.name}</span>
+                        <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                    </div>
+                `).join('')}
+            </div>
+            
+            <div class="border-t border-gray-300 pt-3">
+                <div class="flex justify-between text-lg font-bold">
+                    <span>TOTAL:</span>
+                    <span>$${order.total.toFixed(2)}</span>
+                </div>
+                <div class="flex justify-between mt-2">
+                    <span>Método:</span>
+                    <span>${paymentMethods[paymentMethod]}</span>
+                </div>
+            </div>
+            
+            <div class="text-center mt-6 text-gray-500">
+                <p>¡Gracias por su visita!</p>
+            </div>
+        </div>
+    `;
+    
+    // Podrías imprimir esto o mostrarlo en un modal
+    console.log('COMPROBANTE:', receiptContent);
+    showAlert('Comprobante generado - Revisa la consola (F12)', 'success');
+}
+
+function splitBill() {
+    showAlert('Función de dividir cuenta en desarrollo', 'info');
+}
+
+        // =============================================
+        // FUNCIONES DE UTILIDAD
+        // =============================================
+
+        function updateTableMetrics() {
+            const totalTables = restaurantDB.tables.length;
+            const occupiedTables = restaurantDB.tables.filter(t => t.status === 'occupied').length;
+            const occupancyRate = Math.round((occupiedTables / totalTables) * 100);
+            
+            document.getElementById('current-occupancy').textContent = `${occupancyRate}%`;
+        }
+
+        function updateReservationMetrics() {
+            const today = new Date().toISOString().split('T')[0];
+            const todayReservations = restaurantDB.reservations.filter(res => res.date === today);
+            
+            document.getElementById('today-reservations').textContent = todayReservations.length;
+        }
+
+        function updateOrderMetrics() {
+            const activeOrders = restaurantDB.orders.filter(order => order.status !== 'completed' && order.status !== 'paid');
+            document.getElementById('active-orders').textContent = activeOrders.length;
+            
+            // Calcular ingresos del día
+            const today = new Date().toISOString().split('T')[0];
+            const todayOrders = restaurantDB.orders.filter(order => 
+                new Date(order.timestamp).toISOString().split('T')[0] === today
+            );
+            const todayRevenue = todayOrders.reduce((sum, order) => sum + order.total, 0);
+            document.getElementById('today-revenue').textContent = `$${todayRevenue}`;
+        }
+
+        function updateKitchenMetrics() {
+            const pending = restaurantDB.orders.filter(o => o.status === 'received').length;
+            const preparing = restaurantDB.orders.filter(o => o.status === 'preparing').length;
+            const ready = restaurantDB.orders.filter(o => o.status === 'ready').length;
+            
+            document.getElementById('pending-orders').textContent = pending;
+            document.getElementById('preparing-orders').textContent = preparing;
+            document.getElementById('ready-orders').textContent = ready;
+        }
+
+        function updateAnalyticsMetrics() {
+            document.getElementById('avg-order-value').textContent = '$65';
+            document.getElementById('total-customers').textContent = '42';
+            document.getElementById('table-turnover').textContent = '2.3x';
+        }
+
+        function showAlert(message, type = 'info') {
+            const alertsPanel = document.getElementById('alerts-panel');
+            const alertId = 'alert-' + Date.now();
+            
+            const alert = document.createElement('div');
+            alert.className = `alert ${type}`;
+            alert.id = alertId;
+            alert.innerHTML = `
+                <i class="fas fa-${getAlertIcon(type)}"></i>
+                <span>${message}</span>
+                <button class="ml-auto text-slate-400 hover:text-white" onclick="document.getElementById('${alertId}').remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            alertsPanel.appendChild(alert);
+            
+            // Auto-remover después de 5 segundos
+            setTimeout(() => {
+                if (document.getElementById(alertId)) {
+                    document.getElementById(alertId).remove();
+                }
+            }, 5000);
+        }
+
+        function getAlertIcon(type) {
+            const icons = {
+                'success': 'check-circle',
+                'warning': 'exclamation-triangle',
+                'error': 'exclamation-circle',
+                'info': 'info-circle'
+            };
+            return icons[type] || 'info-circle';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function startRealTimeUpdates() {
+            // Simular cambios en tiempo real
+            setInterval(() => {
+                // Cambiar estado aleatorio de algunas mesas
+                if (Math.random() > 0.7) {
+                    const randomTable = restaurantDB.tables[Math.floor(Math.random() * restaurantDB.tables.length)];
+                    const statuses = ['available', 'occupied', 'cleaning'];
+                    randomTable.status = statuses[Math.floor(Math.random() * statuses.length)];
+                    renderTableMap();
+                    updateTableMetrics();
+                }
+                
+                // Actualizar métricas
+                updateOrderMetrics();
+                updateKitchenMetrics();
+                
+            }, 5000); // Actualizar cada 5 segundos
+        }
+// =============================================
+// DEBUG Y SOLUCIÓN DE EMERGENCIA
+// =============================================
+
+function emergencyFixOrders() {
+    console.log("🚨 EJECUTANDO FIX DE EMERGENCIA PARA PEDIDOS");
+    
+    // 1. Verificar que el select existe
+    const select = document.getElementById('order-table-select');
+    if (!select) {
+        console.error("❌ NO SE ENCUENTRA EL SELECT order-table-select");
+        return;
+    }
+    console.log("✅ Select encontrado:", select);
+    
+    // 2. Forzar la población del select
+    select.innerHTML = '<option value="">Selecciona una mesa...</option>';
+    
+    // 3. Agregar mesas manualmente
+    const mesasParaPedidos = [
+        { id: 'T01', number: 'Mesa 1', status: 'available', capacity: 2 },
+        { id: 'T02', number: 'Mesa 2', status: 'available', capacity: 2 },
+        { id: 'T03', number: 'Mesa 3', status: 'available', capacity: 4 },
+        { id: 'T05', number: 'Mesa 5', status: 'available', capacity: 6 }
+    ];
+    
+    mesasParaPedidos.forEach(mesa => {
+        const option = document.createElement('option');
+        option.value = mesa.id;
+        option.textContent = `${mesa.number} - Disponible (${mesa.capacity} pers.)`;
+        select.appendChild(option);
+    });
+    
+    console.log("✅ Mesas agregadas manualmente al select");
+    
+    // 4. También arreglar el select de productos
+    const productSelect = document.getElementById('product-select');
+    if (productSelect) {
+        productSelect.innerHTML = '<option value="">Selecciona un producto...</option>';
+        
+        // Agregar algunos productos de ejemplo
+        const productosEjemplo = [
+            { id: 'ENT001', name: 'Ceviche Clásico', price: 45 },
+            { id: 'ENT002', name: 'Tequeños', price: 35 },
+            { id: 'PF001', name: 'Lomo Saltado', price: 65 },
+            { id: 'BEB001', name: 'Chicha Morada', price: 15 }
+        ];
+        
+        productosEjemplo.forEach(producto => {
+            const option = document.createElement('option');
+            option.value = producto.id;
+            option.textContent = `${producto.name} - $${producto.price}`;
+            option.setAttribute('data-price', producto.price);
+            option.setAttribute('data-name', producto.name);
+            productSelect.appendChild(option);
+        });
+        
+        console.log("✅ Productos agregados manualmente");
+    }
+    
+    // 5. Forzar el evento change
+    select.addEventListener('change', function() {
+        console.log("Mesa seleccionada:", this.value);
+        currentOrder.tableId = this.value;
+        updateOrderUI();
+    });
+}
+
+// Llamar la función después de que todo se cargue
+setTimeout(emergencyFixOrders, 1000);
+
+        // Inicializar la aplicación cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', initRestoFlow);
+    </script>
+</body>
+</html>

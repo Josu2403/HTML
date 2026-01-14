@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cantidad de dígitos</title>
+</head>
+<body>
+  <h2>Cantidad de dígitos</h2>
+
+  <script>
+    function cantidadDigitos(numero) {
+      return numero.toString().length;
+    }
+
+    let numero = parseInt(prompt("Ingrese un número positivo de hasta 5 dígitos:"));
+    let digitos = cantidadDigitos(numero);
+
+    document.write("El número tiene " + digitos + " dígito(s).");
+  </script>
+</body>
+</html>

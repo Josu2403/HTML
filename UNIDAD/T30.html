@@ -1,0 +1,24 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>Ej30</title> 
+<meta charset="UTF-8"> 
+</head> 
+<body> 
+<form> 
+    <p>
+        Ingrese su nombre <br>
+        Ingrese su correo <br>
+        Ingrese algun comentario <br>
+    </p>
+<p><textarea id="curriculum" rows="10" cols="50"></textarea></p> 
+<p><input type="button" value="Mostrar" onClick="controlarCaracteres()"></p> 
+</form> 
+<script> 
+function controlarCaracteres() {
+    let texto = document.getElementById('curriculum').value;
+    alert(texto);
+}
+</script> 
+</body> 
+</html>

@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cuatrimestre actual</title>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <script>
+      function mostrarCuatrimestre() {
+        let fecha = new Date();
+        let mes = fecha.getMonth() + 1;
+        let cuatrimestre;
+
+        if (mes >= 1 && mes <= 4) {
+          cuatrimestre = "Primer cuatrimestre";
+        } else if (mes >= 5 && mes <= 8) {
+          cuatrimestre = "Segundo cuatrimestre";
+        } else {
+          cuatrimestre = "Tercer cuatrimestre";
+        }
+
+        document.write("Estamos en el: " + cuatrimestre);
+      }
+
+      mostrarCuatrimestre();
+    </script>
+  </body>
+</html>
+
+<!-- Usa new Date() para obtener la fecha actual.
+Extrae el mes con getMonth() y lo ajusta sumando 1.
+Según el mes, determina si estamos en el primer, segundo o tercer cuatrimestre.
+Muestra el resultado en pantalla con document.write(). -->
+
+

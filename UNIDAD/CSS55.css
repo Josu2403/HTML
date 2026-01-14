@@ -1,0 +1,17 @@
+table {
+  border-collapse: collapse;
+}
+
+/* Cada fila se muestra al lado de la otra */
+tr {
+  display: inline-block;
+  margin-right: 10px;
+  background-color: red; /* 🔴 Fondo rojo */
+  color: white;          /* Texto blanco para contraste */
+}
+
+/* Estilo de las celdas */
+td {
+  border: 1px solid black;
+  padding: 10px;
+}

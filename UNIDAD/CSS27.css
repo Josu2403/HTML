@@ -1,0 +1,13 @@
+a {
+            font-size: 18px;
+            background-color: transparent;
+            color: blue;
+            text-decoration: none;
+            padding: 4px 8px;
+            transition: font-size 0.2s, background-color 0.2s;
+            text-decoration: line-through;
+        }
+        a:hover {
+            font-size: 24px;
+            background-color: yellow;
+        }

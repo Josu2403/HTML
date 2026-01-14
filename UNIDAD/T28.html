@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Selección de Deportes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    h2 {
+      color: #2c3e50;
+    }
+    .deportes {
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #797979;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #resultado {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>¿Qué deportes practicas?</h2>
+
+  <div class="deportes">
+    <label><input type="checkbox" id="futbol"> Fútbol</label><br>
+    <label><input type="checkbox" id="basket"> Básket</label><br>
+    <label><input type="checkbox" id="tenis"> Tenis</label>
+  </div>
+
+  <button onclick="mostrarSeleccion()">Mostrar selección</button>
+
+  <div id="resultado"></div>
+
+  <script>
+    function mostrarSeleccion() {
+      const seleccionados = [];
+
+      if (document.getElementById('futbol').checked) {
+        seleccionados.push('Fútbol');
+      }
+      if (document.getElementById('basket').checked) {
+        seleccionados.push('Básket');
+      }
+      if (document.getElementById('tenis').checked) {
+        seleccionados.push('Tenis');
+      }
+
+      const resultado = seleccionados.length > 0
+        ? 'Deportes seleccionados: ' + seleccionados.join(', ')
+        : 'No seleccionaste ningún deporte.';
+
+      document.getElementById('resultado').textContent = resultado;
+    }
+  </script>
+
+</body>
+</html>
+
+
+<!--Revisa si cada casilla está marcada (checked).
+Si lo está, agrega el deporte a una lista (seleccionados).
+Luego muestra el resultado en pantalla: los deportes seleccionados 
+o un mensaje si no se eligió ninguno.-->

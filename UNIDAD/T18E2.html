@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Perímetro de un cuadrado</title>
+</head>
+<body>
+  <h2>Perímetro de un cuadrado</h2>
+
+  <script>
+    function perimetroCuadrado(lado) {
+      return lado * 4;
+    }
+
+    let lado = parseFloat(prompt("Ingrese el valor del lado del cuadrado:"));
+    let perimetro = perimetroCuadrado(lado);
+
+    document.write("El perímetro del cuadrado es: " + perimetro);
+  </script>
+</body>
+</html>

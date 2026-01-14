@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posicionamiento Absoluto y z-index</title>
+    <link rel="stylesheet" href="CSS38.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Posicionamiento Absoluto y z-index</h1>
+        
+        <div class="description">
+            <p>Este ejemplo muestra tres elementos con posicionamiento absoluto, superpuestos y con diferentes valores de z-index.</p>
+            <p>El elemento con mayor z-index aparece encima de los demás.</p>
+        </div>
+
+        <div class="demo-container">
+            <div class="box box-1">Caja 1 (z-index: 1)</div>
+            <div class="box box-2">Caja 2 (z-index: 2)</div>
+            <div class="box box-3">Caja 3 (z-index: 3)</div>
+        </div>
+
+        <div class="controls">
+            <h2>Controla los valores de z-index</h2>
+            
+            <div class="z-index-control">
+                <label for="z1">Caja 1 (Grande):</label>
+                <input type="range" id="z1" min="1" max="3" value="1">
+                <span id="z1-value">1</span>
+            </div>
+            
+            <div class="z-index-control">
+                <label for="z2">Caja 2 (Mediana):</label>
+                <input type="range" id="z2" min="1" max="3" value="2">
+                <span id="z2-value">2</span>
+            </div>
+            
+            <div class="z-index-control">
+                <label for="z3">Caja 3 (Pequeña):</label>
+                <input type="range" id="z3" min="1" max="3" value="3">
+                <span id="z3-value">3</span>
+            </div>
+        </div>
+
+        <div class="explanation">
+            <h2>Explicación del z-index</h2>
+            <p>La propiedad <strong>z-index</strong> controla el orden de apilamiento de elementos posicionados. Los elementos con mayor valor de z-index se colocan encima de los elementos con valores más bajos.</p>
+            
+            <p>En este ejemplo:</p>
+            <ul>
+                <li>La caja más pequeña tiene el z-index más alto (3), por lo que aparece encima de las demás.</li>
+                <li>La caja mediana tiene z-index 2, por lo que aparece sobre la caja grande pero debajo de la pequeña.</li>
+                <li>La caja más grande tiene el z-index más bajo (1), por lo que aparece debajo de las demás.</li>
+            </ul>
+            
+            <div class="note">
+                <p><strong>Nota:</strong> El z-index solo funciona en elementos con posición distinta a static (absolute, relative, fixed o sticky).</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

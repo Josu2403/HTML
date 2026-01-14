@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ejercicio 2 con IF y FORM</title>
+</head>
+<body>
+<h3>Mostrar el mayor de dos números</h3>
+
+
+<form id="formulario" onsubmit="return false">
+    <input type="text" id="num1" placeholder="Número 1">
+    <input type="text" id="num2" placeholder="Número 2">
+    <button type="button" onclick="mostrarMayor()">Mostrar mayor</button>
+</form>
+
+
+<script>
+    function mostrarMayor() {
+    let num1 = parseFloat(document.getElementById("num1").value);
+    let num2 = parseFloat(document.getElementById("num2").value);
+    let mayor;
+
+    if (num1 > num2) {
+        mayor = num1;
+    } else if (num2 > num1) {
+        mayor = num2;
+    } else {
+        alert("Ambos números son iguales");
+        return; // detenemos aquí
+    }
+
+    alert("El mayor es: " + mayor);
+    }
+</script>
+</body>
+</html>

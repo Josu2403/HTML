@@ -1,0 +1,24 @@
+/* Estilo general del cuerpo */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  margin: 40px;
+}
+
+/* Estilos para los ítems de la lista ordenada */
+ol li {
+  color: #0044cc; /* azul */
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Estilos para los ítems de la lista no ordenada anidada */
+ul li {
+  color: #cc0000; /* rojo */
+  font-style: italic;
+}
+
+/* Ajuste del espaciado de la lista anidada */
+ul {
+  margin-top: 5px;
+}

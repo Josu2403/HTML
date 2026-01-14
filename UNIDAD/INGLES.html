@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Figuras geométricas interactivas</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .shape {
+            margin: 30px auto;
+            display: none;
+            transition: transform 0.3s ease;
+        }
+
+        .shape:hover {
+            transform: scale(1.1);
+        }
+
+        #circle {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        #square {
+            width: 100px;
+            height: 100px;
+            background-color: rgb(94, 255, 0);
+            animation: rotate 3s infinite;
+        }
+
+        #triangle {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 100px solid green;
+        }
+
+        #heart {
+            width: 100px;
+            height: 90px;
+            position: relative;
+            transform: rotate(-45deg);
+            background-color: #e31b23;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            animation: beat s infinite;
+        }
+
+        #heart:before, #heart:after {
+            content: "";
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #e31b23;
+            position: absolute;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+        }
+
+        #heart:before {
+            top: -50px;
+            left: 0;
+        }
+
+        #heart:after {
+            left: 50px;
+            top: 0;
+        }
+
+        #nameInput, #shapeSelector {
+            font-size: 18px;
+            margin: 10px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            transition: all 0.3s ease;
+        }
+
+        #nameInput:focus, #shapeSelector:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76,175,80,0.5);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes beat {
+            0% { transform: rotate(-45deg) scale(1); }
+            50% { transform: rotate(-45deg) scale(1.1); }
+            100% { transform: rotate(-45deg) scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Figuras geométricas interactivas</h1>
+        <input type="text" id="nameInput" placeholder="Ingresa tu nombre" value="Josué">
+        <br>
+        <select id="shapeSelector" onchange="showShape()">
+            <option value="">Selecciona una figura</option>
+            <option value="circle">Círculo</option>
+            <option value="square">Cuadrado</option>
+            <option value="triangle">Triángulo</option>
+            <option value="heart">Corazón</option>
+        </select>
+
+        <div id="circle" class="shape"></div>
+        <div id="square" class="shape"></div>
+        <div id="triangle" class="shape"></div>
+        <div id="heart" class="shape"></div>
+
+        <p id="message"></p>
+    </div>
+
+    <script>
+        function showShape() {
+            // Hide all shapes
+            document.querySelectorAll('.shape').forEach(shape => {
+                shape.style.display = 'none';
+            });
+            
+            // Show selected shape
+            const selectedShape = document.getElementById('shapeSelector').value;
+            const userName = document.getElementById('nameInput').value;
+            
+            if (selectedShape) {
+                document.getElementById(selectedShape).style.display = 'block';
+                document.getElementById('message').textContent =
+                    `¡Hola ${userName}! Has seleccionado un ${selectedShape}.`;
+            } else {
+                document.getElementById('message').textContent = '';
+            }
+        }
+
+        // Initialize the page
+        window.onload = () => {
+            document.getElementById('message').textContent = 
+                'Selecciona una figura para comenzar!';
+        }
+    </script>
+</body>
+</html>

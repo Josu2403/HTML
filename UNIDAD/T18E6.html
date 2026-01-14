@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 6 - Comparar Listas</title>
+</head>
+<body>
+  <h1>Ejercicio 6: Comparar dos listas</h1>
+
+  <p>Ingresa 3 números para cada lista y presiona el botón para saber cuál tiene la suma mayor.</p>
+
+  <h2>Lista 1</h2>
+  <input type="number" id="l1n1" placeholder="Número 1">
+  <input type="number" id="l1n2" placeholder="Número 2">
+  <input type="number" id="l1n3" placeholder="Número 3">
+
+  <h2>Lista 2</h2>
+  <input type="number" id="l2n1" placeholder="Número 1">
+  <input type="number" id="l2n2" placeholder="Número 2">
+  <input type="number" id="l2n3" placeholder="Número 3">
+
+  <br><br>
+  <button onclick="compararListas()">Comparar</button>
+
+  <p id="resultado"></p>
+
+  <script>
+    function compararListas() {
+      // Obtenemos los valores de la lista 1
+      let l1n1 = parseFloat(document.getElementById("l1n1").value) || 0;
+      let l1n2 = parseFloat(document.getElementById("l1n2").value) || 0;
+      let l1n3 = parseFloat(document.getElementById("l1n3").value) || 0;
+
+      // Obtenemos los valores de la lista 2
+      let l2n1 = parseFloat(document.getElementById("l2n1").value) || 0;
+      let l2n2 = parseFloat(document.getElementById("l2n2").value) || 0;
+      let l2n3 = parseFloat(document.getElementById("l2n3").value) || 0;
+
+      // Sumamos los valores de cada lista
+      let suma1 = l1n1 + l1n2 + l1n3;
+      let suma2 = l2n1 + l2n2 + l2n3;
+
+      // Comparamos las sumas
+      if (suma1 > suma2) {
+        document.getElementById("resultado").innerText = "Lista 1 mayor";
+      } else if (suma2 > suma1) {
+        document.getElementById("resultado").innerText = "Lista 2 mayor";
+      } else {
+        document.getElementById("resultado").innerText = "Listas iguales";
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f5f5f5;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+/* Contenedor principal */
+.lista-cursors {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Items de cursor */
+.item-cursor {
+    padding: 15px;
+    margin: 10px 0;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+}
+
+.item-cursor:hover {
+    background-color: #e3f2fd;
+    border-color: #2196f3;
+    transform: translateX(5px);
+}
+
+.nombre-cursor {
+    font-weight: bold;
+    color: #1976d2;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.descripcion {
+    color: #666;
+    font-style: italic;
+}
+
+/* Tipos de cursor */
+.crosshair { cursor: crosshair; }
+.default { cursor: default; }
+.pointer { cursor: pointer; }
+.move { cursor: move; }
+.e-resize { cursor: e-resize; }
+.ne-resize { cursor: ne-resize; }
+.nw-resize { cursor: nw-resize; }
+.n-resize { cursor: n-resize; }
+.se-resize { cursor: se-resize; }
+.sw-resize { cursor: sw-resize; }
+.s-resize { cursor: s-resize; }
+.w-resize { cursor: w-resize; }
+.text { cursor: text; }
+.wait { cursor: wait; }
+.help { cursor: help; }
+.auto { cursor: auto; }

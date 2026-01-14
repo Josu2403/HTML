@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tabla Periódica Interactiva de Etiquetas HTML - Aprende HTML de forma visual y divertida">
+  <title>Tabla Periódica de Etiquetas HTML | Aprende HTML Visualmente</title>
+  <style>
+    :root {
+      --color-estructura: hsl(212, 69%, 32%);
+      --color-texto: #4caf50;
+      --color-multimedia: #e91e63;
+      --color-formulario: #ff9800;
+      --color-tabla: #9c27b0;
+      --color-semantica: #3f51b5;
+      --color-otros: #795548;
+      --color-meta: #607d8b;
+      --color-interactivo: #ff5722;
+      --color-destacado: #00e6e6;
+      --color-background: #0a1318;
+      --color-surface: #192c3550;
+      --color-text: #fcf9f9;
+      --color-text-secondary: #b0b0b0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
+      background: linear-gradient(135deg, var(--color-background), #203a43, #2c5364);
+      color: var(--color-text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Header mejorado */
+    .header {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(255,255,255,0.05));
+      border-radius: 20px;
+      margin-bottom: 30px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--color-destacado), transparent);
+    }
+
+    .title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--color-destacado), -oklab(60.614999999999995% -0.08854 0.12019));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+      text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    .subtitle {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--color-text-secondary);
+      margin-bottom: 20px;
+      font-weight: 300;
+    }
+
+    /* Stats */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      background: rgba(255,255,255,0.08);
+      padding: 15px 25px;
+      border-radius: 12px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--color-destacado);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+    }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 25px 0;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--color-text);
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.8rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .filter-btn:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+
+    .filter-btn.active {
+      background: var(--color-destacado);
+      color: var(--color-background);
+      border-color: var(--color-destacado);
+    }
+
+    /* Tabla Periódica Compacta */
+    .table-container {
+      background: var(--color-surface);
+      border-radius: 20px;
+      padding: 30px;
+      margin: 30px 0;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+    }
+
+    .table-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(0,230,230,0.1) 0%, transparent 50%);
+      pointer-events: none;
+      border-radius: 20px;
+    }
+
+    .periodic-table {
+      display: grid;
+      gap: 8px;
+      margin: 0 auto;
+      max-width: max-content;
+    }
+
+    .table-row {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .element {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border: 2px solid transparent;
+      overflow: hidden;
+      text-align: center;
+      padding: 5px;
+      line-height: 1.2;
+      flex-shrink: 0;
+    }
+
+    .element::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .element:hover::before {
+      left: 100%;
+    }
+
+    .element:hover {
+      transform: scale(1.15);
+      z-index: 10;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .element:active {
+      transform: scale(1.05);
+    }
+
+    .element.hidden {
+      display: none;
+    }
+
+    /* Colores por categoría mejorados */
+    .estructura { 
+      background: linear-gradient(135deg, var(--color-estructura), #0097a7);
+      color: white;
+    }
+    .texto { 
+      background: linear-gradient(135deg, var(--color-texto), #388e3c);
+      color: white;
+    }
+    .multimedia { 
+      background: linear-gradient(135deg, var(--color-multimedia), #c2185b);
+      color: white;
+    }
+    .formulario { 
+      background: linear-gradient(135deg, var(--color-formulario), #f57c00);
+      color: white;
+    }
+    .tabla { 
+      background: linear-gradient(135deg, var(--color-tabla), #7b1fa2);
+      color: white;
+    }
+    .semantica { 
+      background: linear-gradient(135deg, var(--color-semantica), #303f9f);
+      color: white;
+    }
+    .otros { 
+      background: linear-gradient(135deg, var(--color-otros), #5d4037);
+      color: white;
+    }
+    .meta { 
+      background: linear-gradient(135deg, var(--color-meta), #455a64);
+      color: white;
+    }
+    .interactivo { 
+      background: linear-gradient(135deg, var(--color-interactivo), #d84315);
+      color: white;
+    }
+
+    /* Tooltip profesional */
+    .element::after {
+      content: attr(data-desc);
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-10px);
+      background: rgba(0, 0, 0, 0.95);
+      color: var(--color-text);
+      font-size: 0.75rem;
+      padding: 10px 15px;
+      border-radius: 10px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      z-index: 100;
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .element:hover::after {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Panel de información mejorado */
+    .info-panel {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      background: var(--color-surface);
+      padding: 25px;
+      border-radius: 18px;
+      max-width: 95%;
+      width: 500px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(20px);
+    }
+
+    .info-panel.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .info-panel h3 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      color: var(--color-destacado);
+      border-bottom: 2px solid rgba(255,255,255,0.1);
+      padding-bottom: 8px;
+    }
+
+    .info-panel .description {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(--color-text);
+      margin-bottom: 15px;
+    }
+
+    .info-panel .category {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: white;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 15px;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: var(--color-text);
+      font-size: 1.3rem;
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .close-btn:hover {
+      background: rgba(255,255,255,0.2);
+      transform: rotate(90deg);
+    }
+
+    /* Overlay para el panel */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(5px);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Footer profesional */
+    .footer {
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 50px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .footer p {
+      color: var(--color-text-secondary);
+      margin-bottom: 15px;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .social-link {
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .social-link:hover {
+      color: var(--color-destacado);
+    }
+
+    /* Responsive mejorado */
+    @media (max-width: 1200px) {
+      .element {
+        width: 75px;
+        height: 75px;
+        font-size: 0.65rem;
+      }
+    }
+
+    @media (max-width: 1000px) {
+      .element {
+        width: 70px;
+        height: 70px;
+        font-size: 0.6rem;
+      }
+      .table-row {
+        gap: 6px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .table-container {
+        padding: 20px;
+      }
+      .element {
+        width: 65px;
+        height: 65px;
+        font-size: 0.55rem;
+      }
+      .table-row {
+        gap: 5px;
+      }
+      .stats {
+        gap: 15px;
+      }
+      .stat-item {
+        padding: 10px 15px;
+      }
+      .stat-number {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .element {
+        width: 60px;
+        height: 60px;
+        font-size: 0.5rem;
+      }
+      .table-row {
+        gap: 4px;
+      }
+      .controls {
+        gap: 5px;
+      }
+      .filter-btn {
+        padding: 6px 12px;
+        font-size: 0.7rem;
+      }
+    }
+
+    /* Scrollbar personalizado */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.1);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--color-destacado);
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1 class="title">Tabla Periódica de HTML</h1>
+      <p class="subtitle">Aprende las etiquetas HTML de forma visual e interactiva</p>
+      
+      <div class="stats">
+        <div class="stat-item">
+          <span class="stat-number" id="totalElements">0</span>
+          <span class="stat-label">Elementos HTML</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">9</span>
+          <span class="stat-label">Categorías</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">Interactivo</span>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="estructura">Estructura</button>
+        <button class="filter-btn" data-filter="texto">Texto</button>
+        <button class="filter-btn" data-filter="multimedia">Multimedia</button>
+        <button class="filter-btn" data-filter="formulario">Formularios</button>
+        <button class="filter-btn" data-filter="tabla">Tablas</button>
+        <button class="filter-btn" data-filter="semantica">Semántica</button>
+        <button class="filter-btn" data-filter="meta">Meta</button>
+        <button class="filter-btn" data-filter="interactivo">Interactivo</button>
+        <button class="filter-btn" data-filter="otros">Otros</button>
+      </div>
+    </header>
+
+    <div class="table-container">
+      <div class="periodic-table" id="periodicTable">
+        <!-- La tabla se generará dinámicamente con JavaScript -->
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <p>© Josué García - Herramienta educativa creada para aprender desarrollo web</p>
+        <p>60 etiquetas HTML esenciales organizadas de forma compacta y visual</p>
+        <div class="social-links">
+          <a href="#" class="social-link">GitHub</a>
+          <a href="#" class="social-link">Documentación</a>
+          <a href="#" class="social-link">Ejemplos</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Overlay y Panel -->
+  <div class="overlay" id="overlay"></div>
+  <div class="info-panel" id="infoPanel">
+    <button class="close-btn" aria-label="Cerrar panel">&times;</button>
+    <span class="category" id="infoCategory"></span>
+    <h3 id="infoTitle"></h3>
+    <p class="description" id="infoDescription"></p>
+  </div>
+
+  <script>
+    // Datos de los elementos HTML MÁS UTILIZADOS (60 elementos esenciales)
+    const htmlElements = [
+      // ESTRUCTURA (6 elementos)
+      { symbol: '!DOCTYPE', category: 'estructura', desc: 'Define el tipo de documento', detailed: 'La declaración <!DOCTYPE html> define que el documento es HTML5. Debe ser la primera línea en cualquier documento HTML.' },
+      { symbol: 'html', category: 'estructura', desc: 'Elemento raíz del documento', detailed: 'La etiqueta <html> es el contenedor para todos los demás elementos HTML (excepto <!DOCTYPE>).' },
+      { symbol: 'head', category: 'estructura', desc: 'Contiene metadatos', detailed: 'Dentro de <head> se incluyen metadatos como el título, descripción, enlaces a CSS, etc. No se muestra en la página.' },
+      { symbol: 'body', category: 'estructura', desc: 'Contenido principal visible', detailed: 'El <body> contiene todos los elementos que los usuarios ven: texto, imágenes, enlaces, etc.' },
+      { symbol: 'title', category: 'estructura', desc: 'Título del documento', detailed: 'Define el título del documento que se muestra en la pestaña del navegador.' },
+      { symbol: 'base', category: 'estructura', desc: 'URL base para enlaces', detailed: 'Especifica la URL base para todos los enlaces relativos en un documento.' },
+
+      // TEXTO (15 elementos)
+      { symbol: 'h1', category: 'texto', desc: 'Encabezado nivel 1', detailed: 'Los <h1> a <h6> definen encabezados. <h1> es el más importante y debe usarse solo una vez por página.' },
+      { symbol: 'h2', category: 'texto', desc: 'Encabezado nivel 2', detailed: 'Encabezado de segundo nivel para secciones importantes.' },
+      { symbol: 'h3', category: 'texto', desc: 'Encabezado nivel 3', detailed: 'Encabezado de tercer nivel para subsecciones.' },
+      { symbol: 'p', category: 'texto', desc: 'Párrafo de texto', detailed: 'La etiqueta <p> se usa para agrupar texto en párrafos. Los navegadores añaden márgenes automáticamente.' },
+      { symbol: 'a', category: 'texto', desc: 'Hipervínculo', detailed: 'El atributo "href" define la URL destino. Puede enlazar a otras páginas, archivos, o secciones de la misma página.' },
+      { symbol: 'strong', category: 'texto', desc: 'Texto en negrita', detailed: '<strong> indica que el texto tiene importancia semántica. Visualmente se muestra en negrita.' },
+      { symbol: 'em', category: 'texto', desc: 'Texto en cursiva', detailed: '<em> se usa para enfatizar texto. Visualmente se muestra en cursiva y semánticamente indica énfasis.' },
+      { symbol: 'span', category: 'texto', desc: 'Contenedor en línea', detailed: '<span> se usa para agrupar elementos en línea para aplicar estilos sin afectar el flujo del documento.' },
+      { symbol: 'br', category: 'texto', desc: 'Salto de línea', detailed: 'Crea un salto de línea dentro del texto. Es un elemento vacío (no tiene etiqueta de cierre).' },
+      { symbol: 'hr', category: 'texto', desc: 'Línea divisoria', detailed: 'Crea una línea horizontal para separar contenidos temáticamente diferentes.' },
+      { symbol: 'blockquote', category: 'texto', desc: 'Cita extensa', detailed: 'Se usa para citas largas que ocupan un bloque completo. Los navegadores suelen indentarlo.' },
+      { symbol: 'code', category: 'texto', desc: 'Código de computadora', detailed: 'Muestra fragmentos de código de programación. Usualmente se muestra en fuente monoespaciada.' },
+      { symbol: 'pre', category: 'texto', desc: 'Texto preformateado', detailed: 'Muestra texto exactamente como está escrito en el HTML, preservando espacios y saltos de línea.' },
+      { symbol: 'ul', category: 'texto', desc: 'Lista no ordenada', detailed: 'Crea una lista con viñetas. Cada elemento de la lista se define con <li>.' },
+      { symbol: 'ol', category: 'texto', desc: 'Lista ordenada', detailed: 'Crea una lista numerada. Cada elemento de la lista se define con <li>.' },
+      { symbol: 'li', category: 'texto', desc: 'Elemento de lista', detailed: 'Define un elemento dentro de una lista (<ul> o <ol>).' },
+
+      // MULTIMEDIA (8 elementos)
+      { symbol: 'img', category: 'multimedia', desc: 'Imagen', detailed: 'Requiere el atributo "src" para la ruta de la imagen. "alt" proporciona texto alternativo para accesibilidad.' },
+      { symbol: 'audio', category: 'multimedia', desc: 'Reproduce audio', detailed: 'Soporta formatos como MP3, WAV, OGG. Puede incluir controles de reproducción, autoplay, loop, etc.' },
+      { symbol: 'video', category: 'multimedia', desc: 'Reproduce video', detailed: 'Similar a <audio> pero para video. Soporta MP4, WebM, OGG. Puede incluir controles y dimensiones específicas.' },
+      { symbol: 'canvas', category: 'multimedia', desc: 'Lienzo para gráficos', detailed: '<canvas> crea un área donde se pueden dibujar gráficos, animaciones y juegos usando JavaScript.' },
+      { symbol: 'svg', category: 'multimedia', desc: 'Gráficos vectoriales', detailed: 'SVG permite crear gráficos vectoriales que no pierden calidad al escalarse. Ideal para iconos e ilustraciones.' },
+      { symbol: 'iframe', category: 'multimedia', desc: 'Marco en línea', detailed: 'Inserta otra página web dentro de la página actual.' },
+      { symbol: 'picture', category: 'multimedia', desc: 'Contenedor de imágenes', detailed: 'Contiene múltiples elementos <source> para diferentes condiciones de visualización.' },
+      { symbol: 'source', category: 'multimedia', desc: 'Recurso multimedia', detailed: 'Especifica recursos multimedia para <picture>, <audio>, o <video>.' },
+
+      // FORMULARIOS (10 elementos)
+      { symbol: 'form', category: 'formulario', desc: 'Formulario de entrada', detailed: 'Agrupa elementos de entrada y define cómo se envían los datos (método GET o POST, acción, etc.).' },
+      { symbol: 'input', category: 'formulario', desc: 'Campo de entrada', detailed: 'Muy versátil. El tipo se define con el atributo "type": text, password, email, number, date, etc.' },
+      { symbol: 'textarea', category: 'formulario', desc: 'Área de texto multilínea', detailed: 'Para textos largos. Se pueden definir dimensiones con los atributos "rows" y "cols".' },
+      { symbol: 'button', category: 'formulario', desc: 'Botón clickeable', detailed: 'Puede enviar formularios, resetearlos, o ejecutar JavaScript. Más versátil que <input type="button">.' },
+      { symbol: 'label', category: 'formulario', desc: 'Etiqueta para campos', detailed: 'Mejora la accesibilidad. Al hacer clic en la etiqueta, el campo asociado recibe el foco.' },
+      { symbol: 'select', category: 'formulario', desc: 'Lista desplegable', detailed: 'Permite seleccionar una o múltiples opciones de una lista. Las opciones se definen con <option>.' },
+      { symbol: 'option', category: 'formulario', desc: 'Opción en lista', detailed: 'Cada <option> representa una opción dentro de <select>. Tiene valor y texto visible.' },
+      { symbol: 'fieldset', category: 'formulario', desc: 'Grupo de campos', detailed: 'Agrupa elementos relacionados en un formulario, creando un cuadro alrededor.' },
+      { symbol: 'legend', category: 'formulario', desc: 'Título de fieldset', detailed: 'Define un título para un elemento <fieldset>.' },
+      { symbol: 'datalist', category: 'formulario', desc: 'Lista de opciones', detailed: 'Proporciona una lista de opciones predefinidas para un campo <input>.' },
+
+      // TABLAS (6 elementos)
+      { symbol: 'table', category: 'tabla', desc: 'Tabla de datos', detailed: 'Crea una tabla para mostrar datos tabulares. Debe contener <tr>, <td>, y opcionalmente <thead>, <tbody>, <tfoot>.' },
+      { symbol: 'tr', category: 'tabla', desc: 'Fila de tabla', detailed: 'Cada <tr> define una fila que contiene celdas (<td> o <th>).' },
+      { symbol: 'td', category: 'tabla', desc: 'Celda normal', detailed: '<td> define una celda de datos normal dentro de una fila.' },
+      { symbol: 'th', category: 'tabla', desc: 'Celda de encabezado', detailed: '<th> define una celda de encabezado. Por defecto el texto aparece en negrita y centrado.' },
+      { symbol: 'thead', category: 'tabla', desc: 'Encabezado de tabla', detailed: '<thead> agrupa las filas de encabezado para aplicar estilos o comportamientos específicos.' },
+      { symbol: 'tbody', category: 'tabla', desc: 'Cuerpo de tabla', detailed: '<tbody> contiene las filas principales de datos de la tabla.' },
+
+      // SEMÁNTICA (8 elementos)
+      { symbol: 'header', category: 'semantica', desc: 'Encabezado de página', detailed: 'Puede contener logo, menú de navegación, buscador. Puede haber múltiples <header> en una página.' },
+      { symbol: 'footer', category: 'semantica', desc: 'Pie de página', detailed: 'Suele contener información de contacto, enlaces legales, copyright. Puede haber múltiples <footer>.' },
+      { symbol: 'section', category: 'semantica', desc: 'Sección temática', detailed: 'Agrupa contenido relacionado temáticamente. Debe tener usualmente un encabezado (<h1>-<h6>).' },
+      { symbol: 'article', category: 'semantica', desc: 'Artículo independiente', detailed: 'Como artículos de blog, noticias, comentarios. Debe tener sentido incluso fuera del contexto de la página.' },
+      { symbol: 'aside', category: 'semantica', desc: 'Contenido lateral', detailed: 'Como barras laterales, biografías de autor, enlaces relacionados. Complementa el contenido principal.' },
+      { symbol: 'nav', category: 'semantica', desc: 'Bloque de navegación', detailed: 'Para menús principales, breadcrumbs, o cualquier grupo de enlaces de navegación.' },
+      { symbol: 'main', category: 'semantica', desc: 'Contenido principal', detailed: 'Debe haber solo un <main> por página. Contiene el contenido central exclusivo de esa página.' },
+      { symbol: 'div', category: 'semantica', desc: 'Contenedor genérico', detailed: '<div> es un contenedor genérico en bloque sin significado semántico.' },
+
+      // META (4 elementos)
+      { symbol: 'meta', category: 'meta', desc: 'Metadatos', detailed: 'Define charset, viewport, descripción, palabras clave, autor. Va dentro de <head>.' },
+      { symbol: 'link', category: 'meta', desc: 'Enlace a recursos', detailed: 'Principalmente para hojas de estilo CSS, pero también para favicons, preconnects, etc.' },
+      { symbol: 'style', category: 'meta', desc: 'Estilos internos', detailed: 'Permite escribir CSS directamente en el HTML. Va en <head> o <body> (aunque no es recomendable).' },
+      { symbol: 'script', category: 'meta', desc: 'Código JavaScript', detailed: 'Puede contener código directamente o enlazar archivos externos con el atributo "src".' },
+
+      // INTERACTIVO (3 elementos)
+      { symbol: 'details', category: 'interactivo', desc: 'Acordeón interactivo', detailed: 'Crea un widget de divulgación donde la información es visible solo cuando está abierto.' },
+      { symbol: 'summary', category: 'interactivo', desc: 'Resumen de details', detailed: 'Especifica un resumen, título o leyenda para un elemento <details>.' },
+      { symbol: 'dialog', category: 'interactivo', desc: 'Cuadro de diálogo', detailed: 'Define un cuadro de diálogo o una ventana.' }
+    ];
+
+    // Colores por categoría para el panel
+    const categoryColors = {
+      'estructura': 'var(--color-estructura)',
+      'texto': 'var(--color-texto)',
+      'multimedia': 'var(--color-multimedia)',
+      'formulario': 'var(--color-formulario)',
+      'tabla': 'var(--color-tabla)',
+      'semantica': 'var(--color-semantica)',
+      'meta': 'var(--color-meta)',
+      'interactivo': 'var(--color-interactivo)',
+      'otros': 'var(--color-otros)'
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const periodicTable = document.getElementById('periodicTable');
+      const infoPanel = document.getElementById('infoPanel');
+      const overlay = document.getElementById('overlay');
+      const closeBtn = document.querySelector('.close-btn');
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const totalElementsSpan = document.getElementById('totalElements');
+
+      // Actualizar contador de elementos
+      totalElementsSpan.textContent = htmlElements.length;
+
+      // Organizar elementos en filas compactas (aproximadamente 10 elementos por fila)
+      function organizeElements() {
+        const elementsPerRow = 10;
+        const rows = [];
+        
+        for (let i = 0; i < htmlElements.length; i += elementsPerRow) {
+          rows.push(htmlElements.slice(i, i + elementsPerRow));
+        }
+        
+        return rows;
+      }
+
+      // Generar la tabla periódica compacta
+      function generatePeriodicTable() {
+        periodicTable.innerHTML = '';
+        const organizedRows = organizeElements();
+        
+        organizedRows.forEach(rowElements => {
+          const rowDiv = document.createElement('div');
+          rowDiv.className = 'table-row';
+          
+          rowElements.forEach(elementData => {
+            const elementDiv = document.createElement('div');
+            elementDiv.className = `element ${elementData.category}`;
+            elementDiv.innerHTML = `&lt;${elementData.symbol}&gt;`;
+            elementDiv.setAttribute('data-desc', elementData.desc);
+            elementDiv.setAttribute('data-detailed', elementData.detailed);
+            elementDiv.setAttribute('data-category', elementData.category);
+            
+            // Eventos para el elemento
+            elementDiv.addEventListener('click', () => showElementInfo(elementData));
+            elementDiv.addEventListener('keydown', (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                showElementInfo(elementData);
+              }
+            });
+            
+            elementDiv.setAttribute('tabindex', '0');
+            elementDiv.setAttribute('aria-label', `${elementData.symbol}: ${elementData.desc}`);
+            
+            rowDiv.appendChild(elementDiv);
+          });
+          
+          periodicTable.appendChild(rowDiv);
+        });
+      }
+
+      // Mostrar información del elemento
+      function showElementInfo(data) {
+        document.getElementById('infoTitle').textContent = `<${data.symbol}>`;
+        document.getElementById('infoDescription').textContent = data.detailed;
+        document.getElementById('infoCategory').textContent = data.category.charAt(0).toUpperCase() + data.category.slice(1);
+        document.getElementById('infoCategory').style.background = categoryColors[data.category];
+        
+        infoPanel.classList.add('active');
+        overlay.classList.add('active');
+      }
+
+      // Filtrar elementos por categoría
+      function filterElements(category) {
+        const elements = document.querySelectorAll('.element');
+        elements.forEach(element => {
+          if (category === 'all' || element.getAttribute('data-category') === category) {
+            element.classList.remove('hidden');
+          } else {
+            element.classList.add('hidden');
+          }
+        });
+      }
+
+      // Event listeners para filtros
+      filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+          filterElements(button.getAttribute('data-filter'));
+        });
+      });
+
+      // Cerrar panel
+      closeBtn.addEventListener('click', closeInfoPanel);
+      overlay.addEventListener('click', closeInfoPanel);
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeInfoPanel();
+      });
+
+      function closeInfoPanel() {
+        infoPanel.classList.remove('active');
+        overlay.classList.remove('active');
+      }
+
+      // Inicializar la tabla
+      generatePeriodicTable();
+    });
+  </script>
+</body>
+</html>

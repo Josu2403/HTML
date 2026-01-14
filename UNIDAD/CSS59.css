@@ -1,0 +1,27 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.texto {
+    column-count: 3; /* Valor por defecto (pantalla grande) */
+    column-gap: 40px;
+}
+
+/* Menor a 1200px → 2 columnas */
+@media (max-width: 1200px) {
+    .texto {
+        column-count: 2;
+    }
+}
+
+/* Menor a 768px → 1 columna */
+@media (max-width: 768px) {
+    .texto {
+        column-count: 1;
+    }
+}

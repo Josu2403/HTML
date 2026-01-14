@@ -1,0 +1,27 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>Ej29</title> 
+<meta charset="UTF-8"> 
+</head> 
+<body> 
+<form> 
+<input type="radio" id="radio1" name="opc">Eres mayor de 18 años
+<br> 
+<input type="radio" id="radio2" name="opc">No eres mayor de 18 años
+<br> 
+<input type="button" value="Mostrar" onClick="mostrarSeleccionado()"> 
+</form> 
+<script> 
+function mostrarSeleccionado() { 
+if (document.getElementById('radio1').checked) { 
+alert('adelante mi rey'); 
+} 
+if (document.getElementById('radio2').checked) { 
+    alert('no tienes mayoria de edad'); 
+} 
+
+} 
+</script> 
+</body> 
+</html>

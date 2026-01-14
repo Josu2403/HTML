@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Promedio de tres números</title>
+</head>
+<body>
+  <h2>Promedio de tres enteros</h2>
+
+  <script>
+    function promedio(a, b, c) {
+      return (a + b + c) / 3;
+    }
+
+    let n1 = parseFloat(prompt("Ingrese el primer número:"));
+    let n2 = parseFloat(prompt("Ingrese el segundo número:"));
+    let n3 = parseFloat(prompt("Ingrese el tercer número:"));
+
+    let prom = promedio(n1, n2, n3);
+    document.write("El promedio de los tres números es: " + prom.toFixed(2));
+  </script>
+</body>
+</html>

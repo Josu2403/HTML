@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1 - Selectores CSS</title>
+    <style>
+        /* INSTRUCCIONES: Completa los selectores CSS según las descripciones */
+        
+        /* 1. Selecciona TODOS los elementos de la página */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        /* 2. Selecciona TODOS los elementos con clase "titulo" */
+        .titulo {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        /* 3. Selecciona el elemento con ID "principal" */
+        #principal {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* 4. Selecciona TODOS los elementos <p> DENTRO de elementos con clase "contenedor" */
+        .contenedor p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        /* 5. Selecciona TODOS los elementos <li> que sean HIJO DIRECTO de <ul> */
+        ul > li {
+            background: #e74c3c;
+            color: white;
+            padding: 5px 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        
+        /* 6. Selecciona el PRIMER elemento <p> después de un <h2> */
+        h2 + p {
+            font-weight: bold;
+            color: #27ae60;
+        }
+        
+        /* 7. Selecciona TODOS los elementos <input> de tipo "text" */
+        input[type="text"] {
+            border: 2px solid #3498db;
+            padding: 8px;
+            border-radius: 5px;
+            width: 200px;
+        }
+        
+        /* 8. Selecciona los elementos <a> cuando el cursor pasa sobre ellos */
+        a:hover {
+            color: #e74c3c;
+            text-decoration: none;
+        }
+        
+        .ejercicio {
+            background: #ecf0f1;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div id="principal">
+        <h1 class="titulo">Ejercicio 1: Selectores CSS</h1>
+        
+        <div class="contenedor">
+            <h2>Introducción a Selectores</h2>
+            <p>Este párrafo está justo después de un h2 y debería ser verde y negrita.</p>
+            
+            <p>Este es un párrafo normal dentro del contenedor.</p>
+            
+            <ul>
+                <li>Elemento de lista directo (debería ser rojo)</li>
+                <li>Otro elemento directo
+                    <ul>
+                        <li>Elemento anidado (no afectado)</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="ejercicio">
+            <h3>Práctica con Formularios</h3>
+            <input type="text" placeholder="Este input debería tener borde azul">
+            <input type="email" placeholder="Este input no debería cambiar">
+            <input type="text" placeholder="Este también debería tener borde azul">
+        </div>
+        
+        <div class="ejercicio">
+            <h3>Práctica con Enlaces</h3>
+            <a href="#">Pasa el mouse sobre mí (debería cambiar a rojo)</a><br>
+            <a href="#">Yo también cambio al pasar el mouse</a>
+        </div>
+    </div>
+</body>
+</html>

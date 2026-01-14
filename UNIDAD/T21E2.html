@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Suma de Vectores</title>
+</head>
+<body>
+  <h2>Suma de dos vectores</h2>
+
+  <label for="tamano">Tamaño del vector:</label>
+  <input type="number" id="tamano" min="1" value="4">
+  <button onclick="generarCampos()">Generar campos</button>
+
+  <div id="vectores"></div>
+  <button onclick="sumarVectores()">Sumar vectores</button>
+
+  <h3>Resultado:</h3>
+  <p id="resultado"></p>
+
+  <script>
+    function generarCampos() {
+      const tamano = parseInt(document.getElementById("tamano").value);
+      const contenedor = document.getElementById("vectores");
+      contenedor.innerHTML = "<h4>Vector A</h4>";
+
+      for (let i = 0; i < tamano; i++) {
+        contenedor.innerHTML += `<input type="number" id="a${i}" placeholder="A[${i}]"> `;
+      }
+
+      contenedor.innerHTML += "<h4>Vector B</h4>";
+
+      for (let i = 0; i < tamano; i++) {
+        contenedor.innerHTML += `<input type="number" id="b${i}" placeholder="B[${i}]"> `;
+      }
+    }
+
+    function sumarVectores() {
+      const tamano = parseInt(document.getElementById("tamano").value);
+      const vectorA = new Array();
+      const vectorB = new Array();
+      const vectorC = new Array(); 
+
+      for (let i = 0; i < tamano; i++) {
+        let valA = parseFloat(document.getElementById(`a${i}`).value);
+        let valB = parseFloat(document.getElementById(`b${i}`).value);
+
+        if (isNaN(valA) || isNaN(valB)) {
+          alert(`Por favor ingresa valores válidos en la posición ${i}`);
+          return;
+        }
+
+        vectorA.push(valA);
+        vectorB.push(valB);
+        vectorC.push(valA + valB); 
+      }
+
+      document.getElementById("resultado").textContent = `Vector resultado: [ ${vectorC.join(", ")} ]`;
+    }
+  </script>
+</body>
+</html

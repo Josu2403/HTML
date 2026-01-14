@@ -1,0 +1,96 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    padding: 20px;
+}
+
+/* Contenedor de la tabla */
+.contenedor-tabla {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Título */
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+/* Celdas del cuerpo */
+tbody th,
+tbody td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 14px;
+}
+
+/* Encabezados del cuerpo */
+tbody th {
+    background-color: #e3f2fd;
+    color: #1976d2;
+    font-weight: bold;
+    border-right: 1px solid #ddd;
+}
+
+/* Efecto hover */
+tbody tr:hover th,
+tbody tr:hover td {
+    background-color: #fff3e0;
+    color: #e65100;
+}
+
+/* Filas pares */
+tbody tr:nth-child(even) th,
+tbody tr:nth-child(even) td {
+    background-color: #f1f8e9;
+}
+
+/* Última fila */
+tbody tr:last-child th,
+tbody tr:last-child td {
+    border-bottom: 2px solid #1976d2;
+}
+
+/* Encabezado de la tabla */
+thead th {
+    background-color: #1976d2;
+    color: white;
+    padding: 15px;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Pie de tabla */
+tfoot td {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Caption */
+caption {
+    caption-side: bottom;
+    font-style: italic;
+    color: #666;
+    margin-top: 10px;
+    font-size: 14px;
+}

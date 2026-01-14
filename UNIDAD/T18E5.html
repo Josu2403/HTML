@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 5 - Múltiplos de 10</title>
+</head>
+<body>
+  <h1>Ejercicio 5: Múltiplos de 10 hasta 1500</h1>
+
+  <p>Al presionar el botón se mostrarán los múltiplos de 10 hasta 1500.</p>
+
+  <button onclick="mostrarMultiplos()">Mostrar múltiplos</button>
+
+  <p id="resultado"></p>
+
+  <script>
+    function mostrarMultiplos() {
+      let texto = "";
+      for (let i = 10; i <= 1500; i += 10) {
+        texto += i + " - ";
+      }
+      document.getElementById("resultado").innerText = texto;
+    }
+  </script>
+</body>
+</html>

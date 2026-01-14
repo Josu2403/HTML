@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Procesar Vector con Array</title>
+</head>
+<body>
+  <h2>Ingresa 8 números</h2>
+  <div id="inputs">
+
+    <script>
+      for (let i = 0; i < 8; i++) {
+        document.write(`<input type="number" id="num${i}" placeholder="Elemento ${i + 1}"><br>`);
+      }
+    </script>
+  </div>
+  <button onclick="procesarVector()">Procesar</button>
+
+  <h3>Resultados:</h3>
+  <p id="total"></p>
+  <p id="mayores36"></p>
+  <p id="mayores50"></p>
+
+  <script>
+    function procesarVector() {
+      let vector = new Array();
+
+      for (let i = 0; i < 8; i++) {
+        let valor = parseFloat(document.getElementById(`num${i}`).value);
+        if (!isNaN(valor)) {
+          vector.push(valor);
+        } else {
+          alert(`Por favor ingresa un número válido en el campo ${i + 1}`);
+          return;
+        }
+      }
+
+      let total = vector.reduce((acc, val) => acc + val, 0);
+
+      let mayores36 = vector.filter(val => val > 36);
+      let sumaMayores36 = mayores36.reduce((acc, val) => acc + val, 0);
+
+      let cantidadMayores50 = vector.filter(val => val > 50).length;
+
+      document.getElementById("total").textContent = `Suma total: ${total}`;
+      document.getElementById("mayores36").textContent = `Suma de valores > 36: ${sumaMayores36}`;
+      document.getElementById("mayores50").textContent = `Cantidad de valores > 50: ${cantidadMayores50}`;
+    }
+  </script>
+</body>
+</html>

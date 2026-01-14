@@ -1,0 +1,43 @@
+//Descripcion del ejercicio: Escribe un programa que pida dos números, 
+y muestre todos los números comprendidos entre ellos.
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rango de Números</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<script>
+    // Función que muestra números desde el menor hasta el mayor
+    function mostrarRango() {
+        // Solicitar los números al usuario
+        let menor = parseInt(prompt("Ingrese el número menor:"));
+        let mayor = parseInt(prompt("Ingrese el número mayor:"));
+        
+        // Validar que los números sean válidos
+        if (isNaN(menor) || isNaN(mayor)) {
+            document.write("Error: Debe ingresar números válidos.<br>");
+            return;
+        }
+        
+        // Validar que el primer número sea menor
+        if (menor > mayor) {
+            document.write("Error: El primer número debe ser menor que el segundo.<br>");
+            return;
+        }
+        
+        // Mostrar el rango de números
+        document.write("Rango de números desde " + menor + " hasta " + mayor + ":<br>");
+        
+        // Usar un bucle para mostrar todos los números
+        for (let i = menor; i <= mayor; i++) {
+            document.write(i + " ");
+        }
+    }
+    
+    // Llamar a la función para ejecutarla
+    mostrarRango();
+</script>
+</body>
+</html>
+

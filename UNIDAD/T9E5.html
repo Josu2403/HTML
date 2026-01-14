@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Aumento de sueldo por antigüedad</title>
+ <meta charset="UTF-8">
+</head>
+<body>
+    <script>
+        let sueldo = parseFloat(prompt("Ingrese su sueldo:"));
+let antiguedad = parseInt(prompt("Ingrese años de antigüedad:"));
+
+if (sueldo < 500 && antiguedad >= 10) {
+    sueldo *= 1.20; // Aumento del 20%
+    document.write(`Sueldo a pagar: $${sueldo.toFixed(2)}`);
+} else if (sueldo < 500 && antiguedad < 10) {
+    sueldo *= 1.05; // Aumento del 5%
+    document.write(`Sueldo a pagar: $${sueldo.toFixed(2)}`);
+} else {
+    document.write(`Sueldo a pagar: $${sueldo.toFixed(2)}`);
+}
+    </script>
+</html>

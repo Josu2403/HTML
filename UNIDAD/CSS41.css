@@ -1,0 +1,112 @@
+/* Reset y estilos generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    line-height: 1.8;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    padding: 40px 20px;
+    color: #333;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Título */
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 15px;
+}
+
+/* Descripción */
+.description {
+    text-align: center;
+    color: #7f8c8d;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+    font-style: italic;
+}
+
+/* Párrafos */
+p {
+    margin-bottom: 25px;
+    text-align: justify;
+    font-size: 1.1rem;
+}
+
+/* Estilo para la primera letra grande con float */
+.letragrande {
+    float: left;
+    font-size: 300%;
+    font-weight: bold;
+    color: #3498db;
+    margin-right: 8px;
+    margin-top: 5px;
+    line-height: 0.8;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Ejemplo de código */
+.code-example {
+    background: #2c3e50;
+    color: #ecf0f1;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 30px 0;
+    font-family: 'Courier New', monospace;
+    overflow-x: auto;
+}
+
+/* Explicación */
+.explanation {
+    background: #e8f4f8;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 30px 0;
+    border-left: 4px solid #3498db;
+}
+
+.explanation h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+/* Nota */
+.note {
+    background: #fff9e6;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid #f39c12;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    p {
+        font-size: 1rem;
+    }
+}

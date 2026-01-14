@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dos Columnas con Position Absolute</title>
+    <link rel="stylesheet" href="CSS40.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Columna Izquierda - Menú -->
+        <div class="columna-izquierda">
+            <div class="logo">
+                <h1>MiApp</h1>
+            </div>
+            
+            <ul class="menu">
+                <li class="menu-item active">
+                    <i>🏠</i>
+                    <span class="menu-text">Inicio</span>
+                </li>
+                <li class="menu-item">
+                    <i>👥</i>
+                    <span class="menu-text">Usuarios</span>
+                </li>
+                <li class="menu-item">
+                    <i>📊</i>
+                    <span class="menu-text">Reportes</span>
+                </li>
+                <li class="menu-item">
+                    <i>⚙️</i>
+                    <span class="menu-text">Configuración</span>
+                </li>
+                <li class="menu-item">
+                    <i>🛒</i>
+                    <span class="menu-text">Productos</span>
+                    <ul class="submenu active">
+                        <li class="submenu-item">Todos los productos</li>
+                        <li class="submenu-item">Categorías</li>
+                        <li class="submenu-item">Inventario</li>
+                    </ul>
+                </li>
+                <li class="menu-item">
+                    <i>💰</i>
+                    <span class="menu-text">Ventas</span>
+                </li>
+                <li class="menu-item">
+                    <i>📞</i>
+                    <span class="menu-text">Contacto</span>
+                </li>
+                <li class="menu-item">
+                    <i>❓</i>
+                    <span class="menu-text">Ayuda</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Columna Derecha - Contenido -->
+        <div class="columna-derecha">
+            <div class="header">
+                <h2>Panel de Control</h2>
+                <p>Bienvenido al sistema de administración</p>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">1,248</span>
+                    <span class="stat-label">Usuarios Activos</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">856</span>
+                    <span class="stat-label">Pedidos Hoy</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">$12,458</span>
+                    <span class="stat-label">Ingresos</span>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="card">
+                    <h3>Gestión de Usuarios</h3>
+                    <p>Administra los usuarios del sistema, sus permisos y roles de acceso a las diferentes funcionalidades.</p>
+                </div>
+                <div class="card">
+                    <h3>Reportes y Análisis</h3>
+                    <p>Genera reportes detallados y análisis estadísticos del rendimiento del sistema y las operaciones.</p>
+                </div>
+                <div class="card">
+                    <h3>Configuración del Sistema</h3>
+                    <p>Personaliza las opciones del sistema, parámetros de configuración y preferencias de la aplicación.</p>
+                </div>
+            </div>
+
+            <div class="features">
+                <h3>Características Principales</h3>
+                <ul class="feature-list">
+                    <li>Interfaz intuitiva y fácil de usar</li>
+                    <li>Panel de control en tiempo real</li>
+                    <li>Reportes personalizables</li>
+                    <li>Gestión de usuarios y permisos</li>
+                    <li>Soporte multi-dispositivo</li>
+                    <li>Seguridad avanzada</li>
+                    <li>Backup automático</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

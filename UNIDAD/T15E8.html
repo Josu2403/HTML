@@ -1,0 +1,26 @@
+<html>
+<head><meta charset="UTF-8"><title>Promedios Turnos</title></head>
+<body>
+<script>
+  function promedio(cantidad, turno){
+    let suma=0;
+    for(let i=1;i<=cantidad;i++){
+      suma += parseInt(prompt("Edad del estudiante "+i+" del turno "+turno+":"));
+    }
+    return suma/cantidad;
+  }
+
+  let promM = promedio(5,"mañana");
+  let promT = promedio(6,"tarde");
+  let promN = promedio(11,"noche");
+
+  document.write("Promedio mañana: "+promM.toFixed(2)+"<br>");
+  document.write("Promedio tarde: "+promT.toFixed(2)+"<br>");
+  document.write("Promedio noche: "+promN.toFixed(2)+"<br>");
+
+  if (promM>promT && promM>promN) document.write("Turno mañana tiene mayor promedio");
+  else if (promT>promN) document.write("Turno tarde tiene mayor promedio");
+  else document.write("Turno noche tiene mayor promedio");
+</script>
+</body>
+</html>

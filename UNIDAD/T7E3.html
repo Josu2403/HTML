@@ -1,0 +1,13 @@
+<script>
+let numero = parseInt(prompt("Ingrese un número positivo de uno o dos dígitos:"));
+
+if (numero >= 1 && numero <= 99) {
+    if (numero >= 10) {
+        document.write(`El número ${numero} tiene DOS dígitos`);
+    } else {
+        document.write(`El número ${numero} tiene UN dígito`);
+    }
+} else {
+    document.write("Error: El número debe estar entre 1 y 99");
+}
+</script>

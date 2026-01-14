@@ -1,0 +1,18 @@
+ <script>
+ document.write("<h2>Problema 3: Cantidad de cifras</h2>");
+        let numero = parseInt(prompt("Ingrese un número positivo de hasta tres cifras:"));
+
+        if (numero < 10) {
+            document.write("El número " + numero + " tiene 1 cifra");
+        } else {
+            if (numero < 100) {
+                document.write("El número " + numero + " tiene 2 cifras");
+            } else {
+                if (numero < 1000) {
+                    document.write("El número " + numero + " tiene 3 cifras");
+                } else {
+                    document.write("El número tiene más de 3 cifras");
+                }
+            }
+        }
+    </script>

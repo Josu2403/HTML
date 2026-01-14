@@ -1,0 +1,22 @@
+body {
+            background-color: white;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .padding1{
+            background-color: lightgray;
+            padding: auto;
+        }
+        .padding2{
+            background-color: lightgray;
+            font-family: 'Times New Roman', Times, serif;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .padding3{
+            background-color: lightgray;
+            font-family: 'Times New Roman', Times, serif;
+            padding-left: 25px;
+            padding-right: 25px;
+        }

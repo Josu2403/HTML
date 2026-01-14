@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Avanzado con Validaciones</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .required::after {
+            content: " *";
+            color: #e74c3c;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        input.error, select.error, textarea.error {
+            border-color: #e74c3c;
+            background: #fdf2f2;
+        }
+
+        input.success, select.success, textarea.success {
+            border-color: #27ae60;
+            background: #f2fdf2;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .password-strength {
+            margin-top: 5px;
+            height: 4px;
+            border-radius: 2px;
+            background: #e1e5e9;
+            overflow: hidden;
+        }
+
+        .strength-bar {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s ease;
+        }
+
+        .strength-weak { background: #e74c3c; width: 25%; }
+        .strength-medium { background: #f39c12; width: 50%; }
+        .strength-strong { background: #27ae60; width: 75%; }
+        .strength-very-strong { background: #2ecc71; width: 100%; }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            transform: scale(1.2);
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: normal;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-submit:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 Formulario Avanzado</h1>
+            <p>Complete todos los campos con información válida</p>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            ✅ ¡Formulario enviado correctamente!
+        </div>
+
+        <form id="advancedForm">
+            <!-- Nombre Completo -->
+            <div class="form-group">
+                <label for="nombre" class="required">Nombre Completo</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ej: Juan Pérez García">
+                <div class="error-message" id="nombreError">El nombre debe tener al menos 3 caracteres</div>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email" class="required">Correo Electrónico</label>
+                <input type="email" id="email" name="email" placeholder="ejemplo@correo.com">
+                <div class="error-message" id="emailError">Ingrese un email válido</div>
+            </div>
+
+            <!-- Teléfono -->
+            <div class="form-group">
+                <label for="telefono" class="required">Teléfono</label>
+                <input type="tel" id="telefono" name="telefono" placeholder="+52 123 456 7890">
+                <div class="error-message" id="telefonoError">Ingrese un número de teléfono válido (10 dígitos)</div>
+            </div>
+
+            <!-- Contraseña -->
+            <div class="form-group">
+                <label for="password" class="required">Contraseña</label>
+                <input type="password" id="password" name="password" placeholder="Mínimo 8 caracteres">
+                <div class="password-strength">
+                    <div class="strength-bar" id="passwordStrength"></div>
+                </div>
+                <div class="error-message" id="passwordError">La contraseña debe tener al menos 8 caracteres</div>
+            </div>
+
+            <!-- Confirmar Contraseña -->
+            <div class="form-group">
+                <label for="confirmPassword" class="required">Confirmar Contraseña</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Repita su contraseña">
+                <div class="error-message" id="confirmPasswordError">Las contraseñas no coinciden</div>
+            </div>
+
+            <!-- Edad -->
+            <div class="form-group">
+                <label for="edad" class="required">Edad</label>
+                <input type="number" id="edad" name="edad" min="18" max="100" placeholder="18-100">
+                <div class="error-message" id="edadError">Debe tener entre 18 y 100 años</div>
+            </div>
+
+            <!-- País -->
+            <div class="form-group">
+                <label for="pais" class="required">País</label>
+                <select id="pais" name="pais">
+                    <option value="">Seleccione su país</option>
+                    <option value="MX">México</option>
+                    <option value="US">Estados Unidos</option>
+                    <option value="ES">España</option>
+                    <option value="AR">Argentina</option>
+                    <option value="CO">Colombia</option>
+                    <option value="OT">Otro</option>
+                </select>
+                <div class="error-message" id="paisError">Seleccione un país</div>
+            </div>
+
+            <!-- Intereses -->
+            <div class="form-group">
+                <label>Intereses (Seleccione al menos 2)</label>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="tecnologia" name="intereses" value="tecnologia">
+                    <label for="tecnologia">Tecnología</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="deportes" name="intereses" value="deportes">
+                    <label for="deportes">Deportes</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="musica" name="intereses" value="musica">
+                    <label for="musica">Música</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="viajes" name="intereses" value="viajes">
+                    <label for="viajes">Viajes</label>
+                </div>
+                <div class="error-message" id="interesesError">Seleccione al menos 2 intereses</div>
+            </div>
+
+            <!-- Mensaje -->
+            <div class="form-group">
+                <label for="mensaje">Mensaje Adicional</label>
+                <textarea id="mensaje" name="mensaje" rows="4" placeholder="Escriba su mensaje aquí... (Máximo 500 caracteres)"></textarea>
+                <div class="error-message" id="mensajeError">El mensaje no puede exceder 500 caracteres</div>
+            </div>
+
+            <!-- Términos y Condiciones -->
+            <div class="form-group">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terminos" name="terminos">
+                    <label for="terminos" class="required">Acepto los términos y condiciones</label>
+                </div>
+                <div class="error-message" id="terminosError">Debe aceptar los términos y condiciones</div>
+            </div>
+
+            <button type="submit" class="btn-submit" id="submitBtn">Enviar Formulario</button>
+        </form>
+
+        <div class="form-footer">
+            <p>Los campos marcados con <span class="required" style="color: #e74c3c;">*</span> son obligatorios</p>
+        </div>
+    </div>
+
+    <script>
+        // Elementos del DOM
+        const form = document.getElementById('advancedForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successMessage = document.getElementById('successMessage');
+
+        // Expresiones regulares para validación
+        const patterns = {
+            nombre: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{3,50}$/,
+            email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            telefono: /^[\d\s\+\-\(\)]{10,15}$/,
+            password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/
+        };
+
+        // Función para mostrar errores
+        function showError(inputId, errorId, message) {
+            const input = document.getElementById(inputId);
+            const error = document.getElementById(errorId);
+            
+            input.classList.add('error');
+            input.classList.remove('success');
+            error.textContent = message;
+            error.style.display = 'block';
+        }
+
+        // Función para mostrar éxito
+        function showSuccess(inputId) {
+            const input = document.getElementById(inputId);
+            const error = document.getElementById(inputId + 'Error');
+            
+            input.classList.remove('error');
+            input.classList.add('success');
+            if (error) error.style.display = 'none';
+        }
+
+        // Validación en tiempo real
+        document.getElementById('nombre').addEventListener('input', function() {
+            if (patterns.nombre.test(this.value)) {
+                showSuccess('nombre');
+            } else {
+                showError('nombre', 'nombreError', 'El nombre debe tener al menos 3 caracteres y solo letras');
+            }
+        });
+
+        document.getElementById('email').addEventListener('input', function() {
+            if (patterns.email.test(this.value)) {
+                showSuccess('email');
+            } else {
+                showError('email', 'emailError', 'Ingrese un email válido');
+            }
+        });
+
+        document.getElementById('telefono').addEventListener('input', function() {
+            const cleanPhone = this.value.replace(/\D/g, '');
+            if (cleanPhone.length >= 10) {
+                showSuccess('telefono');
+            } else {
+                showError('telefono', 'telefonoError', 'El teléfono debe tener al menos 10 dígitos');
+            }
+        });
+
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            const strengthBar = document.getElementById('passwordStrength');
+            
+            // Calcular fortaleza de la contraseña
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (/[a-z]/.test(password)) strength++;
+            if (/[A-Z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^a-zA-Z0-9]/.test(password)) strength++;
+            
+            // Actualizar barra de fortaleza
+            strengthBar.className = 'strength-bar';
+            if (strength > 0) strengthBar.classList.add('strength-weak');
+            if (strength > 2) strengthBar.className = 'strength-bar strength-medium';
+            if (strength > 3) strengthBar.className = 'strength-bar strength-strong';
+            if (strength > 4) strengthBar.className = 'strength-bar strength-very-strong';
+            
+            if (patterns.password.test(password)) {
+                showSuccess('password');
+            } else {
+                showError('password', 'passwordError', 
+                    'La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número');
+            }
+        });
+
+        document.getElementById('confirmPassword').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            if (this.value === password && password !== '') {
+                showSuccess('confirmPassword');
+            } else {
+                showError('confirmPassword', 'confirmPasswordError', 'Las contraseñas no coinciden');
+            }
+        });
+
+        document.getElementById('edad').addEventListener('input', function() {
+            const edad = parseInt(this.value);
+            if (edad >= 18 && edad <= 100) {
+                showSuccess('edad');
+            } else {
+                showError('edad', 'edadError', 'Debe tener entre 18 y 100 años');
+            }
+        });
+
+        document.getElementById('pais').addEventListener('change', function() {
+            if (this.value !== '') {
+                showSuccess('pais');
+            } else {
+                showError('pais', 'paisError', 'Seleccione un país');
+            }
+        });
+
+        // Validación de intereses
+        const interesesCheckboxes = document.querySelectorAll('input[name="intereses"]');
+        interesesCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', validateIntereses);
+        });
+
+        function validateIntereses() {
+            const selectedIntereses = document.querySelectorAll('input[name="intereses"]:checked');
+            if (selectedIntereses.length >= 2) {
+                document.getElementById('interesesError').style.display = 'none';
+            }
+        }
+
+        // Validación del formulario completo
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let isValid = true;
+
+            // Validar nombre
+            if (!patterns.nombre.test(document.getElementById('nombre').value)) {
+                showError('nombre', 'nombreError', 'El nombre debe tener al menos 3 caracteres');
+                isValid = false;
+            }
+
+            // Validar email
+            if (!patterns.email.test(document.getElementById('email').value)) {
+                showError('email', 'emailError', 'Ingrese un email válido');
+                isValid = false;
+            }
+
+            // Validar teléfono
+            const cleanPhone = document.getElementById('telefono').value.replace(/\D/g, '');
+            if (cleanPhone.length < 10) {
+                showError('telefono', 'telefonoError', 'El teléfono debe tener al menos 10 dígitos');
+                isValid = false;
+            }
+
+            // Validar contraseña
+            if (!patterns.password.test(document.getElementById('password').value)) {
+                showError('password', 'passwordError', 
+                    'La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número');
+                isValid = false;
+            }
+
+            // Validar confirmación de contraseña
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            if (password !== confirmPassword || confirmPassword === '') {
+                showError('confirmPassword', 'confirmPasswordError', 'Las contraseñas no coinciden');
+                isValid = false;
+            }
+
+            // Validar edad
+            const edad = parseInt(document.getElementById('edad').value);
+            if (isNaN(edad) || edad < 18 || edad > 100) {
+                showError('edad', 'edadError', 'Debe tener entre 18 y 100 años');
+                isValid = false;
+            }
+
+            // Validar país
+            if (document.getElementById('pais').value === '') {
+                showError('pais', 'paisError', 'Seleccione un país');
+                isValid = false;
+            }
+
+            // Validar intereses
+            const selectedIntereses = document.querySelectorAll('input[name="intereses"]:checked');
+            if (selectedIntereses.length < 2) {
+                document.getElementById('interesesError').style.display = 'block';
+                isValid = false;
+            }
+
+            // Validar términos
+            if (!document.getElementById('terminos').checked) {
+                document.getElementById('terminosError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('terminosError').style.display = 'none';
+            }
+
+            // Si es válido, mostrar éxito
+            if (isValid) {
+                successMessage.style.display = 'block';
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Enviado ✓';
+                
+                // Simular envío al servidor
+                setTimeout(() => {
+                    form.reset();
+                    successMessage.style.display = 'none';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Enviar Formulario';
+                    
+                    // Limpiar clases de éxito
+                    document.querySelectorAll('input, select, textarea').forEach(input => {
+                        input.classList.remove('success', 'error');
+                    });
+                    
+                    // Limpiar barra de fortaleza
+                    document.getElementById('passwordStrength').className = 'strength-bar';
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>

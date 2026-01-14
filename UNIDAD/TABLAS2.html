@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Tabla compleja</title>
+    <style>
+        table {
+            border: 3px double black;
+            border-collapse: collapse;
+            font-family: "Times New Roman", Times, serif;
+            font-size: 14px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+        .categoria {
+            font-weight: bold;
+            background-color: #e8e8e8;
+            vertical-align: top;
+        }
+        body {
+            font-family: "Times New Roman", Times, serif;
+            margin: 40px;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th>Etiquetas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="categoria" rowspan="5" style="text-align:center; vertical-align:middle;">Formulario</td>
+                <td>form</td>
+            </tr>
+            <tr>
+                <td>button</td>
+            </tr>
+            <tr>
+                <td>input</td>
+            </tr>
+            <tr>
+                <td>select</td>
+            </tr>
+            <tr>
+                <td>textarea</td>
+            </tr>
+            <tr>
+                <td class="categoria" rowspan="5" style="text-align:center; vertical-align:middle;">Tabla</td>
+                <td>table</td>
+            </tr>
+            <tr>
+                <td>tr</td>
+            </tr>
+            <tr>
+                <td>th</td>
+            </tr>
+            <tr>
+                <td>td</td>
+            </tr>
+            <tr>
+                <td>caption</td>
+            </tr>
+            <tr>
+                <td class="categoria" rowspan="6" style="text-align:center; vertical-align:middle;">Texto</td>
+                <td>b</td>
+            </tr>
+            <tr>
+                <td>em</td>
+            </tr>
+            <tr>
+                <td>i</td>
+            </tr>
+            <tr>
+                <td>strong</td>
+            </tr>
+            <tr>
+                <td>sub</td>
+            </tr>
+            <tr>
+                <td>sup</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

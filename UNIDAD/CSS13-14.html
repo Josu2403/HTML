@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios 13 y 14 - Estilos por ID y Bordes</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        
+        .ejercicio {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 5px solid #3498db;
+        }
+        
+        .titulo-ejercicio {
+            color: #2c3e50;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #bdc3c7;
+        }
+        
+        /* Ejercicio 13 - Estilos por ID */
+        #cabecera {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        #cuerpo {
+            background: #ecf0f1;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px dashed #7f8c8d;
+        }
+        
+        #pie {
+            background: #34495e;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+        
+        .seccion {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        /* Ejercicio 14 - Bordes para h1, h2, h3 */
+        h1 {
+            border-width: 2px;
+            border-style: solid;
+            border-color: #0000ff;
+            padding: 15px;
+            text-align: center;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        h2 {
+            border-width: 2px;
+            border-style: dotted;
+            border-color: #0000ff;
+            padding: 12px;
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        h3 {
+            border-width: 2px;
+            border-style: double;
+            border-color: #0000ff;
+            padding: 10px;
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        
+        .demo-bordes h1,
+        .demo-bordes h2,
+        .demo-bordes h3 {
+            margin: 15px 0;
+        }
+        
+        /* Estilos para la tabla de opciones */
+        .tabla-opciones {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .tabla-opciones th {
+            background: #3498db;
+            color: white;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        .tabla-opciones td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        
+        .tabla-opciones tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .info-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-left: 4px solid #fdcb6e;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .lista-ventajas {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .lista-ventajas li {
+            background: white;
+            margin: 8px 0;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border-left: 4px solid #27ae60;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ejercicios 13 y 14 - Estilos por ID y Propiedades de Bordes</h1>
+        
+        <!-- Ejercicio 13 - Estilos por ID -->
+        <div class="ejercicio">
+            <h2 class="titulo-ejercicio">Ejercicio 13: Estilos por ID</h2>
+            
+            <div id="cabecera">
+                <h2>Sistema de Gestión de Base de Datos</h2>
+                <p>Plataforma integral para administración de datos empresariales</p>
+            </div>
+            
+            <div id="cuerpo">
+                <div class="seccion">
+                    <h3>Configuración de Entidades</h3>
+                    <p>Las entidades se definen mediante identificadores únicos (ID) que permiten aplicar estilos específicos a cada sección del documento.</p>
+                    
+                    <table class="tabla-opciones">
+                        <tr>
+                            <th>Opción</th>
+                            <th>Salvo</th>
+                            <th>Expos</th>
+                            <th>Negoción</th>
+                        </tr>
+                        <tr>
+                            <td>Configuración Básica</td>
+                            <td>✓ Disponible</td>
+                            <td>✓ Activo</td>
+                            <td>50% Descuento</td>
+                        </tr>
+                        <tr>
+                            <td>Configuración Avanzada</td>
+                            <td>✓ Disponible</td>
+                            <td>✓ Activo</td>
+                            <td>30% Descuento</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="seccion">
+                    <h3>Ventajas del Sistema</h3>
+                    <ul class="lista-ventajas">
+                        <li>Optimización del 50% en consultas de base de datos</li>
+                        <li>Interfaz única para gestión de entidades relacionadas</li>
+                        <li>Configuración bajo demanda según requerimientos específicos</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <strong>Nota:</strong> Los estilos aplicados mediante ID (#cabecera, #cuerpo, #pie) permiten una personalización única de cada sección sin afectar otros elementos.
+                </div>
+            </div>
+            
+            <div id="pie">
+                <p>&copy; 2024 Sistema de Gestión - Todos los derechos reservados</p>
+                <p>Contacto: soporte@sistemagestion.com</p>
+            </div>
+        </div>
+        
+        <!-- Ejercicio 14 - Propiedades de Bordes -->
+        <div class="ejercicio">
+            <h2 class="titulo-ejercicio">Ejercicio 14: Propiedades de Bordes</h2>
+            
+            <div class="demo-bordes">
+                <h1>Título Nivel 1 - Borde Sólido</h1>
+                <p>Este título utiliza: <code>border-style: solid</code> con color azul (#0000ff) y 2px de ancho.</p>
+                
+                <h2>Título Nivel 2 - Borde Punteado</h2>
+                <p>Este título utiliza: <code>border-style: dotted</code> con color azul (#0000ff) y 2px de ancho.</p>
+                
+                <h3>Título Nivel 3 - Borde Doble</h3>
+                <p>Este título utiliza: <code>border-style: double</code> con color azul (#0000ff) y 2px de ancho.</p>
+            </div>
+            
+            <div class="info-box">
+                <h4>Propiedades CSS utilizadas:</h4>
+                <ul>
+                    <li><strong>border-width:</strong> Define el grosor del borde (2px)</li>
+                    <li><strong>border-style:</strong> Define el estilo del borde (solid, dotted, double)</li>
+                    <li><strong>border-color:</strong> Define el color del borde (#0000ff - azul)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

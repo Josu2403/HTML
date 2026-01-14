@@ -1,0 +1,11 @@
+/* Aplica solo al primer <strong> dentro de cada párrafo */
+strong:first-of-type {
+  color: red;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* Estilo base para los demás <strong> */
+strong {
+  color: black;
+}

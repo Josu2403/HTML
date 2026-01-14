@@ -1,0 +1,101 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.parrafo {
+    margin: 0;
+    padding: 20px;
+    width: 25%;
+    height: 150px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Escala de grises */
+.gris-1 {
+    background-color: #000;
+    color: #fff;
+}
+
+.gris-2 {
+    background-color: #111;
+    color: #fff;
+}
+
+.gris-3 {
+    background-color: #222;
+    color: #fff;
+}
+
+.gris-4 {
+    background-color: #333;
+    color: #fff;
+}
+
+.gris-5 {
+    background-color: #444;
+    color: #fff;
+}
+
+.gris-6 {
+    background-color: #555;
+    color: #fff;
+}
+
+.gris-7 {
+    background-color: #666;
+    color: #fff;
+}
+
+.gris-8 {
+    background-color: #777;
+    color: #000;
+}
+
+.gris-9 {
+    background-color: #888;
+    color: #000;
+}
+
+.gris-10 {
+    background-color: #999;
+    color: #000;
+}
+
+.gris-11 {
+    background-color: #aaa;
+    color: #000;
+}
+
+.gris-12 {
+    background-color: #bbb;
+    color: #000;
+}
+
+.gris-13 {
+    background-color: #ccc;
+    color: #000;
+}
+
+.gris-14 {
+    background-color: #ddd;
+    color: #000;
+}
+
+.gris-15 {
+    background-color: #eee;
+    color: #000;
+}
+
+.gris-16 {
+    background-color: #fff;
+    color: #000;
+}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ejercicio 1</title>
+</head>
+<body>
+<h3>Elevar número al cubo</h3>
+<input type="text" id="numero" placeholder="Ingrese un número">
+<button onclick="elevarCubo()">Mostrar al cubo</button>
+
+<script>
+    function elevarCubo() {
+    //tomamos valores de inputs
+    let numero = parseInt(document.getElementById("numero").value);
+      //tomamos los valores ingresados
+      alert("El cubo es: " + (numero ** 3));
+    }
+</script>
+</body>
+</html>
